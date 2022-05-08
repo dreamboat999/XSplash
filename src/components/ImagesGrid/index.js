@@ -1,8 +1,4 @@
-import React, { useEffect, useState } from "react";
-
-import axios from "axios";
-import { IMAGES_LIST } from "../../utils/Config";
-import { sliceIntoChunks } from "../../utils/SliceIntoChunks";
+import React, { useEffect } from "react";
 
 import styles from "./imagesGrid.module.scss";
 

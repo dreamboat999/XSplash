@@ -23,12 +23,16 @@
 }
 
 .search_wrapper {
-  border-radius: 4px;
+  position: relative;
+}
+
+.search {
+  border-radius: 5px;
   display: flex;
   height: 55px;
-  position: relative;
+  overflow: hidden;
 
-  .search_logo {
+  span {
     background: #fff;
     display: flex;
     align-items: center;
@@ -40,9 +44,7 @@
       height: 24px;
     }
   }
-}
 
-.search {
   input {
     font-size: 15px;
     color: #1d1d1f;
@@ -50,15 +52,53 @@
     width: 500px;
     height: 100%;
   }
+}
 
-  .search_modal {
-    color: #1d1d1f;
-    background-color: #fff;
-    position: absolute;
-    top: calc(100% - -4px);
-    left: 0;
-    right: 0;
-    width: 100%;
-    padding: 8px 0;
+.modal {
+  color: #1d1d1f;
+  background-color: #fff;
+  border-radius: 5px;
+  position: absolute;
+  top: calc(100% - -4px);
+  left: 0;
+  right: 0;
+  width: 100%;
+  padding: 8px 0;
+
+  .recent_items {
+    display: flex;
+    gap: 5px;
+
+    .recent_item {
+      border: 1px solid #d1d1d1;
+      border-radius: 4px;
+      padding: 8px 16px;
+    }
   }
 }
+
+.modal_items {
+  display: grid;
+  gap: 10px;
+  padding: 8px 16px;
+}
+
+.modal_title {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+
+  span {
+    font-weight: 500;
+  }
+
+  button {
+    color: #767676;
+    background: none;
+    transition: color .3s ease-out;
+
+    &:hover {
+      color: #1d1d1f;
+    }
+  }
+};
