@@ -5,6 +5,7 @@ import axios from "axios";
 import { RANDOM_IMAGE } from "../../utils/Config";
 import styles from "./header.module.scss";
 import { AiOutlineSearch } from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
 
 const {
   header_outer,
@@ -24,8 +25,10 @@ const Header = () => {
   const [randomImage, setRandomImage] = useState("");
   const [value, setValue] = useState("");
   const [focus, setFocus] = useState(false);
-  let recent = JSON.parse(localStorage.getItem("search") || "[]");
-  useOutsideAlerter(input);
+  useClickAway(input);
+
+  const dispatch = useDispatch();
+  const { recentArr } = useSelector((state) => state.appState);
 
   // useEffect(() => {
   //   axios
@@ -45,21 +48,17 @@ const Header = () => {
 
   const handleSubmit = () => {
     if (value) {
+      dispatch({ type: "ADD_RECENT", payload: value });
       history.push(`/photos/${value}`);
-
-      if (recent === null) {
-        recent = [];
-      }
-      recent.push(value);
-      localStorage.setItem("search", JSON.stringify(recent));
     }
   };
 
   const handleClearRecent = () => {
     localStorage.removeItem("search");
+    dispatch({ type: "CLEAR_RECENT" });
   };
 
-  function useOutsideAlerter(ref) {
+  function useClickAway(ref) {
     useEffect(() => {
       function handleClickOutside(e) {
         if (ref.current && !ref.current.contains(e.target)) {
@@ -89,27 +88,32 @@ const Header = () => {
                 onChange={handleChange}
                 onClick={() => setFocus(true)}
               />
+              {/*<button>Search</button>*/}
             </div>
             <div
               className={modal}
               style={{
-                display: focus && recent.length ? "block" : "none",
+                display: focus && recentArr.length ? "block" : "none",
               }}
             >
               <div className={modal_items}>
                 <div className={modal_title}>
                   <span>Recent Searches</span>
                   <span>•</span>
-                  <button onClick={handleClearRecent}>Clear</button>
+                  <button type="button" onClick={handleClearRecent}>
+                    Clear
+                  </button>
                 </div>
                 <div className={recent_items}>
-                  {recent.slice(Math.max(recent.length - 5, 0))?.map((el) => {
-                    return (
-                      <div key={el} className={recent_item}>
-                        {el}
-                      </div>
-                    );
-                  })}
+                  {recentArr
+                    .slice(Math.max(recentArr.length - 5, 0))
+                    ?.map((el, i) => {
+                      return (
+                        <div key={i} className={recent_item}>
+                          {el}
+                        </div>
+                      );
+                    })}
                 </div>
               </div>
             </div>

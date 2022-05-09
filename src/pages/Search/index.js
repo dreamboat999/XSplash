@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import axios from "axios";
@@ -11,12 +12,17 @@ import styles from "./search.module.scss";
 const { title_outer, title_inner } = styles;
 
 const Search = () => {
+  const { recentArr } = useSelector((state) => state.appState);
   const { name } = useParams();
   const [firstCol, setFirstCol] = useState([]);
   const [secondCol, setSecondCol] = useState([]);
   const [thirdCol, setThirdCol] = useState([]);
   const [page, setPage] = useState(1);
   const [isFetching, setIsFetching] = useState(true);
+
+  useEffect(() => {
+    localStorage.setItem("search", JSON.stringify(recentArr));
+  }, [recentArr]);
 
   useEffect(() => {
     if (isFetching) {
