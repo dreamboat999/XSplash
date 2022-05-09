@@ -4,6 +4,7 @@ const recentFromLocalStorage = JSON.parse(
 
 const initialState = {
   recentArr: recentFromLocalStorage,
+  isModalSearchOpen: false,
 };
 
 export const appReducer = (state = initialState, action) => {
@@ -17,6 +18,11 @@ export const appReducer = (state = initialState, action) => {
       return {
         ...state,
         recentArr: [],
+      };
+    case "DISPLAY_MODAL_SEARCH":
+      return {
+        ...state,
+        isModalSearchOpen: action.payload,
       };
     default:
       return state;

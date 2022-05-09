@@ -1,42 +1,32 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import axios from "axios";
 import { RANDOM_IMAGE } from "../../utils/Config";
+import { useClickAway } from "../../utils/useClickAway";
+import SearchModal from "../SearchModal";
+
 import styles from "./header.module.scss";
 import { AiOutlineSearch } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
 
-const {
-  header_outer,
-  header_inner,
-  search_wrapper,
-  search,
-  modal,
-  modal_items,
-  modal_title,
-  recent_items,
-  recent_item,
-} = styles;
+const { header_outer, header_inner, search_wrapper, search } = styles;
 
 const Header = () => {
+  const dispatch = useDispatch();
   const history = useHistory();
   const input = useRef(null);
   const [randomImage, setRandomImage] = useState("");
   const [value, setValue] = useState("");
-  const [focus, setFocus] = useState(false);
   useClickAway(input);
 
-  const dispatch = useDispatch();
-  const { recentArr } = useSelector((state) => state.appState);
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`${RANDOM_IMAGE}&orientation=landscape&count=1`)
-  //     .then((response) => {
-  //       setRandomImage(response.data[0].urls.regular);
-  //     });
-  // }, []);
+  useEffect(() => {
+    axios
+      .get(`${RANDOM_IMAGE}&orientation=landscape&count=1`)
+      .then((response) => {
+        setRandomImage(response.data[0].urls.regular);
+      });
+  }, []);
 
   const backgroundImage = {
     background: `#1d1d1f url(${randomImage}) no-repeat center center/cover`,
@@ -53,25 +43,9 @@ const Header = () => {
     }
   };
 
-  const handleClearRecent = () => {
-    localStorage.removeItem("search");
-    dispatch({ type: "CLEAR_RECENT" });
+  const handleModalSearchOpen = () => {
+    dispatch({ type: "DISPLAY_MODAL_SEARCH", payload: true });
   };
-
-  function useClickAway(ref) {
-    useEffect(() => {
-      function handleClickOutside(e) {
-        if (ref.current && !ref.current.contains(e.target)) {
-          setFocus(false);
-        }
-      }
-
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }, [ref]);
-  }
 
   return (
     <div className={header_outer} style={backgroundImage}>
@@ -86,37 +60,10 @@ const Header = () => {
                 type="text"
                 placeholder="Search"
                 onChange={handleChange}
-                onClick={() => setFocus(true)}
+                onClick={handleModalSearchOpen}
               />
-              {/*<button>Search</button>*/}
             </div>
-            <div
-              className={modal}
-              style={{
-                display: focus && recentArr.length ? "block" : "none",
-              }}
-            >
-              <div className={modal_items}>
-                <div className={modal_title}>
-                  <span>Recent Searches</span>
-                  <span>•</span>
-                  <button type="button" onClick={handleClearRecent}>
-                    Clear
-                  </button>
-                </div>
-                <div className={recent_items}>
-                  {recentArr
-                    .slice(Math.max(recentArr.length - 5, 0))
-                    ?.map((el, i) => {
-                      return (
-                        <div key={i} className={recent_item}>
-                          {el}
-                        </div>
-                      );
-                    })}
-                </div>
-              </div>
-            </div>
+            <SearchModal />
           </form>
         </div>
       </div>
