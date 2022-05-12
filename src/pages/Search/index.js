@@ -2,14 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import axios from "axios";
-import { SEARCH_IMAGE } from "../../utils/Config";
+import API, { SECRET_KEY } from "../../components/api";
 import { sliceIntoChunks } from "../../utils/SliceIntoChunks";
 import ImagesGrid from "../../components/ImagesGrid";
 
-import styles from "./search.module.scss";
-
-const { title_outer, title_inner } = styles;
+import s from "./search.module.scss";
 
 const Search = () => {
   const { recentArr } = useSelector((state) => state.appState);
@@ -26,8 +23,9 @@ const Search = () => {
 
   useEffect(() => {
     if (isFetching) {
-      axios
-        .get(`${SEARCH_IMAGE}&per_page=12&page=${page}&query=${name}`)
+      API.get(
+        `search/photos?client_id=${SECRET_KEY}&per_page=12&page=${page}&query=${name}`
+      )
         .then((response) => {
           setFirstCol([
             ...firstCol,
@@ -63,9 +61,9 @@ const Search = () => {
 
   return (
     <>
-      <div className={title_outer}>
+      <div className={s.title_outer}>
         <div className="container">
-          <div className={title_inner}>
+          <div className={s.title_inner}>
             <h1>{name ? name : "Loading"}</h1>
           </div>
         </div>

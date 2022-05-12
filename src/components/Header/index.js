@@ -2,15 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import axios from "axios";
-import { RANDOM_IMAGE } from "../../utils/Config";
+import API, { SECRET_KEY } from "../api";
 import { useClickAway } from "../../utils/useClickAway";
 import SearchModal from "../SearchModal";
 
-import styles from "./header.module.scss";
+import s from "./header.module.scss";
 import { AiOutlineSearch } from "react-icons/ai";
-
-const { header_outer, header_inner, search_wrapper, search } = styles;
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -18,14 +15,16 @@ const Header = () => {
   const input = useRef(null);
   const [randomImage, setRandomImage] = useState("");
   const [value, setValue] = useState("");
-  useClickAway(input);
+  useClickAway(input, () => {
+    dispatch({ type: "DISPLAY_MODAL_SEARCH", payload: false });
+  });
 
   useEffect(() => {
-    axios
-      .get(`${RANDOM_IMAGE}&orientation=landscape&count=1`)
-      .then((response) => {
-        setRandomImage(response.data[0].urls.regular);
-      });
+    API.get(
+      `photos/random?client_id=${SECRET_KEY}&orientation=landscape&count=1`
+    ).then((response) => {
+      setRandomImage(response.data[0].urls.regular);
+    });
   }, []);
 
   const backgroundImage = {
@@ -48,11 +47,15 @@ const Header = () => {
   };
 
   return (
-    <div className={header_outer} style={backgroundImage}>
+    <div className={s.header_outer} style={backgroundImage}>
       <div className="container">
-        <div className={header_inner}>
-          <form className={search_wrapper} onSubmit={handleSubmit} ref={input}>
-            <div className={search}>
+        <div className={s.header_inner}>
+          <form
+            className={s.search_wrapper}
+            onSubmit={handleSubmit}
+            ref={input}
+          >
+            <div className={s.search}>
               <span>
                 <AiOutlineSearch />
               </span>

@@ -1,14 +1,13 @@
 import React from "react";
-import styles from "./navbar.module.scss";
-import { ReactComponent as Logo } from "../../assets/logo/logo.svg";
 
-const { navbar_outer, navbar_inner, navbar_logo } = styles;
+import s from "./navbar.module.scss";
+import { ReactComponent as Logo } from "../../assets/logo/logo.svg";
 
 const Navbar = () => {
   return (
-    <div className={navbar_outer}>
-      <div className={navbar_inner}>
-        <a href="/" className={navbar_logo}>
+    <div className={s.navbar_outer}>
+      <div className={s.navbar_inner}>
+        <a href="/" className={s.navbar_logo}>
           <Logo />
         </a>
       </div>

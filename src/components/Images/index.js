@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import axios from "axios";
-import { IMAGES_LIST } from "../../utils/Config";
+import API, { SECRET_KEY } from "../api";
 import { sliceIntoChunks } from "../../utils/SliceIntoChunks";
 import ImagesGrid from "../ImagesGrid";
 
@@ -14,8 +13,7 @@ const Images = () => {
 
   useEffect(() => {
     if (isFetching) {
-      axios
-        .get(`${IMAGES_LIST}&per_page=12&page=${page}`)
+      API.get(`photos?client_id=${SECRET_KEY}&per_page=12&page=${page}`)
         .then((response) => {
           setFirstCol([
             ...firstCol,

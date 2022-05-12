@@ -1,19 +1,16 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 
-export function useClickAway(ref) {
-  const dispatch = useDispatch();
-
+export function useClickAway(ref, handler) {
   useEffect(() => {
-    function handleClickOutside(e) {
-      if (ref.current && !ref.current.contains(e.target)) {
-        dispatch({ type: "DISPLAY_MODAL_SEARCH", payload: false });
+    const listener = (e) => {
+      if (!ref.current || ref.current.contains(e.target)) {
+        return;
       }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      handler(e);
     };
-  }, [ref]);
+    document.addEventListener("mousedown", listener);
+    return () => {
+      document.removeEventListener("mousedown", listener);
+    };
+  }, [ref, handler]);
 }

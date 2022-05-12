@@ -5,6 +5,7 @@ const recentFromLocalStorage = JSON.parse(
 const initialState = {
   recentArr: recentFromLocalStorage,
   isModalSearchOpen: false,
+  imageModal: { isOpen: false, id: null },
 };
 
 export const appReducer = (state = initialState, action) => {
@@ -23,6 +24,11 @@ export const appReducer = (state = initialState, action) => {
       return {
         ...state,
         isModalSearchOpen: action.payload,
+      };
+    case "DISPLAY_MODAL_IMAGE":
+      return {
+        ...state,
+        imageModal: action.payload,
       };
     default:
       return state;
