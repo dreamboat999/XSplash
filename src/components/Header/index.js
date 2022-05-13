@@ -14,7 +14,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const input = useRef(null);
-  const [randomImage, setRandomImage] = useState({});
+  const [photoOfTheDay, setPhotoOfTheDay] = useState({});
   const [value, setValue] = useState("");
   useClickAway(input, () => {
     dispatch({ type: "DISPLAY_MODAL_SEARCH", payload: false });
@@ -22,9 +22,9 @@ const Header = () => {
 
   useEffect(() => {
     API.get(
-      `photos/random?client_id=${SECRET_KEY}&orientation=landscape&count=1`
+      `collections/1459961/photos?client_id=${SECRET_KEY}&orientation=landscape&per_page=1`
     ).then((response) => {
-      setRandomImage(response.data[0]);
+      setPhotoOfTheDay(response.data[0]);
     });
   }, []);
 
@@ -47,8 +47,8 @@ const Header = () => {
     <div className={s.header_outer}>
       <div className={s.header_image}>
         <LazyLoadImage
-          src={randomImage.urls?.regular}
-          alt={randomImage?.description}
+          src={photoOfTheDay.urls?.regular}
+          alt={photoOfTheDay?.description}
           effect="blur"
         />
       </div>

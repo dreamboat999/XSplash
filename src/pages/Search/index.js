@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import API, { SECRET_KEY } from "../../components/api";
-import Images from "../../components/Images";
+import ImagesGrid from "../../components/ImagesGrid";
 
 import s from "./search.module.scss";
 
@@ -45,7 +45,7 @@ const Search = () => {
           </div>
         </div>
       </div>
-      <Images images={images} setIsFetching={setIsFetching} />
+      <ImagesGrid images={images} setIsFetching={setIsFetching} />
     </>
   );
 };

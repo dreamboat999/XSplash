@@ -2,19 +2,28 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import s from "./imageModal.module.scss";
-import API, { SECRET_KEY } from "../api";
-import Images from "../Images";
+import { MdOutlineClose, MdKeyboardArrowDown } from "react-icons/md";
+
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import API, { SECRET_KEY } from "../api";
+import ImagesGrid from "../ImagesGrid";
 import { useClickAway } from "../../utils/useClickAway";
 
 const ImageModal = () => {
   const dispatch = useDispatch();
   const modal = useRef(null);
+  const dropdown = useRef(null);
   const { imageModal } = useSelector((state) => state.appState);
   const [images, setImages] = useState([]);
   const [image, setImage] = useState({});
+  const [isDropdown, setIsDropdown] = useState(false);
+
   useClickAway(modal, () => {
     dispatch({ type: "DISPLAY_MODAL_IMAGE", payload: { isOpen: false } });
+  });
+
+  useClickAway(dropdown, () => {
+    setIsDropdown(false);
   });
 
   useEffect(() => {
@@ -37,14 +46,78 @@ const ImageModal = () => {
     year: "numeric",
   });
 
+  const handleDropdown = () => {
+    setIsDropdown(!isDropdown);
+  };
+
+  const download = (e) => {
+    e.preventDefault();
+
+    fetch(e.target.href)
+      .then((response) => {
+        response.arrayBuffer().then(function (buffer) {
+          const url = window.URL.createObjectURL(new Blob([buffer]));
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute(
+            "download",
+            `${image.user?.username}-${imageModal.id}.jpg`
+          );
+          document.body.appendChild(link);
+          link.click();
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div className={s.modal_outer}>
+      <button className={s.btn_close}>
+        <MdOutlineClose />
+      </button>
       <div className={s.modal_inner} ref={modal}>
         <div className={s.modal_header}>
-          <div className={s.user_image}>
-            <img src={image.user?.profile_image?.small} alt="profile_image" />
+          <div className={s.user}>
+            <div className={s.user_image}>
+              <img src={image.user?.profile_image?.small} alt="profile_image" />
+            </div>
+            <div className={s.user_name}>{image.user?.name}</div>
           </div>
-          <div className={s.user_name}>{image.user?.name}</div>
+          <div className={s.download} ref={dropdown}>
+            <a
+              href={image.urls?.raw}
+              className={s.btn_download}
+              onClick={(e) => download(e)}
+            >
+              Download
+            </a>
+            <div className={s.dropdown_wrapper}>
+              <button className={s.btn_dropdown} onClick={handleDropdown}>
+                <MdKeyboardArrowDown />
+              </button>
+              <div className={isDropdown ? s.active : ""}>
+                {isDropdown ? (
+                  <div className={s.dropdown}>
+                    <a href={image.urls?.small} onClick={(e) => download(e)}>
+                      Small
+                    </a>
+                    <a href={image.urls?.regular} onClick={(e) => download(e)}>
+                      Medium
+                    </a>
+                    <a href={image.urls?.full} onClick={(e) => download(e)}>
+                      Large
+                    </a>
+                    <hr />
+                    <a href={image.urls?.raw} onClick={(e) => download(e)}>
+                      Original Size
+                    </a>
+                  </div>
+                ) : null}
+              </div>
+            </div>
+          </div>
         </div>
         <div className={s.modal_image}>
           <LazyLoadImage
@@ -71,7 +144,7 @@ const ImageModal = () => {
         {images ? (
           <div className={s.related}>
             <h2>Related photos</h2>
-            <Images images={images} />
+            <ImagesGrid images={images} />
           </div>
         ) : null}
       </div>

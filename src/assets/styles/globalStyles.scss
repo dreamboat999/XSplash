@@ -18,13 +18,16 @@ body {
 }
 
 .container {
-  max-width: 1300px;
-  margin: 0 auto;
-  padding: 0 20px;
+  @media (min-width: 768px) {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
 }
 
-main {
-  position: relative;
+a {
+  text-decoration: none;
 }
 
 button {
