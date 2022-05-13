@@ -1,50 +1,70 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
-import API, { SECRET_KEY } from "../api";
-import { sliceIntoChunks } from "../../utils/SliceIntoChunks";
-import ImagesGrid from "../ImagesGrid";
+import s from "./imagesGrid.module.scss";
+import ImagesMasonry from "../ImagesMasonry";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
-const Images = () => {
-  const [firstCol, setFirstCol] = useState([]);
-  const [secondCol, setSecondCol] = useState([]);
-  const [thirdCol, setThirdCol] = useState([]);
-  const [page, setPage] = useState(1);
-  const [isFetching, setIsFetching] = useState(true);
+const Images = ({ setIsFetching, images }) => {
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (isFetching) {
-      API.get(`photos?client_id=${SECRET_KEY}&per_page=12&page=${page}`)
-        .then((response) => {
-          setFirstCol([
-            ...firstCol,
-            ...sliceIntoChunks(response.data, response.data.length / 3)[0],
-          ]);
-          setSecondCol([
-            ...secondCol,
-            ...sliceIntoChunks(response.data, response.data.length / 3)[1],
-          ]);
-          setThirdCol([
-            ...thirdCol,
-            ...sliceIntoChunks(response.data, response.data.length / 3)[2],
-          ]);
-          setPage((prevState) => prevState + 1);
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        .finally(() => {
-          setIsFetching(false);
-        });
+    document.addEventListener("scroll", handleScroll);
+    return function () {
+      document.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const handleScroll = (e) => {
+    const scrollHeight = e.target.documentElement.scrollHeight;
+    const scrollTop = e.target.documentElement.scrollTop;
+    const innerHeight = window.innerHeight;
+
+    if (scrollHeight - (scrollTop + innerHeight) < 1000) {
+      setIsFetching(true);
     }
-  }, [isFetching]);
+  };
+
+  const handleDisplayModal = (id) => {
+    dispatch({
+      type: "DISPLAY_MODAL_IMAGE",
+      payload: { isOpen: true, id: id },
+    });
+  };
 
   return (
-    <ImagesGrid
-      firstCol={firstCol}
-      secondCol={secondCol}
-      thirdCol={thirdCol}
-      setIsFetching={setIsFetching}
-    />
+    <div>
+      <div className="container">
+        <ImagesMasonry gap="20px">
+          {images.map((el, i) => {
+            return (
+              <div
+                key={i}
+                className={s.image}
+                onClick={() => handleDisplayModal(el.id)}
+              >
+                <LazyLoadImage
+                  src={el.urls.small}
+                  alt={el.description}
+                  effect="blur"
+                />
+                <div className={s.user_info_wrapper}>
+                  <div className={s.user_info}>
+                    <span>
+                      <img
+                        src={el.user.profile_image.small}
+                        alt="description"
+                      />
+                    </span>
+                    <h3>{el.user.name}</h3>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </ImagesMasonry>
+      </div>
+    </div>
   );
 };
 

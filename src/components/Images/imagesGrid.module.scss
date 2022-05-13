@@ -1,20 +1,3 @@
-.images_outer {
-  margin: 24px 0;
-}
-
-.images_inner {
-  display: flex;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-column-gap: 24px;
-  align-items: start;
-}
-
-.images_column {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  row-gap: 24px;
-}
-
 .image {
   cursor: pointer;
   position: relative;
@@ -32,12 +15,13 @@
   }
 
   img {
-    max-width: 100%;
+    width: 100%;
     height: 100%;
     object-fit: cover;
   }
 
   span {
+    width: 100%;
     height: 100%;
   }
 }
@@ -80,5 +64,14 @@
 
   h3 {
     color: #fff;
+    font-weight: 500;
+  }
+}
+
+.test321 {
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 }

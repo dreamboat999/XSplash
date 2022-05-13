@@ -27,7 +27,7 @@
   border-radius: 4px;
   display: flex;
   flex-direction: column;
-  padding: 10px 15px;
+  padding: 15px 15px 30px 15px;
 }
 
 .modal_header {
@@ -68,13 +68,13 @@
   }
 }
 
-.image_info_wrapper {
+.modal_info {
   display: flex;
   gap: 40px;
   margin-bottom: 50px;
 }
 
-.image_info {
+.modal_info_item {
   display: grid;
   gap: 5px;
 
@@ -97,5 +97,6 @@
   h2 {
     font-size: 18px;
     font-weight: 400;
+    margin-bottom: 24px;
   }
 }
