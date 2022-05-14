@@ -52,27 +52,21 @@ const Header = () => {
           effect="blur"
         />
       </div>
-      <div className="container">
-        <div className={s.header_inner}>
-          <form
-            className={s.search_wrapper}
-            onSubmit={handleSubmit}
-            ref={input}
-          >
-            <div className={s.search}>
-              <span>
-                <AiOutlineSearch />
-              </span>
-              <input
-                type="text"
-                placeholder="Search"
-                onChange={handleChange}
-                onClick={handleModalSearchOpen}
-              />
-            </div>
-            <SearchModal />
-          </form>
-        </div>
+      <div className={s.header_inner}>
+        <form className={s.search_wrapper} onSubmit={handleSubmit} ref={input}>
+          <div className={s.search}>
+            <span>
+              <AiOutlineSearch />
+            </span>
+            <input
+              type="text"
+              placeholder="Search"
+              onChange={handleChange}
+              onClick={handleModalSearchOpen}
+            />
+          </div>
+          <SearchModal />
+        </form>
       </div>
     </div>
   );
