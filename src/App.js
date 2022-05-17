@@ -12,9 +12,9 @@ const App = () => {
 
   useEffect(() => {
     if (imageModal.isOpen) {
-      document.querySelector("body").style.overflow = "hidden";
+      document.querySelector("body").className = "disableBodyScroll";
     } else {
-      document.querySelector("body").style.overflow = "unset";
+      document.querySelector("body").className = "";
     }
   }, [imageModal.isOpen]);
 

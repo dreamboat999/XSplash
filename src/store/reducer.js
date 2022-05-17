@@ -2,8 +2,10 @@ const recentFromLocalStorage = JSON.parse(
   localStorage.getItem("search") || "[]"
 );
 
+const newArr = [...new Set(recentFromLocalStorage)];
+
 const initialState = {
-  recentArr: recentFromLocalStorage,
+  recentArr: newArr,
   isModalSearchOpen: false,
   imageModal: { isOpen: false, id: null },
 };

@@ -151,6 +151,9 @@
   a {
     color: #fff;
     font-weight: 500;
+    display: block;
+    //justify-content: flex-end;
+    gap: 5px;
     padding: 10px 15px 10px 10px;
     transition: color .2s ease;
 
@@ -161,6 +164,10 @@
     span {
       color: #fff9;
     }
+  }
+  
+  .size {
+    color: #fff9;
   }
 }
 
@@ -183,14 +190,17 @@
 }
 
 .modal_image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   max-width: 1050px;
   height: 500px;
   margin: 0 auto;
   padding: 0 20px;
 
-  span {
-    height: 100%;
-  }
+  //span {
+  //  height: 100%;
+  //}
 
   img {
     width: 100%;
@@ -211,7 +221,13 @@
 
   &:last-child {
     flex: 1;
+    display: flex;
     justify-content: flex-end;
+
+    span {
+      font-weight: 400;
+      color: #767676;
+    }
   }
 
   h3 {
