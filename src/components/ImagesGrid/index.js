@@ -21,7 +21,7 @@ const ImagesGrid = ({ setIsFetching, images }) => {
     const scrollTop = e.target.documentElement.scrollTop;
     const innerHeight = window.innerHeight;
 
-    if (scrollHeight - (scrollTop + innerHeight) < 1000) {
+    if (scrollHeight - (scrollTop + innerHeight) < 100) {
       setIsFetching(true);
     }
   };
@@ -52,7 +52,7 @@ const ImagesGrid = ({ setIsFetching, images }) => {
                 <div className={s.user_info_wrapper}>
                   <div className={s.user_info}>
                     <span>
-                      <img
+                      <LazyLoadImage
                         src={el.user.profile_image.small}
                         alt="description"
                       />

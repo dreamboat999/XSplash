@@ -10,7 +10,7 @@ const Images = () => {
 
   useEffect(() => {
     if (isFetching) {
-      API.get(`photos?client_id=${SECRET_KEY}&per_page=12&page=${page}`)
+      API.get(`photos?client_id=${SECRET_KEY}&per_page=9&page=${page}`)
         .then((response) => {
           setImages([...images, ...response.data]);
           setPage((prevState) => prevState + 1);

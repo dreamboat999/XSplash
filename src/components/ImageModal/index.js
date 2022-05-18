@@ -23,9 +23,13 @@ const ImageModal = () => {
   });
 
   useEffect(() => {
-    API.get(`photos/${imageModal.id}?client_id=${SECRET_KEY}`).then((resp) => {
-      setImage(resp.data);
-    });
+    API.get(`photos/${imageModal.id}?client_id=${SECRET_KEY}`)
+      .then((resp) => {
+        setImage(resp.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, [imageModal.id]);
 
   useEffect(() => {
@@ -56,7 +60,7 @@ const ImageModal = () => {
       >
         <MdOutlineClose />
       </button>
-      <div className={s.modal_inner}>
+      <div className={s.modal_inner} ref={modal}>
         <div className={s.modal_header}>
           <div className={s.user}>
             <div className={s.user_image}>
@@ -64,7 +68,7 @@ const ImageModal = () => {
             </div>
             <div className={s.user_name}>{image.user?.name}</div>
           </div>
-          <Download image={image} />
+          {/*<Download image={image} />*/}
         </div>
         <div className={s.modal_image}>
           <LazyLoadImage src={image.urls?.regular} alt="description" />
