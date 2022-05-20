@@ -71,7 +71,11 @@ const ImageModal = () => {
           {/*<Download image={image} />*/}
         </div>
         <div className={s.modal_image}>
-          <LazyLoadImage src={image.urls?.regular} alt="description" />
+          <LazyLoadImage
+            src={image.urls?.regular}
+            alt="description"
+            effect="blur"
+          />
         </div>
         <div className={s.modal_info}>
           <div className={s.modal_info_item}>
