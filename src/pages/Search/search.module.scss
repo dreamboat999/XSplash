@@ -1,9 +1,12 @@
 .title_outer {
-  margin: 24px 0;
+  padding: 20px 0;
+
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
 }
 
 .title_inner {
-  padding: 0 20px;
   h1 {
     font-size: 48px;
     text-transform: capitalize;
