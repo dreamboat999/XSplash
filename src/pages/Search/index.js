@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
+import s from "./search.module.scss";
+
 import API, { SECRET_KEY } from "../../components/api";
 import ImagesGrid from "../../components/ImagesGrid";
-
-import s from "./search.module.scss";
+import PageTitle from "../../utils/pageTitle";
 
 const Search = () => {
   const { recentArr } = useSelector((state) => state.appState);
@@ -37,7 +38,7 @@ const Search = () => {
   }, [isFetching]);
 
   return (
-    <>
+    <PageTitle title={`Unsplash | ${name ? name : "Loading"}`}>
       <div className={s.title_outer}>
         <div className="container">
           <div className={s.title_inner}>
@@ -46,7 +47,7 @@ const Search = () => {
         </div>
       </div>
       <ImagesGrid images={images} setIsFetching={setIsFetching} />
-    </>
+    </PageTitle>
   );
 };
 
