@@ -5,6 +5,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import ImagesMasonry from "../ImagesMasonry";
 
 import s from "./imagesGrid.module.scss";
+import RenderIf from "../../utils/renderIf";
 
 const ImagesGrid = ({ setIsFetching, images }) => {
   const dispatch = useDispatch();
