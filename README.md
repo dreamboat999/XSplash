@@ -1,1 +1,1 @@
-# [Unsplash](https://ornashh-unsplashapp.netlify.app)
+![alt text](https://github.com/Ornashh/unsplash_clone/blob/master/screenshot/unsplash.jpg)
