@@ -1,13 +1,16 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setClearRecent } from "../../store/actions";
+import { useHistory } from "react-router-dom";
 
 import s from "./searchModal.module.scss";
-import { useDispatch, useSelector } from "react-redux";
 
 const SearchModal = () => {
   const dispatch = useDispatch();
   const { recentArr, isModalSearchOpen } = useSelector(
     (state) => state.appState
   );
+  const history = useHistory();
 
   const newArr = [...new Set(recentArr)];
 
@@ -16,7 +19,7 @@ const SearchModal = () => {
 
   const handleClearRecent = () => {
     localStorage.removeItem("search");
-    dispatch({ type: "CLEAR_RECENT" });
+    dispatch(setClearRecent());
   };
 
   return (
@@ -32,9 +35,15 @@ const SearchModal = () => {
         <div className={s.recent_items}>
           {newArr.slice(Math.max(newArr.length - 5, 0))?.map((el, i) => {
             return (
-              <div key={i} className={s.recent_item}>
+              <button
+                key={i}
+                className={s.recent_item}
+                onClick={() => {
+                  history.push(`/photos/${el}`);
+                }}
+              >
                 {el}
-              </div>
+              </button>
             );
           })}
         </div>

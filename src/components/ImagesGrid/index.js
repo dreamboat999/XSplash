@@ -5,7 +5,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import ImagesMasonry from "../ImagesMasonry";
 
 import s from "./imagesGrid.module.scss";
-import RenderIf from "../../utils/renderIf";
+import { setImageModal } from "../../store/actions";
 
 const ImagesGrid = ({ setIsFetching, images }) => {
   const dispatch = useDispatch();
@@ -28,10 +28,7 @@ const ImagesGrid = ({ setIsFetching, images }) => {
   };
 
   const handleDisplayModal = (id) => {
-    dispatch({
-      type: "DISPLAY_MODAL_IMAGE",
-      payload: { isOpen: true, id: id },
-    });
+    dispatch(setImageModal({ isOpen: true, id: id }));
   };
 
   return (

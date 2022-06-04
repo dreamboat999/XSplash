@@ -9,15 +9,21 @@
   right: 0;
   width: 100%;
   padding: 8px 0;
+}
 
-  .recent_items {
-    display: flex;
-    gap: 5px;
+.recent_items {
+  display: flex;
+  gap: 5px;
 
-    .recent_item {
-      border: 1px solid #d1d1d1;
-      border-radius: 4px;
-      padding: 8px 16px;
+  .recent_item {
+    background-color: #fff;
+    border: 1px solid #d1d1d1;
+    border-radius: 4px;
+    padding: 8px 16px;
+    transition: background-color .3s ease-in-out;
+
+    &:hover {
+      background-color: #f5f5f5;
     }
   }
 }

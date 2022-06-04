@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
+import { setAddRecent, setSearchModal } from "../../store/actions";
 import { useHistory } from "react-router-dom";
 
 import s from "./search.module.scss";
@@ -14,7 +15,7 @@ const Search = () => {
   const [value, setValue] = useState("");
 
   useClickAway(input, () => {
-    dispatch({ type: "DISPLAY_MODAL_SEARCH", payload: false });
+    dispatch(setSearchModal(false));
   });
 
   const handleChange = (e) => {
@@ -23,13 +24,13 @@ const Search = () => {
 
   const handleSubmit = () => {
     if (value) {
-      dispatch({ type: "ADD_RECENT", payload: value });
+      dispatch(setAddRecent(value));
       history.push(`/photos/${value}`);
     }
   };
 
   const handleModalSearchOpen = () => {
-    dispatch({ type: "DISPLAY_MODAL_SEARCH", payload: true });
+    dispatch(setSearchModal(true));
   };
 
   return (

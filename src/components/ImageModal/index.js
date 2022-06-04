@@ -10,6 +10,7 @@ import { useClickAway } from "../../utils/useClickAway";
 import RenderIf from "../../utils/renderIf";
 import Download from "./download";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { setImageModal } from "../../store/actions";
 
 const ImageModal = () => {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ const ImageModal = () => {
   const [image, setImage] = useState({});
 
   useClickAway(modal, () => {
-    dispatch({ type: "DISPLAY_MODAL_IMAGE", payload: { isOpen: false } });
+    dispatch(setImageModal({ isOpen: false }));
   });
 
   useEffect(() => {
@@ -52,12 +53,7 @@ const ImageModal = () => {
 
   return (
     <div className={s.modal_outer}>
-      <button
-        className={s.btn_close}
-        onClick={() =>
-          dispatch({ type: "DISPLAY_MODAL_IMAGE", payload: { isOpen: false } })
-        }
-      >
+      <button className={s.btn_close}>
         <MdOutlineClose />
       </button>
       <div className={s.modal_inner} ref={modal}>
