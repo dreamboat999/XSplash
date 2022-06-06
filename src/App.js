@@ -8,15 +8,15 @@ import Search from "./pages/Search";
 import ImageModal from "./components/ImageModal";
 
 const App = () => {
-  const { imageModal } = useSelector((state) => state.appState);
+  const { isImageModal } = useSelector((state) => state.appState);
 
   useEffect(() => {
-    if (imageModal.isOpen) {
+    if (isImageModal) {
       document.querySelector("body").className = "disableBodyScroll";
     } else {
       document.querySelector("body").className = "";
     }
-  }, [imageModal.isOpen]);
+  }, [isImageModal]);
 
   return (
     <div className="main">
@@ -29,7 +29,7 @@ const App = () => {
           <Route path="/photos/:name" children={<Search />} />
         </Switch>
       </Router>
-      {imageModal.isOpen ? <ImageModal /> : null}
+      {isImageModal ? <ImageModal /> : null}
     </div>
   );
 };

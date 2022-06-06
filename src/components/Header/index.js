@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 
-import API, { SECRET_KEY } from "../api";
-
 import s from "./header.module.scss";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+
+import API, { SECRET_KEY } from "../api";
 import Search from "../Search";
 
 const Header = () => {
@@ -25,15 +25,17 @@ const Header = () => {
           alt={photoOfTheDay?.description}
           effect="blur"
         />
-        <div className={s.user}>
-          <h6>Photo of the Day by</h6>
-          <p>{photoOfTheDay.user?.username}</p>
-        </div>
       </div>
       <div className={s.header_inner}>
         <div className={s.header_content}>
           <h1>Unsplash</h1>
-          <Search />
+          <div className={s.search_wrapper}>
+            <Search />
+          </div>
+          <div className={s.user}>
+            <h6>Photo of the Day by</h6>
+            <p>{photoOfTheDay.user?.username}</p>
+          </div>
         </div>
       </div>
     </div>

@@ -1,22 +1,23 @@
 .navbar_outer {
   color: #1d1d1f;
   background-color: #fff;
-  box-shadow: 0 -1px 10px 0 rgba(0,0,0,0.3);
+  box-shadow: 0 -1px 10px 0 rgba(0, 0, 0, 0.3);
   position: sticky;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 10;
+}
 
-  .navbar_inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 65px;
-    padding: 0 20px;
-  }
+.navbar_inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  height: 65px;
+  padding: 0 20px;
+}
 
-  .navbar_logo {
-    display: flex;
-  }
+.navbar_logo {
+  display: flex;
 }

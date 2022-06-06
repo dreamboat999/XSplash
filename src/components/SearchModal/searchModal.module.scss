@@ -9,10 +9,12 @@
   right: 0;
   width: 100%;
   padding: 8px 0;
+  z-index: 10;
 }
 
 .recent_items {
   display: flex;
+  flex-wrap: wrap;
   gap: 5px;
 
   .recent_item {

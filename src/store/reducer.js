@@ -3,6 +3,8 @@ import {
   SET_CLEAR_RECENT,
   SET_SEARCH_MODAL,
   SET_IMAGE_MODAL,
+  SET_IMAGE_ID,
+  SET_ASD,
 } from "./actions";
 
 const recentFromLocalStorage = JSON.parse(
@@ -13,8 +15,9 @@ const newArr = [...new Set(recentFromLocalStorage)];
 
 const initialState = {
   recentArr: newArr,
-  isModalSearchOpen: false,
-  imageModal: { isOpen: false, id: null },
+  isSearchModal: false,
+  isImageModal: false,
+  imageId: null,
 };
 
 export const appReducer = (state = initialState, action) => {
@@ -32,12 +35,17 @@ export const appReducer = (state = initialState, action) => {
     case SET_SEARCH_MODAL:
       return {
         ...state,
-        isModalSearchOpen: action.payload,
+        isSearchModal: action.payload,
       };
     case SET_IMAGE_MODAL:
       return {
         ...state,
-        imageModal: action.payload,
+        isImageModal: action.payload,
+      };
+    case SET_IMAGE_ID:
+      return {
+        ...state,
+        imageId: action.payload,
       };
     default:
       return state;

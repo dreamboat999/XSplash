@@ -1,37 +1,37 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { setImageModal } from "../../store/actions";
 
 import s from "./imageModal.module.scss";
 import { MdOutlineClose } from "react-icons/md";
 
 import API, { SECRET_KEY } from "../api";
 import ImagesGrid from "../ImagesGrid";
-import { useClickAway } from "../../utils/useClickAway";
 import RenderIf from "../../utils/renderIf";
-import Download from "./download";
+import { useClickAway } from "../../utils/useClickAway";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import { setImageModal } from "../../store/actions";
+// import Download from "./download";
 
 const ImageModal = () => {
   const dispatch = useDispatch();
+  const { imageId } = useSelector((state) => state.appState);
   const modal = useRef(null);
-  const { imageModal } = useSelector((state) => state.appState);
   const [related, setRelated] = useState([]);
   const [image, setImage] = useState({});
 
   useClickAway(modal, () => {
-    dispatch(setImageModal({ isOpen: false }));
+    dispatch(setImageModal(false));
   });
 
   useEffect(() => {
-    API.get(`photos/${imageModal.id}?client_id=${SECRET_KEY}`)
+    API.get(`photos/${imageId}?client_id=${SECRET_KEY}`)
       .then((resp) => {
         setImage(resp.data);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, [imageModal.id]);
+  }, [imageId]);
 
   useEffect(() => {
     API.get(

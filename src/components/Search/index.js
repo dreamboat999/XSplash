@@ -8,7 +8,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import SearchModal from "../SearchModal";
 import { useClickAway } from "../../utils/useClickAway";
 
-const Search = () => {
+const Search = ({ addClass }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const input = useRef(null);
@@ -29,13 +29,13 @@ const Search = () => {
     }
   };
 
-  const handleModalSearchOpen = () => {
+  const handleOpenModal = () => {
     dispatch(setSearchModal(true));
   };
 
   return (
     <form className={s.search_wrapper} onSubmit={handleSubmit} ref={input}>
-      <div className={s.search}>
+      <div className={`${s.search} ${addClass}`}>
         <span>
           <AiOutlineSearch />
         </span>
@@ -43,7 +43,7 @@ const Search = () => {
           type="text"
           placeholder="Search"
           onChange={handleChange}
-          onClick={handleModalSearchOpen}
+          onClick={handleOpenModal}
         />
       </div>
       <SearchModal />

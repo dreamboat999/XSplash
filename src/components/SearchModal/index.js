@@ -7,15 +7,13 @@ import s from "./searchModal.module.scss";
 
 const SearchModal = () => {
   const dispatch = useDispatch();
-  const { recentArr, isModalSearchOpen } = useSelector(
-    (state) => state.appState
-  );
+  const { recentArr, isSearchModal } = useSelector((state) => state.appState);
   const history = useHistory();
 
   const newArr = [...new Set(recentArr)];
 
   const displayModalVariable =
-    isModalSearchOpen && newArr.length ? `${s.displayModal}` : "";
+    isSearchModal && newArr.length ? `${s.displayModal}` : "";
 
   const handleClearRecent = () => {
     localStorage.removeItem("search");
@@ -36,6 +34,7 @@ const SearchModal = () => {
           {newArr.slice(Math.max(newArr.length - 5, 0))?.map((el, i) => {
             return (
               <button
+                type="button"
                 key={i}
                 className={s.recent_item}
                 onClick={() => {

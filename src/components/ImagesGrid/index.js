@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { setImageId, setImageModal } from "../../store/actions";
 
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import ImagesMasonry from "../ImagesMasonry";
 
 import s from "./imagesGrid.module.scss";
-import { setImageModal } from "../../store/actions";
 
 const ImagesGrid = ({ setIsFetching, images }) => {
   const dispatch = useDispatch();
@@ -27,8 +27,9 @@ const ImagesGrid = ({ setIsFetching, images }) => {
     }
   };
 
-  const handleDisplayModal = (id) => {
-    dispatch(setImageModal({ isOpen: true, id: id }));
+  const handleOpenModal = (id) => {
+    dispatch(setImageModal(true));
+    dispatch(setImageId(id));
   };
 
   return (
@@ -40,7 +41,7 @@ const ImagesGrid = ({ setIsFetching, images }) => {
               <div
                 key={i}
                 className={s.image}
-                onClick={() => handleDisplayModal(el.id)}
+                onClick={() => handleOpenModal(el.id)}
               >
                 <LazyLoadImage
                   src={el.urls.regular}

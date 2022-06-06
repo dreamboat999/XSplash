@@ -2,6 +2,7 @@ export const SET_ADD_RECENT = "setAddRecent";
 export const SET_CLEAR_RECENT = "setClearRecent";
 export const SET_SEARCH_MODAL = "setSearchModal";
 export const SET_IMAGE_MODAL = "setImageModal";
+export const SET_IMAGE_ID = "setImageData";
 
 export const setAddRecent = (payload) => {
   return {
@@ -26,6 +27,13 @@ export const setSearchModal = (payload) => {
 export const setImageModal = (payload) => {
   return {
     type: SET_IMAGE_MODAL,
+    payload,
+  };
+};
+
+export const setImageId = (payload) => {
+  return {
+    type: SET_IMAGE_ID,
     payload,
   };
 };

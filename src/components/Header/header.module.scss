@@ -13,7 +13,12 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
   height: 600px;
+
+  @media (max-width: 768px) {
+    height: 400px;
+  }
 }
 
 .header_content {
@@ -63,6 +68,12 @@
   }
 }
 
+.search_wrapper {
+  //@media (max-width: 768px) {
+  //  display: none;
+  //}
+}
+
 .user {
   display: flex;
   gap: 5px;
@@ -81,5 +92,9 @@
   p {
     font-size: 14px;
     text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    padding-left: 0;
   }
 }
