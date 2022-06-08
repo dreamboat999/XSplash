@@ -211,6 +211,7 @@
 
 .modal_info {
   display: flex;
+  flex-wrap: wrap;
   gap: 40px;
   padding: 15px 20px;
 }
@@ -227,6 +228,12 @@
     span {
       font-weight: 400;
       color: #767676;
+    }
+  }
+
+  @media (max-width: 425px) {
+    &:last-child {
+      justify-content: flex-start;
     }
   }
 

@@ -9,8 +9,8 @@ import API, { SECRET_KEY } from "../api";
 import ImagesGrid from "../ImagesGrid";
 import RenderIf from "../../utils/renderIf";
 import { useClickAway } from "../../utils/useClickAway";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 // import Download from "./download";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const ImageModal = () => {
   const dispatch = useDispatch();
@@ -91,10 +91,9 @@ const ImageModal = () => {
             </span>
           </div>
           <div className={s.modal_info_item}>
-            <h3>Published on</h3>
-            <span>
-              <RenderIf isTrue={dateFormat}>{dateFormat}</RenderIf>
-            </span>
+            <RenderIf isTrue={dateFormat}>
+              <h3>Published on {dateFormat}</h3>
+            </RenderIf>
           </div>
         </div>
         <RenderIf isTrue={related}>

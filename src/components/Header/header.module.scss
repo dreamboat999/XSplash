@@ -17,14 +17,14 @@
   height: 600px;
 
   @media (max-width: 768px) {
-    height: 400px;
+    height: 250px;
   }
 }
 
 .header_content {
   display: grid;
   gap: 20px;
-  width: 50%;
+  width: 60%;
 
   h1 {
     font-size: 46px;
@@ -68,12 +68,6 @@
   }
 }
 
-.search_wrapper {
-  //@media (max-width: 768px) {
-  //  display: none;
-  //}
-}
-
 .user {
   display: flex;
   gap: 5px;
@@ -83,6 +77,11 @@
   left: 0;
   padding: 20px;
   z-index: 5;
+
+  @media (max-width: 425px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
   h6 {
     font-size: 14px;

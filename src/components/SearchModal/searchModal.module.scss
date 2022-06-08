@@ -32,6 +32,10 @@
 
 .displayModal {
   display: block;
+
+  @media (max-width: 768px) {
+    border: 1px solid #d1d1d1;
+  }
 }
 
 .modal_items {

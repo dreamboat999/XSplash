@@ -45,6 +45,9 @@ const Download = ({ image }) => {
         });
       };
     }
+    return () => {
+      setImageSize({});
+    };
   }, [image]);
 
   const handleDownload = (e) => {
