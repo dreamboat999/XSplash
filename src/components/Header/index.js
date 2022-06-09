@@ -6,7 +6,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import API, { SECRET_KEY } from "../api";
 import Search from "../Search";
 import RenderIf from "../../utils/renderIf";
-import { useMatch } from "../../utils/useMatch";
+import { useMatch } from "../../hooks/useMatch";
 
 const Header = () => {
   const [photoOfTheDay, setPhotoOfTheDay] = useState({});

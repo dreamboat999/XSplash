@@ -5,7 +5,7 @@ import { ReactComponent as Logo } from "../../assets/logo/logo.svg";
 
 import Search from "../Search";
 import RenderIf from "../../utils/renderIf";
-import { useMatch } from "../../utils/useMatch";
+import { useMatch } from "../../hooks/useMatch";
 
 const Navbar = () => {
   const matches = useMatch();

@@ -8,7 +8,7 @@ import { MdOutlineClose } from "react-icons/md";
 import API, { SECRET_KEY } from "../api";
 import ImagesGrid from "../ImagesGrid";
 import RenderIf from "../../utils/renderIf";
-import { useClickAway } from "../../utils/useClickAway";
+import { useClickAway } from "../../hooks/useClickAway";
 // import Download from "./download";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 

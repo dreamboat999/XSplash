@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 import s from "./search.module.scss";
 import { AiOutlineSearch } from "react-icons/ai";
 import SearchModal from "../SearchModal";
-import { useClickAway } from "../../utils/useClickAway";
+import { useClickAway } from "../../hooks/useClickAway";
 
 const Search = () => {
   const dispatch = useDispatch();

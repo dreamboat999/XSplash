@@ -6,6 +6,7 @@ import Home from "./pages";
 import Navbar from "./components/Navbar";
 import Search from "./pages/Search";
 import ImageModal from "./components/ImageModal";
+import RenderIf from "./utils/renderIf";
 
 const App = () => {
   const { isImageModal } = useSelector((state) => state.appState);
@@ -29,7 +30,9 @@ const App = () => {
           <Route path="/photos/:name" children={<Search />} />
         </Switch>
       </Router>
-      {isImageModal ? <ImageModal /> : null}
+      <RenderIf isTrue={isImageModal}>
+        <ImageModal />
+      </RenderIf>
     </div>
   );
 };

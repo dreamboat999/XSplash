@@ -5,7 +5,7 @@ import s from "./imageModal.module.scss";
 import { MdKeyboardArrowDown } from "react-icons/md";
 
 import RenderIf from "../../utils/renderIf";
-import { useClickAway } from "../../utils/useClickAway";
+import { useClickAway } from "../../hooks/useClickAway";
 import { DownloadImage } from "../../utils/downloadImage";
 
 const Download = ({ image }) => {
