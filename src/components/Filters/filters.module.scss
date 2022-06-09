@@ -1,0 +1,21 @@
+.filters {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  padding-bottom: 15px;
+}
+
+.items {
+  display: grid;
+  gap: 5px;
+
+  a {
+    color: #1d1d1f;
+    padding: 5px 15px;
+    transition: background-color .2s linear;
+
+    &:hover {
+      background-color: #f5f5f5;
+    }
+  }
+}

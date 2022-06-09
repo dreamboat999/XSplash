@@ -20,6 +20,12 @@ const SearchModal = () => {
     dispatch(setClearRecent());
   };
 
+  const handleClick = (value) => {
+    history.push({
+      pathname: `/photos/${value}`,
+    });
+  };
+
   return (
     <div className={`${s.modal} ${displayModalVariable}`}>
       <div className={s.modal_items}>
@@ -38,7 +44,7 @@ const SearchModal = () => {
                 key={i}
                 className={s.recent_item}
                 onClick={() => {
-                  history.push(`/photos/${el}`);
+                  handleClick(el);
                 }}
               >
                 {el}

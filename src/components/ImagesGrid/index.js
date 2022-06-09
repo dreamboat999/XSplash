@@ -52,6 +52,7 @@ const ImagesGrid = ({ setIsFetching, images }) => {
                   <div className={s.user_info}>
                     <span>
                       <LazyLoadImage
+                        effect="opacity"
                         src={el.user.profile_image.small}
                         alt="description"
                       />
