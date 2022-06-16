@@ -1,11 +1,6 @@
-.filters_outer {
-  display: flex;
-  justify-content: flex-end;
-  padding-bottom: 15px;
-}
-
 .dropdown_wrapper {
   position: relative;
+  display: inline-block
 }
 
 .btn_dropdown {
@@ -38,14 +33,16 @@
   box-shadow: 0 8px 16px #00000029;
   display: grid;
   position: absolute;
-  right: 0;
+  top: 10px;
+  right: 15px;
   width: 180px;
-  margin: 10px 15px 0 0;
   padding: 8px 0;
 }
 
 .active {
   animation: dropdownAnimation .2s ease-in-out;
+  position: relative;
+  z-index: 15;
 }
 
 @keyframes dropdownAnimation {

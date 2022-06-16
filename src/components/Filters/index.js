@@ -8,15 +8,15 @@ const Filters = () => {
     <div className={s.filters}>
       <Dropdown title="Any orientation">
         <div className={s.items}>
-          <a href="#">Landscape</a>
-          <a href="#">Portrait</a>
-          <a href="#">Square</a>
+          <button>Landscape</button>
+          <button>Portrait</button>
+          <button>Square</button>
         </div>
       </Dropdown>
       <Dropdown title="Sort">
         <div className={s.items}>
-          <a href="#">Relevance</a>
-          <a href="#">Newest</a>
+          <button>Relevance</button>
+          <button>Newest</button>
         </div>
       </Dropdown>
     </div>

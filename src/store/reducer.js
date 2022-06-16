@@ -4,7 +4,6 @@ import {
   SET_SEARCH_MODAL,
   SET_IMAGE_MODAL,
   SET_IMAGE_ID,
-  SET_ASD,
 } from "./actions";
 
 const recentFromLocalStorage = JSON.parse(

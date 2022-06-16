@@ -26,7 +26,7 @@ const Search = () => {
       )
         .then((response) => {
           setImages([...images, ...response.data.results]);
-          setPage((prevState) => prevState + 1);
+          setPage((page) => page + 1);
         })
         .catch((error) => {
           console.log(error);

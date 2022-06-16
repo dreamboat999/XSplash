@@ -9,8 +9,11 @@
   display: grid;
   gap: 5px;
 
-  a {
-    color: #1d1d1f;
+  button {
+    color: #767676;
+    outline: none;
+    background: none;
+    text-align: left;
     padding: 5px 15px;
     transition: background-color .2s linear;
 

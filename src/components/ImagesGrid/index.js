@@ -33,7 +33,7 @@ const ImagesGrid = ({ setIsFetching, images }) => {
   };
 
   return (
-    <div>
+    <div className={s.images_grid}>
       <div className="container">
         <ImagesMasonry>
           {images.map((el, i) => {
@@ -50,13 +50,13 @@ const ImagesGrid = ({ setIsFetching, images }) => {
                 />
                 <div className={s.user_info_wrapper}>
                   <div className={s.user_info}>
-                    <span>
+                    <div className={s.user_image_wrapper}>
                       <LazyLoadImage
                         effect="opacity"
                         src={el.user.profile_image.small}
                         alt="description"
                       />
-                    </span>
+                    </div>
                     <h3>{el.user.name}</h3>
                   </div>
                 </div>
