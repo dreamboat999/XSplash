@@ -8,7 +8,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import SearchModal from "../SearchModal";
 import { useClickAway } from "../../hooks/useClickAway";
 
-const Search = () => {
+const Search = ({ changeStyles }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const input = useRef(null);
@@ -26,6 +26,7 @@ const Search = () => {
     if (value) {
       dispatch(setAddRecent(value));
       history.push(`/photos/${value}`);
+      dispatch(setSearchModal(false));
     }
   };
 
@@ -34,8 +35,16 @@ const Search = () => {
   };
 
   return (
-    <form className={s.search_wrapper} onSubmit={handleSubmit} ref={input}>
-      <div className={s.search}>
+    <form
+      className={`${s.search_wrapper} ${
+        changeStyles ? s.changeStyles_search_wrapper : ""
+      }`}
+      onSubmit={handleSubmit}
+      ref={input}
+    >
+      <div
+        className={`${s.search} ${changeStyles ? s.changeStyles_search : ""}`}
+      >
         <span>
           <AiOutlineSearch />
         </span>

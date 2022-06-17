@@ -52,3 +52,16 @@
     }
   }
 }
+
+.changeStyles_search_wrapper {
+  width: 60%;
+}
+
+.changeStyles_search {
+  height: 40px;
+
+  input {
+    background-color: #eee;
+    border-radius: 15px;
+  }
+}

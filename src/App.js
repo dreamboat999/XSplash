@@ -13,7 +13,7 @@ const App = () => {
 
   useEffect(() => {
     if (isImageModal) {
-      document.querySelector("body").className = "disableBodyScroll";
+      document.querySelector("body").className = "disable_scroll";
     } else {
       document.querySelector("body").className = "";
     }

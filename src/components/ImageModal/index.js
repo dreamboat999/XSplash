@@ -5,12 +5,12 @@ import { setImageModal } from "../../store/actions";
 import s from "./imageModal.module.scss";
 import { MdOutlineClose } from "react-icons/md";
 
-import API, { SECRET_KEY } from "../api";
 import ImagesGrid from "../ImagesGrid";
 import RenderIf from "../../utils/renderIf";
 import { useClickAway } from "../../hooks/useClickAway";
 // import Download from "./download";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { getImage, getRelated } from "./api";
 
 const ImageModal = () => {
   const dispatch = useDispatch();
@@ -24,25 +24,15 @@ const ImageModal = () => {
   });
 
   useEffect(() => {
-    API.get(`photos/${imageId}?client_id=${SECRET_KEY}`)
-      .then((resp) => {
-        setImage(resp.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    getImage(imageId).then((res) => {
+      setImage(res);
+    });
   }, [imageId]);
 
   useEffect(() => {
-    API.get(
-      `users/${image.user?.username}/photos?client_id=${SECRET_KEY}&per_page=9`
-    )
-      .then((response) => {
-        setRelated([...related, ...response.data]);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    getRelated(image.user?.username).then((res) => {
+      setRelated(res);
+    });
   }, [image.user?.username]);
 
   const dateFormat = new Date(image?.created_at).toLocaleDateString("en-US", {

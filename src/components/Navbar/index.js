@@ -32,6 +32,9 @@ const Navbar = () => {
         <RenderIf isTrue={!matches}>
           <Search />
         </RenderIf>
+        <RenderIf isTrue={matches && isPhotoUrl}>
+          <Search changeStyles />
+        </RenderIf>
       </div>
       <RenderIf isTrue={isPhotoUrl}>
         <Filters />

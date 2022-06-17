@@ -30,31 +30,44 @@
   background-color: #fff;
   border: 1px solid #d1d1d1;
   border-radius: 4px;
-  box-shadow: 0 8px 16px #00000029;
+  box-shadow: 0 1px 10px rgba(0,0,0,0.1);
   display: grid;
   position: absolute;
   top: 10px;
-  right: 15px;
+  right: 10px;
   width: 180px;
   padding: 8px 0;
 }
 
-.active {
-  animation: dropdownAnimation .2s ease-in-out;
+.show {
+  animation: showDropdownAnim .2s linear;
   position: relative;
   z-index: 15;
 }
 
-@keyframes dropdownAnimation {
+@keyframes showDropdownAnim {
   0% {
     transform: scale(0.9);
   }
-
   50% {
     transform: scale(1.1);
   }
-
   100% {
     transform: scale(1);
+  }
+}
+
+.hide {
+  animation: hideDropdownAnim .1s linear;
+}
+
+@keyframes hideDropdownAnim {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
   }
 }

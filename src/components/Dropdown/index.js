@@ -9,26 +9,35 @@ import { useClickAway } from "../../hooks/useClickAway";
 const Dropdown = ({ title, children }) => {
   const dropdown = useRef(null);
   const [isDropdown, setIsDropdown] = useState(false);
+  const [animation, setAnimation] = useState(s.hide);
 
   useClickAway(dropdown, () => {
-    setIsDropdown(false);
+    setAnimation(s.hide);
+
+    setTimeout(() => {
+      setIsDropdown(false);
+    }, 90);
   });
 
-  const handleDropdown = () => {
+  const handleDropdown = async (ms) => {
+    setAnimation(isDropdown ? s.hide : s.show);
+
+    await new Promise((r) => setTimeout(r, ms));
+
     setIsDropdown(!isDropdown);
   };
 
   return (
     <div className={s.dropdown_wrapper} ref={dropdown}>
-      <button className={s.btn_dropdown} onClick={handleDropdown}>
+      <button className={s.btn_dropdown} onClick={() => handleDropdown(90)}>
         <div className={s.title_dropdown}>{title}</div>
         <MdKeyboardArrowDown />
       </button>
-      <div className={isDropdown ? s.active : ""}>
-        <RenderIf isTrue={isDropdown}>
+      <RenderIf isTrue={isDropdown}>
+        <div className={animation}>
           <div className={s.dropdown}>{children}</div>
-        </RenderIf>
-      </div>
+        </div>
+      </RenderIf>
     </div>
   );
 };

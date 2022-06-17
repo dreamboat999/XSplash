@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-import API, { SECRET_KEY } from "../api";
 import ImagesGrid from "../ImagesGrid";
+import { getImages } from "./api";
 
 const Images = () => {
   const [images, setImages] = useState([]);
@@ -10,9 +10,9 @@ const Images = () => {
 
   useEffect(() => {
     if (isFetching) {
-      API.get(`photos?client_id=${SECRET_KEY}&per_page=9&page=${page}`)
+      getImages(page)
         .then((response) => {
-          setImages([...images, ...response.data]);
+          setImages([...images, ...response]);
           setPage((prevState) => prevState + 1);
         })
         .catch((error) => {

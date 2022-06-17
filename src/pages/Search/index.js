@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import s from "./search.module.scss";
 
-import API, { SECRET_KEY } from "../../components/api";
 import ImagesGrid from "../../components/ImagesGrid";
 import PageTitle from "../../utils/pageTitle";
+import { getSearchImages } from "./api";
 
 const Search = () => {
   const { recentArr } = useSelector((state) => state.appState);
@@ -21,11 +21,9 @@ const Search = () => {
 
   useEffect(() => {
     if (isFetching) {
-      API.get(
-        `search/photos?client_id=${SECRET_KEY}&per_page=12&page=${page}&query=${name}`
-      )
+      getSearchImages(page, name)
         .then((response) => {
-          setImages([...images, ...response.data.results]);
+          setImages([...images, ...response.results]);
           setPage((page) => page + 1);
         })
         .catch((error) => {
