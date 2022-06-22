@@ -2,31 +2,18 @@ import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 
 import s from "./imageModal.module.scss";
-import { MdKeyboardArrowDown } from "react-icons/md";
-
-import RenderIf from "../../utils/renderIf";
-import { useClickAway } from "../../hooks/useClickAway";
 import { DownloadImage } from "../../utils/downloadImage";
+import Dropdown from "../Dropdown";
 
 const Download = ({ image }) => {
-  const { imageModal } = useSelector((state) => state.appState);
-  const dropdown = useRef(null);
+  const { imageId } = useSelector((state) => state.appState);
   const [imageSize, setImageSize] = useState({});
-  const [isDropdown, setIsDropdown] = useState(false);
-
-  useClickAway(dropdown, () => {
-    setIsDropdown(false);
-  });
-
-  const handleDropdown = () => {
-    setIsDropdown(!isDropdown);
-  };
 
   const urls = {
-    small: image.urls?.small,
-    medium: image.urls?.regular,
-    large: image.urls?.full,
-    original: image.urls?.raw,
+    small: image?.urls?.small,
+    medium: image?.urls?.regular,
+    large: image?.urls?.full,
+    original: image?.urls?.raw,
   };
 
   useEffect(() => {
@@ -51,7 +38,7 @@ const Download = ({ image }) => {
   }, [image]);
 
   const handleDownload = (e) => {
-    DownloadImage(e, image.user?.username, imageModal.id);
+    DownloadImage(e, image?.user?.username, imageId);
   };
 
   const small = `${imageSize.small?.width} x ${imageSize.small?.height}`;
@@ -60,37 +47,32 @@ const Download = ({ image }) => {
   const original = `${imageSize.original?.width} x ${imageSize.original?.height}`;
 
   return (
-    <div className={s.download} ref={dropdown}>
+    <div className={s.download}>
       <a
-        href={image.urls?.raw}
+        href={image?.urls?.raw}
         className={s.btn_download}
         onClick={handleDownload}
       >
         Download
       </a>
-      <div className={s.dropdown_wrapper}>
-        <button className={s.btn_dropdown} onClick={handleDropdown}>
-          <MdKeyboardArrowDown />
-        </button>
-        <div className={isDropdown ? s.active : ""}>
-          <RenderIf isTrue={isDropdown}>
-            <div className={s.dropdown}>
-              <a href={image.urls?.small} onClick={handleDownload} download>
-                Small ({small})
-              </a>
-              <a href={image.urls?.regular} onClick={handleDownload} download>
-                Medium ({medium})
-              </a>
-              <a href={image.urls?.full} onClick={handleDownload} download>
-                Large ({large})
-              </a>
-              <hr />
-              <a href={image.urls?.raw} onClick={handleDownload} download>
-                Original Size ({original})
-              </a>
-            </div>
-          </RenderIf>
-        </div>
+      <div className={s.download_dropdown}>
+        <Dropdown>
+          <div className={s.download_items}>
+            <a href={image?.urls?.small} onClick={handleDownload} download>
+              Small ({small})
+            </a>
+            <a href={image?.urls?.regular} onClick={handleDownload} download>
+              Medium ({medium})
+            </a>
+            <a href={image?.urls?.full} onClick={handleDownload} download>
+              Large ({large})
+            </a>
+            <hr />
+            <a href={image?.urls?.raw} onClick={handleDownload} download>
+              Original Size ({original})
+            </a>
+          </div>
+        </Dropdown>
       </div>
     </div>
   );

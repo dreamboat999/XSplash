@@ -8,7 +8,7 @@ import { MdOutlineClose } from "react-icons/md";
 import ImagesGrid from "../ImagesGrid";
 import RenderIf from "../../utils/renderIf";
 import { useClickAway } from "../../hooks/useClickAway";
-// import Download from "./download";
+import Download from "./download";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { getImage, getRelated } from "./api";
 
@@ -30,10 +30,10 @@ const ImageModal = () => {
   }, [imageId]);
 
   useEffect(() => {
-    getRelated(image.user?.username).then((res) => {
+    getRelated(image?.user?.username).then((res) => {
       setRelated(res);
     });
-  }, [image.user?.username]);
+  }, [image?.user?.username]);
 
   const dateFormat = new Date(image?.created_at).toLocaleDateString("en-US", {
     month: "long",
@@ -50,15 +50,18 @@ const ImageModal = () => {
         <div className={s.modal_header}>
           <div className={s.user}>
             <div className={s.user_image}>
-              <img src={image.user?.profile_image?.small} alt="profile_image" />
+              <img
+                src={image?.user?.profile_image?.small}
+                alt="profile_image"
+              />
             </div>
-            <div className={s.user_name}>{image.user?.name}</div>
+            <div className={s.user_name}>{image?.user?.name}</div>
           </div>
-          {/*<Download image={image} />*/}
+          <Download image={image} />
         </div>
         <div className={s.modal_image}>
           <LazyLoadImage
-            src={image.urls?.regular}
+            src={image?.urls?.regular}
             alt="description"
             effect="blur"
           />

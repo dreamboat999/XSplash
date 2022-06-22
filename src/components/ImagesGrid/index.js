@@ -32,8 +32,6 @@ const ImagesGrid = ({ setIsFetching, images }) => {
     dispatch(setImageId(id));
   };
 
-  const [test, setTest] = React.useState(false);
-
   return (
     <div className={s.images_grid}>
       <div className="container">
@@ -49,20 +47,19 @@ const ImagesGrid = ({ setIsFetching, images }) => {
                   src={el.urls.regular}
                   alt={el.description}
                   effect="blur"
-                  // placeholderSrc={el.urls.small_s3}
                 />
-                {/*<div className={s.user_info_wrapper}>*/}
-                {/*  <div className={s.user_info}>*/}
-                {/*    <div className={s.user_image_wrapper}>*/}
-                {/*      <LazyLoadImage*/}
-                {/*        // effect="opacity"*/}
-                {/*        src={el.user.profile_image.small}*/}
-                {/*        alt="description"*/}
-                {/*      />*/}
-                {/*    </div>*/}
-                {/*    <h3>{el.user.name}</h3>*/}
-                {/*  </div>*/}
-                {/*</div>*/}
+                <div className={s.user_info_wrapper}>
+                  <div className={s.user_info}>
+                    <div className={s.user_image_wrapper}>
+                      <LazyLoadImage
+                        effect="opacity"
+                        src={el.user.profile_image.small}
+                        alt="description"
+                      />
+                    </div>
+                    <h3>{el.user.name}</h3>
+                  </div>
+                </div>
               </div>
             );
           })}
