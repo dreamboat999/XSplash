@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import s from "./header.module.scss";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
-import Search from "../Search";
+import Search from "../Form";
 import RenderIf from "../../utils/renderIf";
 import { useMatch } from "../../hooks/useMatch";
 import { getBackgroundImage } from "./api";

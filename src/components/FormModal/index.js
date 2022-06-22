@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 
 import s from "./searchModal.module.scss";
 
-const SearchModal = () => {
+const FormModal = () => {
   const dispatch = useDispatch();
   const { recentArr, isSearchModal } = useSelector((state) => state.appState);
   const history = useHistory();
@@ -58,4 +58,4 @@ const SearchModal = () => {
   );
 };
 
-export default SearchModal;
+export default FormModal;

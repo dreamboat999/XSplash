@@ -1,14 +1,18 @@
 import React, { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
-import { setAddRecent, setSearchModal } from "../../store/actions";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setAddRecent,
+  setSearchModal,
+  setSearchValue,
+} from "../../store/actions";
 import { useHistory } from "react-router-dom";
 
 import s from "./search.module.scss";
 import { AiOutlineSearch } from "react-icons/ai";
-import SearchModal from "../SearchModal";
+import SearchModal from "../FormModal";
 import { useClickAway } from "../../hooks/useClickAway";
 
-const Search = ({ changeStyles }) => {
+const Form = ({ changeStyles }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const input = useRef(null);
@@ -60,4 +64,4 @@ const Search = ({ changeStyles }) => {
   );
 };
 
-export default Search;
+export default Form;

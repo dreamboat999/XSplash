@@ -17,7 +17,6 @@ const initialState = {
   isSearchModal: false,
   isImageModal: false,
   imageId: null,
-  searchValue: "",
 };
 
 export const appReducer = (state = initialState, action) => {

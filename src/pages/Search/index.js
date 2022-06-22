@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import s from "./search.module.scss";
@@ -19,19 +19,23 @@ const Search = () => {
     localStorage.setItem("search", JSON.stringify(recentArr));
   }, [recentArr]);
 
+  const fetchSearchImages = () => {
+    getSearchImages(page, name)
+      .then((response) => {
+        setImages([...images, ...response.results]);
+        setPage((page) => page + 1);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setIsFetching(false);
+      });
+  };
+
   useEffect(() => {
     if (isFetching) {
-      getSearchImages(page, name)
-        .then((response) => {
-          setImages([...images, ...response.results]);
-          setPage((page) => page + 1);
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        .finally(() => {
-          setIsFetching(false);
-        });
+      fetchSearchImages();
     }
   }, [isFetching]);
 

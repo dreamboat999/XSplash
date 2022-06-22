@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import s from "./navbar.module.scss";
 import { ReactComponent as Logo } from "../../assets/logo/logo.svg";
 
-import Search from "../Search";
+import Search from "../Form";
 import Filters from "../Filters";
 import RenderIf from "../../utils/renderIf";
 import { useMatch } from "../../hooks/useMatch";
