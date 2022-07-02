@@ -163,8 +163,7 @@
   font-weight: 500;
   color: #767676;
   border: 1px solid #d1d1d1;
-  border-right-color: #fff;
-  border-radius: 4px 0 0 4px;
+  border-radius: 4px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -174,65 +173,5 @@
 
   &:hover {
     border-color: #1d1d1f;
-  }
-}
-
-.download_dropdown {
-  border: 1px solid #d1d1d1;
-  border-radius: 0 4px 4px 0;
-
-  &:hover {
-    border-color: #1d1d1f;
-  }
-}
-
-.btn_dropdown {
-  background: none;
-  border: 1px solid #d1d1d1;
-  border-radius: 0 4px 4px 0;
-  display: flex;
-  align-items: center;
-  height: 100%;
-  transition: all .2s ease;
-
-  &:hover {
-    border-color: #1d1d1f;
-  }
-
-  svg {
-    color: #767676;
-    width: 32px;
-    height: 24px;
-  }
-}
-
-.download_items {
-  background-color: #111;
-  border-radius: 4px;
-  text-align: right;
-  width: 200px;
-  padding: 8px 0;
-
-  hr {
-    background-color: #fff3;
-    border: none;
-    height: 1px;
-  }
-
-  a {
-    color: #fff;
-    font-weight: 500;
-    display: block;
-    gap: 5px;
-    padding: 10px 15px 10px 10px;
-    transition: color .2s ease;
-
-    &:hover {
-      color: #fff9;
-    }
-
-    span {
-      color: #fff9;
-    }
   }
 }

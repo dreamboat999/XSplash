@@ -8,9 +8,9 @@ import { MdOutlineClose } from "react-icons/md";
 import ImagesGrid from "../ImagesGrid";
 import RenderIf from "../../utils/renderIf";
 import { useClickAway } from "../../hooks/useClickAway";
-import Download from "./download";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { getImage, getRelated } from "./api";
+import { DownloadImage } from "../../utils/downloadImage";
 
 const ImageModal = () => {
   const dispatch = useDispatch();
@@ -18,6 +18,7 @@ const ImageModal = () => {
   const modal = useRef(null);
   const [related, setRelated] = useState([]);
   const [image, setImage] = useState({});
+  const username = image?.user?.username;
 
   useClickAway(modal, () => {
     dispatch(setImageModal(false));
@@ -30,16 +31,20 @@ const ImageModal = () => {
   }, [imageId]);
 
   useEffect(() => {
-    getRelated(image?.user?.username).then((res) => {
+    getRelated(username).then((res) => {
       setRelated(res);
     });
-  }, [image?.user?.username]);
+  }, [username]);
 
   const dateFormat = new Date(image?.created_at).toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
     year: "numeric",
   });
+
+  const handleDownload = (e) => {
+    DownloadImage(e, username, imageId);
+  };
 
   return (
     <div className={s.modal_outer}>
@@ -57,7 +62,15 @@ const ImageModal = () => {
             </div>
             <div className={s.user_name}>{image?.user?.name}</div>
           </div>
-          <Download image={image} />
+          <div className={s.download}>
+            <a
+              href={image?.urls?.raw}
+              className={s.btn_download}
+              onClick={handleDownload}
+            >
+              Download
+            </a>
+          </div>
         </div>
         <div className={s.modal_image}>
           <LazyLoadImage
