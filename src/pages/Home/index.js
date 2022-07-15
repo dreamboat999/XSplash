@@ -1,8 +1,8 @@
 import React from "react";
 
-import Header from "../components/Header";
-import Images from "../components/Images";
-import PageTitle from "../utils/pageTitle";
+import Header from "../../components/Header";
+import Images from "../../components/Images";
+import PageTitle from "../../utils/pageTitle";
 
 const Home = () => {
   return (

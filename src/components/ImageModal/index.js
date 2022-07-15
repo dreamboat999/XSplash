@@ -1,33 +1,42 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setImageModal } from "../../store/actions";
+import { setImageId, setImageModal } from "../../store/actions";
 
 import s from "./imageModal.module.scss";
 import { MdOutlineClose } from "react-icons/md";
 
-import ImagesGrid from "../ImagesGrid";
-import RenderIf from "../../utils/renderIf";
-import { useClickAway } from "../../hooks/useClickAway";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 import { getImage, getRelated } from "./api";
-import { DownloadImage } from "../../utils/downloadImage";
+import ImagesGrid from "../ImagesGrid";
+import { useClickAway } from "../../hooks/useClickAway";
+import DownloadImage from "../../utils/downloadImage";
+import RenderIf from "../../utils/renderIf";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const ImageModal = () => {
   const dispatch = useDispatch();
-  const { imageId } = useSelector((state) => state.appState);
-  const modal = useRef(null);
+  const { imageId, isImageModal } = useSelector((state) => state.appState);
+  const modalOuter = useRef(null);
+  const modalInner = useRef(null);
   const [related, setRelated] = useState([]);
   const [image, setImage] = useState({});
   const username = image?.user?.username;
 
-  useClickAway(modal, () => {
+  const handleClose = () => {
     dispatch(setImageModal(false));
+    dispatch(setImageId(null));
+  };
+
+  useClickAway(modalInner, () => {
+    handleClose();
   });
 
   useEffect(() => {
     getImage(imageId).then((res) => {
       setImage(res);
     });
+    return () => {
+      setImage({});
+    };
   }, [imageId]);
 
   useEffect(() => {
@@ -46,12 +55,27 @@ const ImageModal = () => {
     DownloadImage(e, username, imageId);
   };
 
+  const formatNumber = (num) => {
+    return new Intl.NumberFormat("en-US").format(num);
+  };
+
+  useEffect(() => {
+    if (isImageModal) {
+      if (imageId) {
+        modalOuter.current.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      }
+    }
+  }, [imageId, isImageModal]);
+
   return (
-    <div className={s.modal_outer}>
-      <button className={s.btn_close}>
+    <div className={s.modal_outer} ref={modalOuter}>
+      <button className={s.btn_close} onClick={handleClose}>
         <MdOutlineClose />
       </button>
-      <div className={s.modal_inner} ref={modal}>
+      <div className={s.modal_inner} ref={modalInner}>
         <div className={s.modal_header}>
           <div className={s.user}>
             <div className={s.user_image}>
@@ -84,7 +108,7 @@ const ImageModal = () => {
             <h3>Views</h3>
             <span>
               <RenderIf isTrue={image?.views} isFalse="--">
-                {new Intl.NumberFormat("en-US").format(image?.views)}
+                {formatNumber(image?.views)}
               </RenderIf>
             </span>
           </div>
@@ -92,7 +116,7 @@ const ImageModal = () => {
             <h3>Downloads</h3>
             <span>
               <RenderIf isTrue={image?.downloads} isFalse="--">
-                {new Intl.NumberFormat("en-US").format(image?.downloads)}
+                {formatNumber(image?.downloads)}
               </RenderIf>
             </span>
           </div>

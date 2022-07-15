@@ -16,6 +16,7 @@ const Search = () => {
   const [page, setPage] = useState(1);
   const [isFetching, setIsFetching] = useState(true);
   const [loading, setLoading] = useState(false);
+  const defaultPage = 1;
 
   useEffect(() => {
     localStorage.setItem("search", JSON.stringify(recentArr));
@@ -24,10 +25,9 @@ const Search = () => {
   useEffect(() => {
     if (orientation) {
       setLoading(true);
-      getSearchImages(page, name, orientation)
+      getSearchImages(defaultPage, name, orientation)
         .then((response) => {
           setImages(response.results);
-          setPage(1);
         })
         .catch((error) => {
           console.log(error);

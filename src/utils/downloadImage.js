@@ -1,4 +1,4 @@
-export const DownloadImage = (e, username, id) => {
+const DownloadImage = (e, username, id) => {
   e.preventDefault();
 
   fetch(e.target.href)
@@ -16,3 +16,5 @@ export const DownloadImage = (e, username, id) => {
       console.log(error);
     });
 };
+
+export default DownloadImage;

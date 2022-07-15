@@ -12,7 +12,7 @@ const ImagesGrid = ({ setIsFetching, images }) => {
 
   useEffect(() => {
     document.addEventListener("scroll", handleScroll);
-    return function () {
+    return () => {
       document.removeEventListener("scroll", handleScroll);
     };
   }, []);

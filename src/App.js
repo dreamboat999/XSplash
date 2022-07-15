@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import Home from "./pages";
+import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import Search from "./pages/Search";
 import ImageModal from "./components/ImageModal";
