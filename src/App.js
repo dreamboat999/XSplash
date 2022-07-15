@@ -20,7 +20,7 @@ const App = () => {
   }, [isImageModal]);
 
   return (
-    <div className="main">
+    <main>
       <Router>
         <Navbar />
         <Switch>
@@ -33,7 +33,7 @@ const App = () => {
       <RenderIf isTrue={isImageModal}>
         <ImageModal />
       </RenderIf>
-    </div>
+    </main>
   );
 };
 

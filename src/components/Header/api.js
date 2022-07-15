@@ -1,5 +1,5 @@
-import instance from "../axios";
-import { SECRET_KEY } from "../axios";
+import instance from "../../axios";
+import { SECRET_KEY } from "../../utils/constants";
 
 export const getBackgroundImage = () => {
   return instance(true)

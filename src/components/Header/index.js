@@ -38,7 +38,9 @@ const Header = () => {
             </div>
             <div className={s.user}>
               <h6>Photo of the Day by</h6>
-              <p>{photoOfTheDay.user?.username}</p>
+              <RenderIf isTrue={photoOfTheDay.user?.username} isFalse="--">
+                <p>{photoOfTheDay.user?.username}</p>
+              </RenderIf>
             </div>
           </div>
         </div>

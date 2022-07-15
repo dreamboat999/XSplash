@@ -1,4 +1,5 @@
-import instance, { SECRET_KEY } from "../axios";
+import instance from "../../axios";
+import { SECRET_KEY } from "../../utils/constants";
 
 export const getImage = (id) => {
   return instance(true)

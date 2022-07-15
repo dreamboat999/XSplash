@@ -1,4 +1,5 @@
-import instance, { SECRET_KEY } from "../../components/axios";
+import instance from "../../axios";
+import { SECRET_KEY } from "../../utils/constants";
 
 export const getSearchImages = (page, name) => {
   return instance()
