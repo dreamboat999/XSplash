@@ -4,6 +4,8 @@ import {
   SET_SEARCH_MODAL,
   SET_IMAGE_MODAL,
   SET_IMAGE_ID,
+  SET_ORIENTATION,
+  SET_DROPDOWN,
 } from "./actions";
 
 const recentFromLocalStorage = JSON.parse(
@@ -17,6 +19,8 @@ const initialState = {
   isSearchModal: false,
   isImageModal: false,
   imageId: null,
+  isDropdown: false,
+  orientation: "",
 };
 
 export const appReducer = (state = initialState, action) => {
@@ -45,6 +49,18 @@ export const appReducer = (state = initialState, action) => {
       return {
         ...state,
         imageId: action.payload,
+      };
+
+    case SET_ORIENTATION:
+      return {
+        ...state,
+        orientation: action.payload,
+      };
+
+    case SET_DROPDOWN:
+      return {
+        ...state,
+        isDropdown: action.payload,
       };
     default:
       return state;
