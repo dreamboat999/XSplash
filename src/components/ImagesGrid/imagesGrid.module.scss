@@ -14,6 +14,7 @@
     .user_info_wrapper {
       opacity: 1;
       visibility: visible;
+      z-index: 30;
     }
   }
 
@@ -30,7 +31,7 @@
 }
 
 .user_info_wrapper {
-  background-color: rgba(0,0,0,0.3);
+  background-color: rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: flex-end;
   position: absolute;
@@ -44,11 +45,12 @@
   transition: all 0.3s ease;
 
   @media (max-width: 768px) {
-    .user_info_wrapper {
-      background-color: unset;
-      opacity: 1;
-      visibility: visible;
-    }
+    background-color: unset;
+    position: static;
+    height: auto;
+    opacity: 1;
+    visibility: visible;
+    cursor: default;
   }
 }
 
@@ -60,12 +62,9 @@
   h3 {
     color: #fff;
     font-weight: 500;
-  }
 
-  @media (max-width: 768px) {
-    .user_info {
-      opacity: 1;
-      visibility: visible;
+    @media (max-width: 768px) {
+      color: #1d1d1f;
     }
   }
 }

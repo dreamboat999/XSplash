@@ -10,7 +10,7 @@ import PageTitle from "../../utils/pageTitle";
 import LinearProgress from "../../components/LinearProgress";
 
 const Search = () => {
-  const { recentArr, orientation, value } = useSelector(
+  const { recentArr, orientation, sort, value } = useSelector(
     (state) => state.appState
   );
   const { name } = useParams();
@@ -31,9 +31,9 @@ const Search = () => {
   }, [value]);
 
   useEffect(() => {
-    if (orientation) {
+    if (orientation || sort) {
       setLoading(true);
-      getSearchImages(defaultPage, name, orientation)
+      getSearchImages(defaultPage, name, orientation, sort)
         .then((response) => {
           setImages(response.results);
         })
@@ -44,11 +44,11 @@ const Search = () => {
           setLoading(false);
         });
     }
-  }, [orientation]);
+  }, [orientation, sort]);
 
   useEffect(() => {
     if (isFetching) {
-      getSearchImages(page, name, orientation)
+      getSearchImages(page, name, orientation, sort)
         .then((response) => {
           setImages([...images, ...response.results]);
           setPage((page) => page + 1);

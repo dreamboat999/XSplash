@@ -43,11 +43,6 @@ const ImagesGrid = ({ setIsFetching, images, loading }) => {
                 className={s.image}
                 onClick={() => handleOpenModal(el.id)}
               >
-                <LazyLoadImage
-                  src={el.urls.regular}
-                  alt={el.description}
-                  effect="blur"
-                />
                 <div className={s.user_info_wrapper}>
                   <div className={s.user_info}>
                     <div className={s.user_image_wrapper}>
@@ -60,6 +55,11 @@ const ImagesGrid = ({ setIsFetching, images, loading }) => {
                     <h3>{el.user.name}</h3>
                   </div>
                 </div>
+                <LazyLoadImage
+                  src={el.urls.regular}
+                  alt={el.description}
+                  effect="blur"
+                />
               </div>
             );
           })}

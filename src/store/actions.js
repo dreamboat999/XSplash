@@ -5,7 +5,7 @@ export const SET_IMAGE_MODAL = "setImageModal";
 export const SET_IMAGE_ID = "setImageData";
 export const SET_VALUE = "setValue";
 export const SET_ORIENTATION = "setOrientation";
-export const SET_DROPDOWN = "setDropdown";
+export const SET_SORT = "setSort";
 
 export const setAddRecent = (payload) => {
   return {
@@ -55,9 +55,9 @@ export const setOrientation = (payload) => {
   };
 };
 
-export const setDropdown = (payload) => {
+export const setSort = (payload) => {
   return {
-    type: SET_DROPDOWN,
+    type: SET_SORT,
     payload,
   };
 };

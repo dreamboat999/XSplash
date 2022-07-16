@@ -8,27 +8,3 @@
     display: none;
   }
 }
-
-.items {
-  display: grid;
-  gap: 5px;
-  width: 180px;
-  padding: 8px 0;
-
-  button {
-    color: #767676;
-    outline: none;
-    background: none;
-    text-align: left;
-    padding: 5px 15px;
-    transition: background-color .2s linear;
-
-    &:hover {
-      background-color: #f5f5f5;
-    }
-  }
-}
-
-.btn_color {
-  color: #1d1d1f !important;
-}

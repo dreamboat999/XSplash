@@ -6,23 +6,21 @@ import {
   SET_IMAGE_ID,
   SET_VALUE,
   SET_ORIENTATION,
-  SET_DROPDOWN,
+  SET_SORT,
 } from "./actions";
 
 const recentFromLocalStorage = JSON.parse(
   localStorage.getItem("search") || "[]"
 );
 
-const newArr = [...new Set(recentFromLocalStorage)];
-
 const initialState = {
-  recentArr: newArr,
+  recentArr: recentFromLocalStorage,
   isSearchModal: false,
   isImageModal: false,
   imageId: null,
   value: "",
-  isDropdown: false,
   orientation: "",
+  sort: "relevant",
 };
 
 export const appReducer = (state = initialState, action) => {
@@ -62,10 +60,10 @@ export const appReducer = (state = initialState, action) => {
         ...state,
         orientation: action.payload,
       };
-    case SET_DROPDOWN:
+    case SET_SORT:
       return {
         ...state,
-        isDropdown: action.payload,
+        sort: action.payload,
       };
     default:
       return state;

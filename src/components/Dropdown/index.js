@@ -1,33 +1,33 @@
 import React, { useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 import s from "./dropdown.module.scss";
 import { MdKeyboardArrowDown } from "react-icons/md";
 
 import RenderIf from "../../utils/renderIf";
 import { useClickAway } from "../../hooks/useClickAway";
-import { setDropdown } from "../../store/actions";
 
-const Dropdown = ({ title, children }) => {
-  const dispatch = useDispatch();
-  const { isDropdown } = useSelector((state) => state.appState);
+const Dropdown = ({ title, data, value, setValue }) => {
   const dropdown = useRef(null);
   const [animation, setAnimation] = useState(s.hide);
+  const [isOpen, setIsOpen] = useState(false);
 
   useClickAway(dropdown, () => {
     setAnimation(s.hide);
 
     setTimeout(() => {
-      dispatch(setDropdown(false));
+      setIsOpen(false);
     }, 90);
   });
 
   const handleDropdown = async (ms) => {
-    setAnimation(isDropdown ? s.hide : s.show);
-
+    setAnimation(isOpen ? s.hide : s.show);
     await new Promise((r) => setTimeout(r, ms));
+    setIsOpen(!isOpen);
+  };
 
-    dispatch(setDropdown(!isDropdown));
+  const handleClick = (el) => {
+    setValue(el);
+    setIsOpen(false);
   };
 
   return (
@@ -36,9 +36,23 @@ const Dropdown = ({ title, children }) => {
         <div className={s.title_dropdown}>{title}</div>
         <MdKeyboardArrowDown />
       </button>
-      <RenderIf isTrue={isDropdown}>
+      <RenderIf isTrue={isOpen}>
         <div className={animation}>
-          <div className={s.dropdown}>{children}</div>
+          <div className={s.dropdown}>
+            <div className={s.item}>
+              {data?.map((el, i) => {
+                return (
+                  <button
+                    key={i}
+                    onClick={() => handleClick(el.value)}
+                    className={value === el.value ? s.btn_color : ""}
+                  >
+                    {el.title}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </RenderIf>
     </div>

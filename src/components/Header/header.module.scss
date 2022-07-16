@@ -1,7 +1,6 @@
 .header_outer {
   color: #fff;
   position: relative;
-  //margin-bottom: 24px;
 
   @media (max-width: 768px) {
     padding: 0 20px;
@@ -37,7 +36,7 @@
 }
 
 .header_image {
-  background-color: #1d1d1f;;
+  background-color: #1d1d1f;
   position: absolute;
   top: 0;
   left: 0;
@@ -77,11 +76,6 @@
   left: 0;
   padding: 20px;
   z-index: 5;
-
-  @media (max-width: 425px) {
-    flex-direction: column;
-    align-items: flex-start;
-  }
 
   h6 {
     font-size: 14px;

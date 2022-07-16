@@ -1,46 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 import s from "./filters.module.scss";
 import Dropdown from "../Dropdown";
-import { setDropdown, setOrientation } from "../../store/actions";
-import { useDispatch, useSelector } from "react-redux";
+import { setOrientation, setSort } from "../../store/actions";
 
-const buttons = [
+const orientationButtons = [
   { title: "Landscape", value: "landscape" },
   { title: "Portrait", value: "portrait" },
   { title: "Square", value: "squarish" },
 ];
 
+const sortButtons = [
+  { title: "Relevance", value: "relevant" },
+  { title: "Newest", value: "latest" },
+];
+
 const Filters = () => {
   const dispatch = useDispatch();
-  const { orientation } = useSelector((state) => state.appState);
+  const [orientationValue, setOrientationValue] = useState("");
+  const [sortValue, setSortValue] = useState("relevant");
 
-  const handleClick = (value) => {
-    dispatch(setOrientation(value));
-    dispatch(setDropdown(false));
-  };
+  const orientationTitle = orientationButtons.find(
+    (el) => orientationValue === el.value
+  );
+  const sortTitle = sortButtons.find((el) => sortValue === el.value);
 
-  const orientationTitle = buttons.find((el) => orientation === el.value);
+  useEffect(() => {
+    dispatch(setOrientation(orientationValue));
+    dispatch(setSort(sortValue));
+  }, [orientationValue, sortValue]);
 
   return (
     <div className={s.filters}>
       <Dropdown
-        title={orientation ? orientationTitle?.title : "Any orientation"}
-      >
-        <div className={s.items}>
-          {buttons.map((el, i) => {
-            return (
-              <button
-                key={i}
-                onClick={() => handleClick(el.value)}
-                className={orientation === el.value ? s.btn_color : ""}
-              >
-                {el.title}
-              </button>
-            );
-          })}
-        </div>
-      </Dropdown>
+        title={orientationValue ? orientationTitle?.title : "Any orientation"}
+        data={orientationButtons}
+        value={orientationValue}
+        setValue={setOrientationValue}
+      />
+      <Dropdown
+        title={sortTitle?.title}
+        data={sortButtons}
+        value={sortValue}
+        setValue={setSortValue}
+      />
     </div>
   );
 };
