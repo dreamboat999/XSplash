@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setClearRecent, setSearchModal } from "../../store/actions";
+import { setClearRecent, setSearchModal, setValue } from "../../store/actions";
 import { useHistory } from "react-router-dom";
 
 import s from "./searchModal.module.scss";
@@ -24,6 +24,7 @@ const FormModal = () => {
     history.push({
       pathname: `/photos/${value}`,
     });
+    dispatch(setValue(value));
     dispatch(setSearchModal(false));
   };
 

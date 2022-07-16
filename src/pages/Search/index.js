@@ -10,7 +10,9 @@ import PageTitle from "../../utils/pageTitle";
 import LinearProgress from "../../components/LinearProgress";
 
 const Search = () => {
-  const { recentArr, orientation } = useSelector((state) => state.appState);
+  const { recentArr, orientation, value } = useSelector(
+    (state) => state.appState
+  );
   const { name } = useParams();
   const [images, setImages] = useState([]);
   const [page, setPage] = useState(1);
@@ -21,6 +23,12 @@ const Search = () => {
   useEffect(() => {
     localStorage.setItem("search", JSON.stringify(recentArr));
   }, [recentArr]);
+
+  useEffect(() => {
+    if (value) {
+      window.location.reload();
+    }
+  }, [value]);
 
   useEffect(() => {
     if (orientation) {
@@ -64,7 +72,11 @@ const Search = () => {
         </div>
       </div>
       <LinearProgress loading={loading}>
-        <ImagesGrid images={images} setIsFetching={setIsFetching} />
+        <ImagesGrid
+          images={images}
+          setIsFetching={setIsFetching}
+          loading={loading}
+        />
       </LinearProgress>
     </PageTitle>
   );

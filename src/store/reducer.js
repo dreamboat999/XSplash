@@ -4,6 +4,7 @@ import {
   SET_SEARCH_MODAL,
   SET_IMAGE_MODAL,
   SET_IMAGE_ID,
+  SET_VALUE,
   SET_ORIENTATION,
   SET_DROPDOWN,
 } from "./actions";
@@ -19,6 +20,7 @@ const initialState = {
   isSearchModal: false,
   isImageModal: false,
   imageId: null,
+  value: "",
   isDropdown: false,
   orientation: "",
 };
@@ -50,13 +52,16 @@ export const appReducer = (state = initialState, action) => {
         ...state,
         imageId: action.payload,
       };
-
+    case SET_VALUE:
+      return {
+        ...state,
+        value: action.payload,
+      };
     case SET_ORIENTATION:
       return {
         ...state,
         orientation: action.payload,
       };
-
     case SET_DROPDOWN:
       return {
         ...state,
