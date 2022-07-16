@@ -44,7 +44,13 @@ const ImagesGrid = ({ setIsFetching, images, loading }) => {
                 onClick={() => handleOpenModal(el.id)}
               >
                 <div className={s.user_info_wrapper}>
-                  <div className={s.user_info}>
+                  <div
+                    className={s.user_info}
+                    onClick={(e) => {
+                      console.log("click");
+                      e.stopPropagation();
+                    }}
+                  >
                     <div className={s.user_image_wrapper}>
                       <LazyLoadImage
                         effect="opacity"
