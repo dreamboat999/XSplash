@@ -72,11 +72,7 @@ const Search = () => {
         </div>
       </div>
       <LinearProgress loading={loading}>
-        <ImagesGrid
-          images={images}
-          setIsFetching={setIsFetching}
-          loading={loading}
-        />
+        <ImagesGrid images={images} setIsFetching={setIsFetching} />
       </LinearProgress>
     </PageTitle>
   );

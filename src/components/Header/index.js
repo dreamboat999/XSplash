@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import s from "./header.module.scss";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
-import Search from "../Form";
+import Form from "../Form";
 import RenderIf from "../../utils/renderIf";
 import { useMatch } from "../../hooks/useMatch";
 import { getBackgroundImage } from "./api";
@@ -33,7 +33,7 @@ const Header = () => {
             <h1>Unsplash</h1>
             <div className={s.search_wrapper}>
               <RenderIf isTrue={matches}>
-                <Search />
+                <Form />
               </RenderIf>
             </div>
             <div className={s.user}>

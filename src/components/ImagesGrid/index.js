@@ -7,7 +7,7 @@ import ImagesMasonry from "../ImagesMasonry";
 
 import s from "./imagesGrid.module.scss";
 
-const ImagesGrid = ({ setIsFetching, images, loading }) => {
+const ImagesGrid = ({ setIsFetching, images }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {

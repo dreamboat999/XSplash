@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 
 import s from "./dropdown.module.scss";
-import { MdKeyboardArrowDown } from "react-icons/md";
+import { MdKeyboardArrowDown, MdCheck } from "react-icons/md";
 
 import RenderIf from "../../utils/renderIf";
 import { useClickAway } from "../../hooks/useClickAway";
@@ -45,9 +45,16 @@ const Dropdown = ({ title, data, value, setValue }) => {
                   <button
                     key={i}
                     onClick={() => handleClick(el.value)}
-                    className={value === el.value ? s.btn_color : ""}
+                    className={
+                      value === el.value ? `${s.btn} ${s.selected}` : s.btn
+                    }
                   >
-                    {el.title}
+                    <RenderIf isTrue={value === el.value}>
+                      <div className={s.icon}>
+                        <MdCheck />
+                      </div>
+                    </RenderIf>
+                    <div>{el.title}</div>
                   </button>
                 );
               })}

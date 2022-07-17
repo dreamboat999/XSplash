@@ -92,6 +92,14 @@
   }
 }
 
-.btn_color {
+.btn {
+  display: flex;
+}
+
+.selected {
   color: #1d1d1f !important;
+}
+
+.icon {
+  margin-right: 5px;
 }
