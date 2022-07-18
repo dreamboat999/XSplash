@@ -6,6 +6,7 @@ import DesktopFilters from "./DesktopFilters";
 import MobileFilters from "./MobileFilters";
 import RenderIf from "../../utils/renderIf";
 import { setOrientation, setSort } from "../../store/actions";
+import { useMatch } from "../../hooks/useMatch";
 
 export const orientationButtons = [
   { title: "Any Orientation", value: "" },
@@ -24,6 +25,7 @@ const Filters = () => {
   const [openModal, setOpenModal] = useState(false);
   const [orientationValue, setOrientationValue] = useState("");
   const [sortValue, setSortValue] = useState("relevant");
+  const match = useMatch();
 
   useEffect(() => {
     dispatch(setOrientation(orientationValue));
@@ -37,6 +39,12 @@ const Filters = () => {
       document.querySelector("body").className = "";
     }
   }, [openModal]);
+
+  useEffect(() => {
+    if (match) {
+      setOpenModal(false);
+    }
+  }, [match]);
 
   const handleOpenModal = () => {
     setOpenModal(true);

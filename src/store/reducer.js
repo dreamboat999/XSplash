@@ -1,7 +1,7 @@
 import {
   SET_ADD_RECENT,
   SET_CLEAR_RECENT,
-  SET_SEARCH_MODAL,
+  SET_FORM_PANEL,
   SET_IMAGE_MODAL,
   SET_IMAGE_ID,
   SET_VALUE,
@@ -15,7 +15,7 @@ const recentFromLocalStorage = JSON.parse(
 
 const initialState = {
   recentArr: recentFromLocalStorage,
-  isSearchModal: false,
+  isFormPanel: false,
   isImageModal: false,
   imageId: null,
   value: "",
@@ -35,10 +35,10 @@ export const appReducer = (state = initialState, action) => {
         ...state,
         recentArr: [],
       };
-    case SET_SEARCH_MODAL:
+    case SET_FORM_PANEL:
       return {
         ...state,
-        isSearchModal: action.payload,
+        isFormPanel: action.payload,
       };
     case SET_IMAGE_MODAL:
       return {

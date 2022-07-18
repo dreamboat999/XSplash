@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { setAddRecent, setSearchModal } from "../../store/actions";
+import { setAddRecent, setFormPanel } from "../../store/actions";
 import { useHistory } from "react-router-dom";
 
 import s from "./search.module.scss";
@@ -15,7 +15,7 @@ const Form = ({ changeStyles }) => {
   const [value, setValue] = useState("");
 
   useClickAway(input, () => {
-    dispatch(setSearchModal(false));
+    dispatch(setFormPanel(false));
   });
 
   const handleChange = (e) => {
@@ -26,12 +26,12 @@ const Form = ({ changeStyles }) => {
     if (value) {
       dispatch(setAddRecent(value));
       history.push(`/photos/${value}`);
-      dispatch(setSearchModal(false));
+      dispatch(setFormPanel(false));
     }
   };
 
   const handleOpenModal = () => {
-    dispatch(setSearchModal(true));
+    dispatch(setFormPanel(true));
   };
 
   return (

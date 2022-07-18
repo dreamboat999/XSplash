@@ -36,12 +36,15 @@ const Header = () => {
                 <Form />
               </RenderIf>
             </div>
-            <div className={s.user}>
-              <h6>Photo of the Day by</h6>
-              <RenderIf isTrue={photoOfTheDay.user?.username} isFalse="--">
-                <p>{photoOfTheDay.user?.username}</p>
-              </RenderIf>
-            </div>
+            <RenderIf isTrue={photoOfTheDay.user?.username}>
+              <div className={s.user}>
+                <h6>
+                  Photo of the Day by{" "}
+                  <span>{photoOfTheDay.user?.username}</span>
+                </h6>
+                {/*<p>{photoOfTheDay.user?.username}</p>*/}
+              </div>
+            </RenderIf>
           </div>
         </div>
       </div>

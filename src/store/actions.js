@@ -1,6 +1,6 @@
 export const SET_ADD_RECENT = "setAddRecent";
 export const SET_CLEAR_RECENT = "setClearRecent";
-export const SET_SEARCH_MODAL = "setSearchModal";
+export const SET_FORM_PANEL = "setFormPanel";
 export const SET_IMAGE_MODAL = "setImageModal";
 export const SET_IMAGE_ID = "setImageData";
 export const SET_VALUE = "setValue";
@@ -20,9 +20,9 @@ export const setClearRecent = () => {
   };
 };
 
-export const setSearchModal = (payload) => {
+export const setFormPanel = (payload) => {
   return {
-    type: SET_SEARCH_MODAL,
+    type: SET_FORM_PANEL,
     payload,
   };
 };

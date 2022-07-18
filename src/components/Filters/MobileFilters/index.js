@@ -5,7 +5,6 @@ import { MdCheck, MdOutlineClose } from "react-icons/md";
 import { orientationButtons, sortButtons } from "../index";
 import RenderIf from "../../../utils/renderIf";
 import { useClickAway } from "../../../hooks/useClickAway";
-import { setSearchModal } from "../../../store/actions";
 
 const Option = ({ data, value, setValue }) => {
   const handleClick = (el) => {

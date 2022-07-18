@@ -10,13 +10,6 @@ import s from "./imagesGrid.module.scss";
 const ImagesGrid = ({ setIsFetching, images }) => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    document.addEventListener("scroll", handleScroll);
-    return () => {
-      document.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
   const handleScroll = (e) => {
     const scrollHeight = e.target.documentElement.scrollHeight;
     const scrollTop = e.target.documentElement.scrollTop;
@@ -26,6 +19,13 @@ const ImagesGrid = ({ setIsFetching, images }) => {
       setIsFetching(true);
     }
   };
+
+  useEffect(() => {
+    document.addEventListener("scroll", handleScroll);
+    return () => {
+      document.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const handleOpenModal = (id) => {
     dispatch(setImageModal(true));

@@ -1,7 +1,7 @@
 import React from "react";
 
 import s from "../filters.module.scss";
-import { IoOptions } from "react-icons/io5";
+import { IoMdOptions } from "react-icons/io";
 import Dropdown from "../../Dropdown";
 import { useMatch } from "../../../hooks/useMatch";
 import { orientationButtons, sortButtons } from "../index";
@@ -40,7 +40,7 @@ const DesktopFilters = ({
   } else {
     return (
       <button className={s.filters_button} onClick={handleOpenModal}>
-        <IoOptions />
+        <IoMdOptions />
       </button>
     );
   }
