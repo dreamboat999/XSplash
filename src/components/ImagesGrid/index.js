@@ -6,8 +6,9 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import ImagesMasonry from "../ImagesMasonry";
 
 import s from "./imagesGrid.module.scss";
+import RenderIf from "../../utils/renderIf";
 
-const ImagesGrid = ({ setIsFetching, images }) => {
+const ImagesGrid = ({ setIsFetching, images, name }) => {
   const dispatch = useDispatch();
 
   const handleScroll = (e) => {
@@ -35,6 +36,9 @@ const ImagesGrid = ({ setIsFetching, images }) => {
   return (
     <div className={s.images_grid}>
       <div className="container">
+        <RenderIf isTrue={name}>
+          <h1 className={s.name}>{name ? name : "Loading"}</h1>
+        </RenderIf>
         <ImagesMasonry>
           {images.map((el, i) => {
             return (

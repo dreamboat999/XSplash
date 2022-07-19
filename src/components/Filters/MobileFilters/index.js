@@ -1,10 +1,9 @@
-import React, { useRef } from "react";
+import React from "react";
 
 import s from "./mobilFilters.module.scss";
 import { MdCheck, MdOutlineClose } from "react-icons/md";
 import { orientationButtons, sortButtons } from "../index";
 import RenderIf from "../../../utils/renderIf";
-import { useClickAway } from "../../../hooks/useClickAway";
 
 const Option = ({ data, value, setValue }) => {
   const handleClick = (el) => {
@@ -39,32 +38,27 @@ const Option = ({ data, value, setValue }) => {
 };
 
 const MobileFilters = ({
-  orientationValue,
-  setOrientationValue,
-  sortValue,
-  setSortValue,
-  setOpenModal,
+  orientation,
+  setOrientation,
+  sort,
+  setSort,
+  setIsOpenMobileFilters,
 }) => {
-  const filters = useRef();
-  useClickAway(filters, () => {
-    setOpenModal(false);
-  });
-
-  const sortTitle = sortButtons.find((el) => sortValue === el.value);
+  const sortTitle = sortButtons.find((el) => sort === el.value);
 
   const handleClose = () => {
-    setOpenModal(false);
+    setIsOpenMobileFilters(false);
   };
 
   const handleClear = () => {
-    setOrientationValue("");
-    setSortValue("relevant");
-    setOpenModal(false);
+    setOrientation("");
+    setSort("relevant");
+    setIsOpenMobileFilters(false);
   };
 
   return (
     <div className={s.modal_outer}>
-      <div className={s.modal_inner} ref={filters}>
+      <div className={s.modal_inner}>
         <div className={s.modal_head}>
           <h2>Filters</h2>
           <button onClick={handleClose}>
@@ -76,22 +70,18 @@ const MobileFilters = ({
             <h3>Orientation</h3>
             <Option
               data={orientationButtons}
-              value={orientationValue}
-              setValue={setOrientationValue}
+              value={orientation}
+              setValue={setOrientation}
             />
           </div>
           <div className={s.item}>
             <h3>Sort by {sortTitle.title}</h3>
-            <Option
-              data={sortButtons}
-              value={sortValue}
-              setValue={setSortValue}
-            />
+            <Option data={sortButtons} value={sort} setValue={setSort} />
           </div>
         </div>
         <div className={s.footer}>
           <button
-            disabled={!orientationValue && sortValue === "relevant"}
+            disabled={!orientation && sort === "relevant"}
             className={s.clear_btn}
             onClick={handleClear}
           >

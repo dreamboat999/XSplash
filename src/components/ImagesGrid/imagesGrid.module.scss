@@ -2,6 +2,16 @@
   padding: 24px 0;
 }
 
+.name {
+  font-size: 48px;
+  text-transform: capitalize;
+  margin-bottom: 20px;
+
+  @media (max-width: 768px) {
+    padding: 0 20px;
+  }
+}
+
 .image {
   display: block;
   position: relative;

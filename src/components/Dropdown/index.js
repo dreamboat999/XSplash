@@ -21,7 +21,7 @@ const Dropdown = ({ title, data, value, setValue }) => {
 
   const handleDropdown = async (ms) => {
     setAnimation(isOpen ? s.hide : s.show);
-    await new Promise((r) => setTimeout(r, ms));
+    await new Promise((resp) => setTimeout(resp, ms));
     setIsOpen(!isOpen);
   };
 
@@ -31,26 +31,28 @@ const Dropdown = ({ title, data, value, setValue }) => {
   };
 
   return (
-    <div className={s.dropdown_wrapper} ref={dropdown}>
-      <button className={s.btn_dropdown} onClick={() => handleDropdown(90)}>
-        <div className={s.title_dropdown}>{title}</div>
+    <div className={s.dropdown_outer} ref={dropdown}>
+      <button className={s.dropdown_button} onClick={() => handleDropdown(90)}>
+        <div className={s.dropdown_title}>{title}</div>
         <MdKeyboardArrowDown />
       </button>
       <RenderIf isTrue={isOpen}>
         <div className={animation}>
-          <div className={s.dropdown}>
-            <div className={s.item}>
+          <div className={s.dropdown_inner}>
+            <div className={s.content}>
               {data?.map((el, i) => {
                 return (
                   <button
                     key={i}
                     onClick={() => handleClick(el.value)}
                     className={
-                      value === el.value ? `${s.btn} ${s.selected}` : s.btn
+                      value === el.value
+                        ? `${s.content_button} ${s.selected}`
+                        : s.content_button
                     }
                   >
                     <RenderIf isTrue={value === el.value}>
-                      <div className={s.icon}>
+                      <div className={s.content_icon}>
                         <MdCheck />
                       </div>
                     </RenderIf>

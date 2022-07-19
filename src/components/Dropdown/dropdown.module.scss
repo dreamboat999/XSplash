@@ -1,32 +1,31 @@
-.dropdown_wrapper {
+.dropdown_outer {
   position: relative;
   display: inline-block
 }
 
-.btn_dropdown {
+.dropdown_button {
+  color: #767676;
   background: none;
   display: flex;
   align-items: center;
   height: 100%;
-  transition: all .2s ease;
+  transition: color .2s ease;
 
   &:hover {
-    border-color: #1d1d1f;
+    color: #1d1d1f;
   }
 
   svg {
-    color: #767676;
     width: 32px;
     height: 24px;
   }
 }
 
-.title_dropdown {
-  font-size: 16px;
-  color: #767676;
+.dropdown_title {
+  font-size: 14px;
 }
 
-.dropdown {
+.dropdown_inner {
   background-color: #fff;
   border: 1px solid #d1d1d1;
   border-radius: 4px;
@@ -35,8 +34,6 @@
   position: absolute;
   top: 10px;
   right: 10px;
-  //width: 180px;
-  //padding: 8px 0;
 }
 
 .show {
@@ -72,34 +69,32 @@
   }
 }
 
-.item {
+.content {
   display: grid;
   gap: 5px;
   width: 180px;
   padding: 8px 0;
+}
 
-  button {
-    color: #767676;
-    outline: none;
-    background: none;
-    text-align: left;
-    padding: 5px 15px;
-    transition: background-color .2s linear;
+.content_button {
+  color: #767676;
+  outline: none;
+  background: none;
+  text-align: left;
+  display: flex;
+  padding: 5px 15px;
+  transition: all .3s ease;
 
-    &:hover {
-      background-color: #f5f5f5;
-    }
+  &:hover {
+    color: #1d1d1f;
+    background-color: #f5f5f5;
   }
 }
 
-.btn {
-  display: flex;
+.content_icon {
+  margin-right: 5px;
 }
 
 .selected {
   color: #1d1d1f !important;
-}
-
-.icon {
-  margin-right: 5px;
 }

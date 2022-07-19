@@ -1,21 +1,25 @@
 import React, { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
-import { setAddRecent, setFormPanel } from "../../store/actions";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
-import s from "./search.module.scss";
+import s from "./form.module.scss";
 import { AiOutlineSearch } from "react-icons/ai";
-import SearchModal from "../FormPanel";
+import FormPanel from "../FormPanel";
 import { useClickAway } from "../../hooks/useClickAway";
+import { setAddRecent } from "../../store/actions";
+import { useMatch } from "../../hooks/useMatch";
+import RenderIf from "../../utils/renderIf";
 
-const Form = ({ changeStyles }) => {
+const Form = ({ isSearchPage }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const input = useRef(null);
   const [value, setValue] = useState("");
+  const [isOpenFormPanel, setIsOpenFormPanel] = useState(false);
+  const match = useMatch();
 
   useClickAway(input, () => {
-    dispatch(setFormPanel(false));
+    setIsOpenFormPanel(false);
   });
 
   const handleChange = (e) => {
@@ -26,26 +30,26 @@ const Form = ({ changeStyles }) => {
     if (value) {
       dispatch(setAddRecent(value));
       history.push(`/photos/${value}`);
-      dispatch(setFormPanel(false));
+      setIsOpenFormPanel(false);
     }
   };
 
   const handleOpenModal = () => {
-    dispatch(setFormPanel(true));
+    setIsOpenFormPanel(true);
   };
 
   return (
     <form
-      className={`${s.search_wrapper} ${
-        changeStyles ? s.changeStyles_search_wrapper : ""
-      }`}
+      className={`${s.form} ${isSearchPage ? s.isSearchPage_form : ""}`}
       onSubmit={handleSubmit}
       ref={input}
     >
       <div
-        className={`${s.search} ${changeStyles ? s.changeStyles_search : ""}`}
+        className={`${s.form_inner} ${
+          isSearchPage ? s.isSearchPage_form_inner : ""
+        }`}
       >
-        <span>
+        <span className={s.form_icon}>
           <AiOutlineSearch />
         </span>
         <input
@@ -53,9 +57,15 @@ const Form = ({ changeStyles }) => {
           placeholder="Search"
           onChange={handleChange}
           onClick={handleOpenModal}
+          className={s.form_input}
         />
       </div>
-      <SearchModal />
+      <RenderIf isTrue={match}>
+        <FormPanel
+          isOpenFormPanel={isOpenFormPanel}
+          setIsOpenFormPanel={setIsOpenFormPanel}
+        />
+      </RenderIf>
     </form>
   );
 };

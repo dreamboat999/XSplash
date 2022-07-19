@@ -1,21 +1,20 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setClearRecent, setFormPanel, setValue } from "../../store/actions";
+import { setClearRecent, setValue } from "../../store/actions";
 import { useHistory } from "react-router-dom";
 
 import s from "./formPanel.module.scss";
 
-const FormPanel = () => {
+const FormPanel = ({ isOpenFormPanel, setIsOpenFormPanel }) => {
   const dispatch = useDispatch();
-  const { recentArr, isFormPanel } = useSelector((state) => state.appState);
+  const { recentArr } = useSelector((state) => state.appState);
   const history = useHistory();
 
   const newArr = [...new Set(recentArr)];
-
-  const showPanel = isFormPanel && newArr.length ? `${s.show_panel}` : "";
+  const showPanel = isOpenFormPanel && newArr.length ? `${s.show_panel}` : "";
 
   const handleClearRecent = () => {
-    localStorage.removeItem("search");
+    localStorage.removeItem("recent");
     dispatch(setClearRecent());
   };
 
@@ -24,7 +23,7 @@ const FormPanel = () => {
       pathname: `/photos/${value}`,
     });
     dispatch(setValue(value));
-    dispatch(setFormPanel(false));
+    setIsOpenFormPanel(false);
   };
 
   return (

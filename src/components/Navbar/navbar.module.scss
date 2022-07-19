@@ -7,15 +7,18 @@
   left: 0;
   width: 100%;
   padding: 0 20px;
-  z-index: 30;
+  z-index: 20;
+}
+
+.remove_shadow {
+  box-shadow: none;
 }
 
 .navbar_inner {
   display: flex;
   align-items: center;
   gap: 20px;
-  padding: 15px 0;
-  //height: 65px;
+  height: 60px;
 }
 
 .navbar_logo {
