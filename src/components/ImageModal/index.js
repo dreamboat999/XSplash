@@ -11,7 +11,13 @@ import { useClickAway } from "../../hooks/useClickAway";
 import DownloadImage from "../../utils/downloadImage";
 import RenderIf from "../../utils/renderIf";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import * as PropTypes from "prop-types";
 
+function LazyLoad(props) {
+  return null;
+}
+
+LazyLoad.propTypes = { children: PropTypes.node };
 const ImageModal = () => {
   const dispatch = useDispatch();
   const { imageId, isImageModal } = useSelector((state) => state.appState);
@@ -79,9 +85,10 @@ const ImageModal = () => {
         <div className={s.modal_header}>
           <div className={s.user}>
             <div className={s.user_image}>
-              <img
+              <LazyLoadImage
                 src={image?.user?.profile_image?.small}
-                alt="profile_image"
+                alt={image?.user?.name}
+                effect="blur"
               />
             </div>
             <div className={s.user_name}>{image?.user?.name}</div>
@@ -97,11 +104,7 @@ const ImageModal = () => {
           </div>
         </div>
         <div className={s.modal_image}>
-          <LazyLoadImage
-            src={image?.urls?.regular}
-            alt="description"
-            effect="blur"
-          />
+          <LazyLoadImage src={image?.urls?.regular} alt="desc" effect="blur" />
         </div>
         <div className={s.modal_info}>
           <div className={s.modal_info_item}>

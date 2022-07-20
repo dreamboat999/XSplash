@@ -9,6 +9,9 @@ export function useMatch() {
     window
       .matchMedia("(min-width: 768px)")
       .addEventListener("change", (e) => setMatches(e.matches));
+    return () => {
+      setMatches(null);
+    };
   }, []);
 
   return matches;

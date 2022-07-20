@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setImageId, setImageModal } from "../../store/actions";
 
-import { LazyLoadImage } from "react-lazy-load-image-component";
 import ImagesMasonry from "../ImagesMasonry";
 
 import s from "./imagesGrid.module.scss";
 import RenderIf from "../../utils/renderIf";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const ImagesGrid = ({ setIsFetching, images, name }) => {
   const dispatch = useDispatch();
@@ -57,14 +57,14 @@ const ImagesGrid = ({ setIsFetching, images, name }) => {
                   >
                     <div className={s.user_image_wrapper}>
                       <LazyLoadImage
-                        effect="opacity"
                         src={el.user.profile_image.small}
-                        alt="description"
+                        alt={el.user.name}
                       />
                     </div>
                     <h3>{el.user.name}</h3>
                   </div>
                 </div>
+
                 <LazyLoadImage
                   src={el.urls.regular}
                   alt={el.description}
