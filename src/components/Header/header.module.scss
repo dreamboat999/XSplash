@@ -77,13 +77,8 @@
   padding: 20px;
   z-index: 5;
 
-  h6 {
-    font-size: 14px;
-    font-weight: 400;
-
-    span {
-      text-decoration: underline;
-    }
+  span {
+    text-decoration: underline;
   }
 
   @media (max-width: 768px) {

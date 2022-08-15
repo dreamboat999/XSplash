@@ -41,11 +41,12 @@ const ImagesGrid = ({ setIsFetching, images, name }) => {
         </RenderIf>
         <ImagesMasonry>
           {images.map((el, i) => {
+            const { id, user, urls, description } = el;
             return (
               <div
                 key={i}
                 className={s.image}
-                onClick={() => handleOpenModal(el.id)}
+                onClick={() => handleOpenModal(id)}
               >
                 <div className={s.user_info_wrapper}>
                   <div
@@ -57,17 +58,17 @@ const ImagesGrid = ({ setIsFetching, images, name }) => {
                   >
                     <div className={s.user_image_wrapper}>
                       <LazyLoadImage
-                        src={el.user.profile_image.small}
-                        alt={el.user.name}
+                        src={user.profile_image.small}
+                        alt={user.name}
                       />
                     </div>
-                    <h3>{el.user.name}</h3>
+                    <h3>{user.name}</h3>
                   </div>
                 </div>
 
                 <LazyLoadImage
-                  src={el.urls.regular}
-                  alt={el.description}
+                  src={urls.regular}
+                  alt={description}
                   effect="blur"
                 />
               </div>

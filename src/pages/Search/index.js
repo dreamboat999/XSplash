@@ -24,13 +24,12 @@ const Search = () => {
   const [sort, setSort] = useState("relevant");
   const [isOpenMobileFilters, setIsOpenMobileFilters] = useState(false);
   const match = useMatch();
-  const defaultPage = 1;
   const url = window.location.pathname.split("/")[1];
 
   useEffect(() => {
     if (orientation || sort) {
       setLoading(true);
-      getSearchImages(defaultPage, name, orientation, sort)
+      getSearchImages(1, name, orientation, sort)
         .then((response) => {
           setImages(response.results);
         })

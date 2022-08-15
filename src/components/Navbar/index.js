@@ -11,11 +11,11 @@ import { useMatch } from "../../hooks/useMatch";
 const Navbar = () => {
   const location = useLocation();
   const [isSearchPage, setIsSearchPage] = useState(false);
-  const url = window.location.pathname.split("/");
+  const url = window.location.pathname.split("/")[1];
   const match = useMatch();
 
   useEffect(() => {
-    if (url[1] === "photos") {
+    if (url === "photos") {
       setIsSearchPage(true);
     }
   }, [url, location]);

@@ -25,7 +25,7 @@ const ImageModal = () => {
   const modalInner = useRef(null);
   const [related, setRelated] = useState([]);
   const [image, setImage] = useState({});
-  const username = image?.user?.username;
+  const { user, urls, views, downloads, created_at } = image;
 
   const handleClose = () => {
     dispatch(setImageModal(false));
@@ -46,19 +46,19 @@ const ImageModal = () => {
   }, [imageId]);
 
   useEffect(() => {
-    getRelated(username).then((res) => {
+    getRelated(user?.username).then((res) => {
       setRelated(res);
     });
-  }, [username]);
+  }, [user?.username]);
 
-  const dateFormat = new Date(image?.created_at).toLocaleDateString("en-US", {
+  const dateFormat = new Date(created_at).toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
     year: "numeric",
   });
 
   const handleDownload = (e) => {
-    DownloadImage(e, username, imageId);
+    DownloadImage(e, user?.username, imageId);
   };
 
   const formatNumber = (num) => {
@@ -86,16 +86,16 @@ const ImageModal = () => {
           <div className={s.user}>
             <div className={s.user_image}>
               <LazyLoadImage
-                src={image?.user?.profile_image?.small}
-                alt={image?.user?.name}
+                src={user?.profile_image?.small}
+                alt={user?.name}
                 effect="blur"
               />
             </div>
-            <div className={s.user_name}>{image?.user?.name}</div>
+            <div className={s.user_name}>{user?.name}</div>
           </div>
           <div className={s.download}>
             <a
-              href={image?.urls?.raw}
+              href={urls?.raw}
               className={s.btn_download}
               onClick={handleDownload}
             >
@@ -104,22 +104,22 @@ const ImageModal = () => {
           </div>
         </div>
         <div className={s.modal_image}>
-          <LazyLoadImage src={image?.urls?.regular} alt="desc" effect="blur" />
+          <LazyLoadImage src={urls?.regular} alt="desc" effect="blur" />
         </div>
         <div className={s.modal_info}>
           <div className={s.modal_info_item}>
             <h3>Views</h3>
             <span>
-              <RenderIf isTrue={image?.views} isFalse="--">
-                {formatNumber(image?.views)}
+              <RenderIf isTrue={views} isFalse="--">
+                {formatNumber(views)}
               </RenderIf>
             </span>
           </div>
           <div className={s.modal_info_item}>
             <h3>Downloads</h3>
             <span>
-              <RenderIf isTrue={image?.downloads} isFalse="--">
-                {formatNumber(image?.downloads)}
+              <RenderIf isTrue={downloads} isFalse="--">
+                {formatNumber(downloads)}
               </RenderIf>
             </span>
           </div>
