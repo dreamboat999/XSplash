@@ -7,9 +7,11 @@ import ImagesMasonry from "../ImagesMasonry";
 import s from "./imagesGrid.module.scss";
 import RenderIf from "../../utils/renderIf";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { useMatch } from "../../hooks/useMatch";
 
 const ImagesGrid = ({ setIsFetching, images, name }) => {
   const dispatch = useDispatch();
+  const match = useMatch();
 
   const handleScroll = (e) => {
     const scrollHeight = e.target.documentElement.scrollHeight;
@@ -45,18 +47,18 @@ const ImagesGrid = ({ setIsFetching, images, name }) => {
             return (
               <div
                 key={i}
-                className={s.image}
-                onClick={() => handleOpenModal(id)}
+                className={s.image_wrapper}
+                onClick={match ? () => handleOpenModal(id) : () => {}}
               >
-                <div className={s.user_info_wrapper}>
+                <div className={s.user_info_outer}>
                   <div
-                    className={s.user_info}
+                    className={s.user_info_inner}
                     onClick={(e) => {
                       console.log("click");
                       e.stopPropagation();
                     }}
                   >
-                    <div className={s.user_image_wrapper}>
+                    <div className={s.user_image}>
                       <LazyLoadImage
                         src={user.profile_image.small}
                         alt={user.name}
@@ -66,11 +68,16 @@ const ImagesGrid = ({ setIsFetching, images, name }) => {
                   </div>
                 </div>
 
-                <LazyLoadImage
-                  src={urls.regular}
-                  alt={description}
-                  effect="blur"
-                />
+                <div
+                  onClick={match ? () => {} : () => handleOpenModal(id)}
+                  className={s.image}
+                >
+                  <LazyLoadImage
+                    src={urls.regular}
+                    alt={description}
+                    effect="blur"
+                  />
+                </div>
               </div>
             );
           })}
