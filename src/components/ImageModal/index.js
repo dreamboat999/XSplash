@@ -10,14 +10,8 @@ import ImagesGrid from "../ImagesGrid";
 import { useClickAway } from "../../hooks/useClickAway";
 import DownloadImage from "../../utils/downloadImage";
 import RenderIf from "../../utils/renderIf";
-import { LazyLoadImage } from "react-lazy-load-image-component";
-import * as PropTypes from "prop-types";
+import { Spinner } from "../Loading";
 
-function LazyLoad(props) {
-  return null;
-}
-
-LazyLoad.propTypes = { children: PropTypes.node };
 const ImageModal = () => {
   const dispatch = useDispatch();
   const { imageId, isImageModal } = useSelector((state) => state.appState);
@@ -25,7 +19,7 @@ const ImageModal = () => {
   const modalInner = useRef(null);
   const [related, setRelated] = useState([]);
   const [image, setImage] = useState({});
-  const { user, urls, views, downloads, created_at } = image;
+  const [loading, setLoading] = useState(true);
 
   const handleClose = () => {
     dispatch(setImageModal(false));
@@ -37,28 +31,36 @@ const ImageModal = () => {
   });
 
   useEffect(() => {
-    getImage(imageId).then((res) => {
-      setImage(res);
-    });
+    setLoading(true);
+    getImage(imageId)
+      .then((res) => {
+        setImage(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
     return () => {
       setImage({});
     };
   }, [imageId]);
 
   useEffect(() => {
-    getRelated(user?.username).then((res) => {
+    getRelated(image?.user?.username).then((res) => {
       setRelated(res);
     });
-  }, [user?.username]);
+  }, [image?.user?.username]);
 
-  const dateFormat = new Date(created_at).toLocaleDateString("en-US", {
+  const dateFormat = new Date(image?.created_at).toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
     year: "numeric",
   });
 
   const handleDownload = (e) => {
-    DownloadImage(e, user?.username, imageId);
+    DownloadImage(e, image?.user?.username, imageId);
   };
 
   const formatNumber = (num) => {
@@ -85,17 +87,16 @@ const ImageModal = () => {
         <div className={s.modal_header}>
           <div className={s.user}>
             <div className={s.user_image}>
-              <LazyLoadImage
-                src={user?.profile_image?.small}
-                alt={user?.name}
-                effect="blur"
+              <img
+                src={image?.user?.profile_image?.small}
+                alt={image?.user?.name}
               />
             </div>
-            <div className={s.user_name}>{user?.name}</div>
+            <div className={s.user_name}>{image?.user?.name}</div>
           </div>
           <div className={s.download}>
             <a
-              href={urls?.raw}
+              href={image?.urls?.raw}
               className={s.btn_download}
               onClick={handleDownload}
             >
@@ -104,22 +105,24 @@ const ImageModal = () => {
           </div>
         </div>
         <div className={s.modal_image}>
-          <LazyLoadImage src={urls?.regular} alt="desc" effect="blur" />
+          <Spinner loading={loading}>
+            <img src={image?.urls?.regular} alt="desc" />
+          </Spinner>
         </div>
         <div className={s.modal_info}>
           <div className={s.modal_info_item}>
             <h3>Views</h3>
             <span>
-              <RenderIf isTrue={views} isFalse="--">
-                {formatNumber(views)}
+              <RenderIf isTrue={image?.views} isFalse="--">
+                {formatNumber(image?.views)}
               </RenderIf>
             </span>
           </div>
           <div className={s.modal_info_item}>
             <h3>Downloads</h3>
             <span>
-              <RenderIf isTrue={downloads} isFalse="--">
-                {formatNumber(downloads)}
+              <RenderIf isTrue={image?.downloads} isFalse="--">
+                {formatNumber(image?.downloads)}
               </RenderIf>
             </span>
           </div>

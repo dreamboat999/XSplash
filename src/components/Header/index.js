@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 
 import s from "./header.module.scss";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import Form from "../Form";
 import RenderIf from "../../utils/renderIf";
@@ -27,7 +26,7 @@ const Header = () => {
   return (
     <div className={s.header_outer}>
       <div className={s.header_image}>
-        <LazyLoadImage src={urls?.regular} alt={description} effect="blur" />
+        <img src={urls?.regular} alt={description} />
       </div>
       <div className="container">
         <div className={s.header_inner}>

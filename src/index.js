@@ -6,7 +6,6 @@ import { store } from "./store";
 
 import App from "./App";
 import "./assets/styles/globalStyles.scss";
-import "react-lazy-load-image-component/src/effects/blur.css";
 
 ReactDOM.render(
   <Provider store={store}>

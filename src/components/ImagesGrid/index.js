@@ -6,8 +6,8 @@ import ImagesMasonry from "../ImagesMasonry";
 
 import s from "./imagesGrid.module.scss";
 import RenderIf from "../../utils/renderIf";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useMatch } from "../../hooks/useMatch";
+import LazyImage from "../LazyImage";
 
 const ImagesGrid = ({ setIsFetching, images, name }) => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const ImagesGrid = ({ setIsFetching, images, name }) => {
     const scrollTop = e.target.documentElement.scrollTop;
     const innerHeight = window.innerHeight;
 
-    if (scrollHeight - (scrollTop + innerHeight) < 100) {
+    if (scrollHeight - (scrollTop + innerHeight) < 400) {
       setIsFetching(true);
     }
   };
@@ -59,10 +59,7 @@ const ImagesGrid = ({ setIsFetching, images, name }) => {
                     }}
                   >
                     <div className={s.user_image}>
-                      <LazyLoadImage
-                        src={user.profile_image.small}
-                        alt={user.name}
-                      />
+                      <img src={user.profile_image.small} alt={user.name} />
                     </div>
                     <h3>{user.name}</h3>
                   </div>
@@ -72,11 +69,7 @@ const ImagesGrid = ({ setIsFetching, images, name }) => {
                   onClick={match ? () => {} : () => handleOpenModal(id)}
                   className={s.image}
                 >
-                  <LazyLoadImage
-                    src={urls.regular}
-                    alt={description}
-                    effect="blur"
-                  />
+                  <LazyImage src={urls.regular} alt={description} />
                 </div>
               </div>
             );

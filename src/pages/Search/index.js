@@ -4,7 +4,7 @@ import { useLocation, useParams } from "react-router-dom";
 
 import { getSearchImages } from "./api";
 import ImagesGrid from "../../components/ImagesGrid";
-import LinearProgress from "../../components/LinearProgress";
+import { LinearProgress } from "../../components/Loading";
 import Filters from "../../components/Filters";
 import PageTitle from "../../utils/pageTitle";
 import RenderIf from "../../utils/renderIf";

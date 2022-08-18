@@ -33,3 +33,22 @@
     width: 20%;
   }
 }
+
+.spinner {
+  border-radius: 50%;
+  border: 5px solid #1d1d1f;
+  border-bottom-color: transparent;
+  display: inline-block;
+  width: 48px;
+  height: 48px;
+  animation: animationSpinner 1s linear infinite;
+}
+
+@keyframes animationSpinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
