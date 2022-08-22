@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import s from "./lazyimage.module.scss";
+import s from "./lazyImage.module.scss";
 import useOnScreen from "../../hooks/useOnScreen";
+import clsx from "clsx";
 
 const LazyImage = ({ src = "", alt = "" }) => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const imageRef = useRef();
-  const containerRef = useRef();
+  const imageRef = useRef(null);
+  const containerRef = useRef(null);
   const isVisible = useOnScreen(containerRef);
 
   useEffect(() => {
@@ -23,7 +24,7 @@ const LazyImage = ({ src = "", alt = "" }) => {
   return (
     <div
       ref={containerRef}
-      className={`${s.container} ${isLoaded ? s.containerLoaded : ""}`}
+      className={clsx(s.container, { [s.containerLoaded]: isLoaded })}
       style={{
         height: isLoaded ? "100%" : 300,
       }}
@@ -33,7 +34,7 @@ const LazyImage = ({ src = "", alt = "" }) => {
           ref={imageRef}
           src={src}
           alt={alt}
-          className={`${s.image} ${isLoaded ? s.imageLoaded : ""}`}
+          className={clsx(s.image, { [s.imageLoaded]: isLoaded })}
         />
       )}
     </div>

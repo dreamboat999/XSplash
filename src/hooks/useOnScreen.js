@@ -20,7 +20,7 @@ function useOnScreen(ref, rootMargin = "0px") {
         observer.unobserve(ref.current);
       }
     };
-  }, []);
+  }, [ref, rootMargin]);
 
   return isIntersecting;
 }

@@ -4,6 +4,7 @@ import s from "./mobilFilters.module.scss";
 import { MdCheck, MdOutlineClose } from "react-icons/md";
 import { orientationButtons, sortButtons } from "../index";
 import RenderIf from "../../../utils/renderIf";
+import clsx from "clsx";
 
 const Option = ({ data, value, setValue }) => {
   const handleClick = (el) => {
@@ -17,11 +18,9 @@ const Option = ({ data, value, setValue }) => {
           <div key={i} className={s.option_inner}>
             <button
               onClick={() => handleClick(el.value)}
-              className={
-                value === el.value
-                  ? `${s.option_btn} ${s.selected}`
-                  : s.option_btn
-              }
+              className={clsx(s.option_btn, {
+                [s.selected]: value === el.value,
+              })}
             >
               <RenderIf isTrue={value === el.value}>
                 <div className={s.option_icon}>

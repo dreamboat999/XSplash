@@ -5,14 +5,12 @@ import s from "./navbar.module.scss";
 import { ReactComponent as Logo } from "../../assets/logo/logo.svg";
 
 import Form from "../Form";
-import RenderIf from "../../utils/renderIf";
-import { useMatch } from "../../hooks/useMatch";
+import clsx from "clsx";
 
 const Navbar = () => {
   const location = useLocation();
   const [isSearchPage, setIsSearchPage] = useState(false);
-  const url = window.location.pathname.split("/")[1];
-  const match = useMatch();
+  const url = location.pathname.split("/")[1];
 
   useEffect(() => {
     if (url === "photos") {
@@ -21,17 +19,12 @@ const Navbar = () => {
   }, [url, location]);
 
   return (
-    <div className={`${s.navbar_outer} ${isSearchPage ? s.remove_shadow : ""}`}>
+    <div className={clsx(s.navbar_outer, { [s.remove_shadow]: isSearchPage })}>
       <div className={s.navbar_inner}>
         <a href="/" className={s.navbar_logo}>
           <Logo />
         </a>
-        <RenderIf isTrue={!match}>
-          <Form />
-        </RenderIf>
-        <RenderIf isTrue={match && isSearchPage}>
-          <Form isSearchPage />
-        </RenderIf>
+        <Form isNavbarForm />
       </div>
     </div>
   );

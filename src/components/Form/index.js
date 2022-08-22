@@ -6,11 +6,12 @@ import s from "./form.module.scss";
 import { AiOutlineSearch } from "react-icons/ai";
 import FormPanel from "../FormPanel";
 import { useClickAway } from "../../hooks/useClickAway";
-import { setAddRecent } from "../../store/actions";
+import { setAddRecent } from "../../redux/actions";
 import { useMatch } from "../../hooks/useMatch";
 import RenderIf from "../../utils/renderIf";
+import clsx from "clsx";
 
-const Form = ({ isSearchPage }) => {
+const Form = ({ isNavbarForm }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const input = useRef(null);
@@ -40,21 +41,23 @@ const Form = ({ isSearchPage }) => {
 
   return (
     <form
-      className={`${s.form} ${isSearchPage ? s.isSearchPage_form : ""}`}
+      className={clsx(s.form, {
+        [s.isNavbar_form]: isNavbarForm,
+      })}
       onSubmit={handleSubmit}
       ref={input}
     >
       <div
-        className={`${s.form_inner} ${
-          isSearchPage ? s.isSearchPage_form_inner : ""
-        }`}
+        className={clsx(s.form_inner, {
+          [s.isNavbar_form_inner]: isNavbarForm,
+        })}
       >
         <span className={s.form_icon}>
           <AiOutlineSearch />
         </span>
         <input
           type="text"
-          placeholder="Search"
+          placeholder="Search photos"
           onChange={handleChange}
           onClick={handleOpenModal}
           className={s.form_input}

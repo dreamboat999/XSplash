@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import ImagesGrid from "../ImagesGrid";
-import { getImages } from "./api";
+import { getImages } from "../../api";
 
 const Images = () => {
   const [images, setImages] = useState([]);

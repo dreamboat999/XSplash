@@ -5,18 +5,18 @@ import s from "./header.module.scss";
 import Form from "../Form";
 import RenderIf from "../../utils/renderIf";
 import { useMatch } from "../../hooks/useMatch";
-import { getBackgroundImage } from "./api";
+import { getBackgroundImage } from "../../api";
 
 const Header = () => {
-  const [photoOfTheDay, setPhotoOfTheDay] = useState({});
-  const matches = useMatch();
+  const [photoBy, setPhotoBy] = useState({});
+  const match = useMatch();
 
-  const { urls, description, user } = photoOfTheDay;
+  const { urls, description, user } = photoBy;
 
   useEffect(() => {
     getBackgroundImage()
       .then((res) => {
-        setPhotoOfTheDay(res[0]);
+        setPhotoBy(res[0]);
       })
       .catch((error) => {
         console.log(error);
@@ -32,14 +32,12 @@ const Header = () => {
         <div className={s.header_inner}>
           <div className={s.header_content}>
             <h1>Unsplash</h1>
-            <div>
-              <RenderIf isTrue={matches}>
-                <Form />
-              </RenderIf>
-            </div>
+            <RenderIf isTrue={match}>
+              <Form />
+            </RenderIf>
             <RenderIf isTrue={user?.username}>
               <div className={s.user}>
-                <p>Photo of the Day by</p>
+                <p>Photo by</p>
                 <span>{user?.username}</span>
               </div>
             </RenderIf>

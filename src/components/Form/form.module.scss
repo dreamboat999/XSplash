@@ -53,11 +53,15 @@
   }
 }
 
-.isSearchPage_form {
+.isNavbar_form {
   width: 60%;
+
+  @media (max-width: 425px) {
+    width: 100%;
+  }
 }
 
-.isSearchPage_form_inner {
+.isNavbar_form_inner {
   height: 40px;
 
   input {

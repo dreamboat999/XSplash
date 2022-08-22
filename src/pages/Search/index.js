@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
-import { getSearchImages } from "./api";
+import { getSearchImages } from "../../api";
 import ImagesGrid from "../../components/ImagesGrid";
 import { LinearProgress } from "../../components/Loading";
 import Filters from "../../components/Filters";
@@ -12,7 +12,7 @@ import MobileFilters from "../../components/Filters/MobileFilters";
 import { useMatch } from "../../hooks/useMatch";
 
 const Search = () => {
-  const { recentArr, value } = useSelector((state) => state.appState);
+  const { value } = useSelector((state) => state.appState);
   const { name } = useParams();
   const location = useLocation();
   const [images, setImages] = useState([]);
@@ -24,7 +24,7 @@ const Search = () => {
   const [sort, setSort] = useState("relevant");
   const [isOpenMobileFilters, setIsOpenMobileFilters] = useState(false);
   const match = useMatch();
-  const url = window.location.pathname.split("/")[1];
+  const url = location.pathname.split("/")[1];
 
   useEffect(() => {
     if (orientation || sort) {
@@ -43,7 +43,7 @@ const Search = () => {
   }, [orientation, sort]);
 
   useEffect(() => {
-    if (isFetching) {
+    if (isFetching || value) {
       getSearchImages(page, name, orientation, sort)
         .then((response) => {
           setImages([...images, ...response.results]);
@@ -56,7 +56,7 @@ const Search = () => {
           setIsFetching(false);
         });
     }
-  }, [isFetching]);
+  }, [isFetching, value]);
 
   useEffect(() => {
     if (url === "photos") {
@@ -65,10 +65,6 @@ const Search = () => {
       setIsSearchPage(false);
     }
   }, [url, location]);
-
-  useEffect(() => {
-    localStorage.setItem("recent", JSON.stringify(recentArr));
-  }, [recentArr]);
 
   useEffect(() => {
     if (value) {

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setImageId, setImageModal } from "../../store/actions";
+import { setImageId, setImageModal } from "../../redux/actions";
 
 import ImagesMasonry from "../ImagesMasonry";
 
@@ -8,6 +8,7 @@ import s from "./imagesGrid.module.scss";
 import RenderIf from "../../utils/renderIf";
 import { useMatch } from "../../hooks/useMatch";
 import LazyImage from "../LazyImage";
+import { Link } from "react-router-dom";
 
 const ImagesGrid = ({ setIsFetching, images, name }) => {
   const dispatch = useDispatch();
@@ -51,10 +52,10 @@ const ImagesGrid = ({ setIsFetching, images, name }) => {
                 onClick={match ? () => handleOpenModal(id) : () => {}}
               >
                 <div className={s.user_info_outer}>
-                  <div
+                  <Link
+                    to={`/user/${user.username}`}
                     className={s.user_info_inner}
                     onClick={(e) => {
-                      console.log("click");
                       e.stopPropagation();
                     }}
                   >
@@ -62,7 +63,7 @@ const ImagesGrid = ({ setIsFetching, images, name }) => {
                       <img src={user.profile_image.small} alt={user.name} />
                     </div>
                     <h3>{user.name}</h3>
-                  </div>
+                  </Link>
                 </div>
 
                 <div

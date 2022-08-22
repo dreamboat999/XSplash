@@ -68,20 +68,18 @@
 }
 
 .user {
+  color: #ffffff8c;
   display: flex;
   gap: 5px;
   align-items: center;
   position: absolute;
   bottom: 0;
   left: 0;
-  padding: 20px;
+  padding: 20px 20px 20px 0;
   z-index: 5;
 
   span {
+    color: #fff;
     text-decoration: underline;
-  }
-
-  @media (max-width: 768px) {
-    padding-left: 0;
   }
 }

@@ -6,7 +6,7 @@ import { MdKeyboardArrowDown, MdCheck } from "react-icons/md";
 import RenderIf from "../../utils/renderIf";
 import { useClickAway } from "../../hooks/useClickAway";
 
-const Dropdown = ({ title, data, value, setValue }) => {
+const Dropdown = ({ title, data, value, setValue, children, link }) => {
   const dropdown = useRef(null);
   const [animation, setAnimation] = useState(s.hide);
   const [isOpen, setIsOpen] = useState(false);
@@ -19,9 +19,9 @@ const Dropdown = ({ title, data, value, setValue }) => {
     }, 90);
   });
 
-  const handleDropdown = async (ms) => {
+  const handleDropdown = async () => {
     setAnimation(isOpen ? s.hide : s.show);
-    await new Promise((resp) => setTimeout(resp, ms));
+    await new Promise((resp) => setTimeout(resp, 90));
     setIsOpen(!isOpen);
   };
 
@@ -32,7 +32,7 @@ const Dropdown = ({ title, data, value, setValue }) => {
 
   return (
     <div className={s.dropdown_outer} ref={dropdown}>
-      <button className={s.dropdown_button} onClick={() => handleDropdown(90)}>
+      <button className={s.dropdown_button} onClick={handleDropdown}>
         <div className={s.dropdown_title}>{title}</div>
         <MdKeyboardArrowDown />
       </button>
@@ -40,26 +40,30 @@ const Dropdown = ({ title, data, value, setValue }) => {
         <div className={animation}>
           <div className={s.dropdown_inner}>
             <div className={s.content}>
-              {data?.map((el, i) => {
-                return (
-                  <button
-                    key={i}
-                    onClick={() => handleClick(el.value)}
-                    className={
-                      value === el.value
-                        ? `${s.content_button} ${s.selected}`
-                        : s.content_button
-                    }
-                  >
-                    <RenderIf isTrue={value === el.value}>
-                      <div className={s.content_icon}>
-                        <MdCheck />
-                      </div>
-                    </RenderIf>
-                    <div>{el.title}</div>
-                  </button>
-                );
-              })}
+              {link ? (
+                children
+              ) : (
+                <>
+                  {data?.map((el, i) => {
+                    return (
+                      <button
+                        key={i}
+                        onClick={() => handleClick(el.value)}
+                        className={
+                          value === el.value
+                            ? `${s.content_button} ${s.selected}`
+                            : s.content_button
+                        }
+                      >
+                        <RenderIf isTrue={value === el.value}>
+                          <MdCheck />
+                        </RenderIf>
+                        <div>{el.title}</div>
+                      </button>
+                    );
+                  })}
+                </>
+              )}
             </div>
           </div>
         </div>

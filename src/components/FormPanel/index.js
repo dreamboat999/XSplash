@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setClearRecent, setValue } from "../../store/actions";
+import { setClearRecent, setValue } from "../../redux/actions";
 import { useHistory } from "react-router-dom";
 
 import s from "./formPanel.module.scss";

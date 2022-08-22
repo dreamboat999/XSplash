@@ -1,16 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setImageId, setImageModal } from "../../store/actions";
+import { setImageId, setImageModal } from "../../redux/actions";
 
 import s from "./imageModal.module.scss";
 import { MdOutlineClose } from "react-icons/md";
 
-import { getImage, getRelated } from "./api";
+import { getImage, getRelated } from "../../api";
 import ImagesGrid from "../ImagesGrid";
 import { useClickAway } from "../../hooks/useClickAway";
 import DownloadImage from "../../utils/downloadImage";
 import RenderIf from "../../utils/renderIf";
 import { Spinner } from "../Loading";
+import LazyImage from "../LazyImage";
 
 const ImageModal = () => {
   const dispatch = useDispatch();
