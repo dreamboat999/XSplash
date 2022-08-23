@@ -8,6 +8,7 @@ import Search from "./pages/Search";
 import User from "./pages/User";
 import ImageModal from "./components/ImageModal";
 import RenderIf from "./utils/renderIf";
+import Test from "./components/Test";
 
 const App = () => {
   const { isImageModal, recentArr } = useSelector((state) => state.appState);
@@ -32,13 +33,13 @@ const App = () => {
           <Route exact path="/">
             <Home />
           </Route>
-          <Route path="/photos/:name" children={<Search />} />
+          <Route path="/photos/:name/:orientation?" children={<Search />} />
           <Route path="/user/:username" children={<User />} />
         </Switch>
+        <RenderIf isTrue={isImageModal}>
+          <ImageModal />
+        </RenderIf>
       </Router>
-      <RenderIf isTrue={isImageModal}>
-        <ImageModal />
-      </RenderIf>
     </main>
   );
 };

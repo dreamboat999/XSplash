@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setImageId, setImageModal } from "../../redux/actions";
 
@@ -8,7 +9,6 @@ import s from "./imagesGrid.module.scss";
 import RenderIf from "../../utils/renderIf";
 import { useMatch } from "../../hooks/useMatch";
 import LazyImage from "../LazyImage";
-import { Link } from "react-router-dom";
 
 const ImagesGrid = ({ setIsFetching, images, name }) => {
   const dispatch = useDispatch();

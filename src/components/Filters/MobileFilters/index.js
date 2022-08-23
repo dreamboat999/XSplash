@@ -2,56 +2,67 @@ import React from "react";
 
 import s from "./mobilFilters.module.scss";
 import { MdCheck, MdOutlineClose } from "react-icons/md";
-import { orientationButtons, sortButtons } from "../index";
 import RenderIf from "../../../utils/renderIf";
+import { Link, useHistory } from "react-router-dom";
 import clsx from "clsx";
 
-const Option = ({ data, value, setValue }) => {
-  const handleClick = (el) => {
-    setValue(el);
-  };
-
+const Option = ({ orientationData, orientation }) => {
   return (
-    <div className={s.option_outer}>
-      {data?.map((el, i) => {
+    <ul className={s.option_outer}>
+      {orientationData.map((el, i) => {
+        const selected = orientation === el.value;
+
         return (
-          <div key={i} className={s.option_inner}>
-            <button
-              onClick={() => handleClick(el.value)}
-              className={clsx(s.option_btn, {
-                [s.selected]: value === el.value,
-              })}
+          <li key={i} className={s.option_inner}>
+            <Link
+              to={el.url}
+              className={clsx(s.option_link, { ["selected"]: selected })}
             >
-              <RenderIf isTrue={value === el.value}>
-                <div className={s.option_icon}>
-                  <MdCheck />
-                </div>
+              <RenderIf isTrue={selected}>
+                <MdCheck />
               </RenderIf>
-              <div>{el.title}</div>
-            </button>
-          </div>
+              {el.title}
+            </Link>
+          </li>
         );
       })}
-    </div>
+    </ul>
   );
 };
 
-const MobileFilters = ({
-  orientation,
-  setOrientation,
-  sort,
-  setSort,
-  setIsOpenMobileFilters,
-}) => {
-  const sortTitle = sortButtons.find((el) => sort === el.value);
+const MobileFilters = ({ name, orientation, setIsOpenMobileFilters }) => {
+  const history = useHistory();
+
+  const orientationData = [
+    {
+      title: "Any Orientation",
+      url: `/photos/${name}`,
+    },
+    {
+      title: "Landscape",
+      value: "landscape",
+      url: `/photos/${name}/landscape`,
+    },
+    {
+      title: "Portrait",
+      value: "portrait",
+      url: `/photos/${name}/portrait`,
+    },
+    {
+      title: "Square",
+      value: "squarish",
+      url: `/photos/${name}/squarish`,
+    },
+  ];
 
   const handleClose = () => {
     setIsOpenMobileFilters(false);
   };
 
   const handleClear = () => {
-    setOrientation("");
-    setSort("relevant");
+    history.push({
+      pathname: `/photos/${name}`,
+    });
     setIsOpenMobileFilters(false);
   };
 
@@ -68,19 +79,18 @@ const MobileFilters = ({
           <div className={s.item}>
             <h3>Orientation</h3>
             <Option
-              data={orientationButtons}
-              value={orientation}
-              setValue={setOrientation}
+              orientation={orientation}
+              orientationData={orientationData}
             />
           </div>
-          <div className={s.item}>
-            <h3>Sort by {sortTitle.title}</h3>
-            <Option data={sortButtons} value={sort} setValue={setSort} />
-          </div>
+          {/*<div className={s.item}>*/}
+          {/*  <h3>Sort by {sortTitle.title}</h3>*/}
+          {/*  <Option data={sortButtons} value={sort} setValue={setSort} />*/}
+          {/*</div>*/}
         </div>
         <div className={s.footer}>
           <button
-            disabled={!orientation && sort === "relevant"}
+            disabled={!orientation}
             className={s.clear_btn}
             onClick={handleClear}
           >

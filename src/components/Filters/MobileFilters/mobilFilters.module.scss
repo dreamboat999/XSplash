@@ -99,13 +99,17 @@
 
 .option_inner {
   display: flex;
+
+  a {
+    color: #1d1d1f;
+  }
   
   &:not(:last-child) {
     margin-bottom: 15px;
   }
 }
 
-.option_btn {
+.option_link {
   font-size: 16px;
   color: #767676;
   display: flex;
@@ -115,13 +119,9 @@
   &:hover {
     color: #1d1d1f;
   }
-}
 
-.option_icon {
-  display: flex;
-  margin-right: 5px;
-}
-
-.selected {
-  color: #1d1d1f !important;
+  svg {
+    display: flex;
+    margin-right: 5px;
+  }
 }

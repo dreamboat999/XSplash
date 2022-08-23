@@ -1,12 +1,12 @@
 import React, { useRef, useState } from "react";
 
 import s from "./dropdown.module.scss";
-import { MdKeyboardArrowDown, MdCheck } from "react-icons/md";
+import { MdOutlineArrowDropDown } from "react-icons/md";
 
 import RenderIf from "../../utils/renderIf";
 import { useClickAway } from "../../hooks/useClickAway";
 
-const Dropdown = ({ title, data, value, setValue, children, link }) => {
+const Dropdown = ({ title, children }) => {
   const dropdown = useRef(null);
   const [animation, setAnimation] = useState(s.hide);
   const [isOpen, setIsOpen] = useState(false);
@@ -25,46 +25,16 @@ const Dropdown = ({ title, data, value, setValue, children, link }) => {
     setIsOpen(!isOpen);
   };
 
-  const handleClick = (el) => {
-    setValue(el);
-    setIsOpen(false);
-  };
-
   return (
     <div className={s.dropdown_outer} ref={dropdown}>
       <button className={s.dropdown_button} onClick={handleDropdown}>
         <div className={s.dropdown_title}>{title}</div>
-        <MdKeyboardArrowDown />
+        <MdOutlineArrowDropDown />
       </button>
       <RenderIf isTrue={isOpen}>
         <div className={animation}>
           <div className={s.dropdown_inner}>
-            <div className={s.content}>
-              {link ? (
-                children
-              ) : (
-                <>
-                  {data?.map((el, i) => {
-                    return (
-                      <button
-                        key={i}
-                        onClick={() => handleClick(el.value)}
-                        className={
-                          value === el.value
-                            ? `${s.content_button} ${s.selected}`
-                            : s.content_button
-                        }
-                      >
-                        <RenderIf isTrue={value === el.value}>
-                          <MdCheck />
-                        </RenderIf>
-                        <div>{el.title}</div>
-                      </button>
-                    );
-                  })}
-                </>
-              )}
-            </div>
+            <div className={s.content}>{children}</div>
           </div>
         </div>
       </RenderIf>

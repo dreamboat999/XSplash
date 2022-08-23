@@ -113,19 +113,15 @@ const ImageModal = () => {
         <div className={s.modal_info}>
           <div className={s.modal_info_item}>
             <h3>Views</h3>
-            <span>
-              <RenderIf isTrue={image?.views} isFalse="--">
-                {formatNumber(image?.views)}
-              </RenderIf>
-            </span>
+            <RenderIf isTrue={image?.views} isFalse="--">
+              <span>{formatNumber(image?.views)}</span>
+            </RenderIf>
           </div>
           <div className={s.modal_info_item}>
             <h3>Downloads</h3>
-            <span>
-              <RenderIf isTrue={image?.downloads} isFalse="--">
-                {formatNumber(image?.downloads)}
-              </RenderIf>
-            </span>
+            <RenderIf isTrue={image?.downloads} isFalse="--">
+              <span>{formatNumber(image?.downloads)}</span>
+            </RenderIf>
           </div>
           <div className={s.modal_info_item}>
             <RenderIf isTrue={dateFormat}>

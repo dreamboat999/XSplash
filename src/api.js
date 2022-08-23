@@ -38,8 +38,9 @@ export const getImages = (page) => {
 export const getSearchImages = (page, name, orientation, sort) => {
   return instance()
     .get(
-      `search/photos?client_id=${SECRET_KEY}&per_page=12&page=${page}&query=${name}
-      ${orientation ? `&orientation=${orientation}` : ""}&order_by=${sort}`
+      `search/photos?client_id=${SECRET_KEY}&per_page=12&page=${page}&query=${name}${
+        orientation ? `&orientation=${orientation}` : ""
+      }`
     )
     .then((res) => {
       return res?.data;

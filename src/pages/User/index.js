@@ -30,20 +30,26 @@ const User = () => {
   } = user;
   const [loading, setLoading] = useState(true);
 
-  // const socialData = [
-  //   {
-  //     title: "Website",
-  //     url: social?.portfolio_url,
-  //   },
-  //   {
-  //     title: "Instagram",
-  //     url: social?.instagram_username,
-  //   },
-  //   {
-  //     title: "Twitter",
-  //     url: social?.twitter_username,
-  //   },
-  // ];
+  const contacts = [
+    {
+      title: "Website",
+      username: social?.portfolio_url,
+      url: social?.portfolio_url,
+      icon: <IoEarth />,
+    },
+    {
+      title: "Instagram",
+      username: social?.instagram_username,
+      url: `https://instagram.com/${social?.instagram_username}`,
+      icon: <AiOutlineInstagram />,
+    },
+    {
+      title: "Twitter",
+      username: social?.twitter_username,
+      url: `https://twitter.com/${social?.twitter_username}`,
+      icon: <AiOutlineTwitter />,
+    },
+  ];
 
   useEffect(() => {
     setLoading(true);
@@ -99,37 +105,17 @@ const User = () => {
                   }
                 >
                   <AiOutlineLink />
-                  <Dropdown title={`Connect with ${first_name}`} link>
-                    <RenderIf isTrue={social?.portfolio_url}>
-                      <a
-                        href={`${social?.portfolio_url}`}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <IoEarth />
-                        Website
-                      </a>
-                    </RenderIf>
-                    <RenderIf isTrue={social?.instagram_username}>
-                      <a
-                        href={`https://instagram.com/${social?.instagram_username}`}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <AiOutlineInstagram />
-                        Instagram
-                      </a>
-                    </RenderIf>
-                    <RenderIf isTrue={social?.twitter_username}>
-                      <a
-                        href={`https://twitter.com/${social?.twitter_username}`}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <AiOutlineTwitter />
-                        Twitter
-                      </a>
-                    </RenderIf>
+                  <Dropdown title={`Connect with ${first_name}`}>
+                    {contacts.map((el, i) => {
+                      return (
+                        <RenderIf isTrue={el.username} key={i}>
+                          <a href={el.url} target="_blank" rel="noreferrer">
+                            {el.icon}
+                            {el.title}
+                          </a>
+                        </RenderIf>
+                      );
+                    })}
                   </Dropdown>
                 </RenderIf>
               </div>

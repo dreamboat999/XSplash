@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 import { getSearchImages } from "../../api";
 import ImagesGrid from "../../components/ImagesGrid";
@@ -12,38 +12,33 @@ import MobileFilters from "../../components/Filters/MobileFilters";
 import { useMatch } from "../../hooks/useMatch";
 
 const Search = () => {
-  const { value } = useSelector((state) => state.appState);
-  const { name } = useParams();
+  const { name, orientation, sort } = useParams();
   const location = useLocation();
   const [images, setImages] = useState([]);
   const [page, setPage] = useState(1);
   const [isFetching, setIsFetching] = useState(true);
   const [loading, setLoading] = useState(false);
   const [isSearchPage, setIsSearchPage] = useState(false);
-  const [orientation, setOrientation] = useState("");
-  const [sort, setSort] = useState("relevant");
   const [isOpenMobileFilters, setIsOpenMobileFilters] = useState(false);
   const match = useMatch();
   const url = location.pathname.split("/")[1];
 
   useEffect(() => {
-    if (orientation || sort) {
-      setLoading(true);
-      getSearchImages(1, name, orientation, sort)
-        .then((response) => {
-          setImages(response.results);
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    }
-  }, [orientation, sort]);
+    setLoading(true);
+    getSearchImages(1, name, orientation, sort)
+      .then((response) => {
+        setImages(response.results);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [name, orientation, sort]);
 
   useEffect(() => {
-    if (isFetching || value) {
+    if (isFetching) {
       getSearchImages(page, name, orientation, sort)
         .then((response) => {
           setImages([...images, ...response.results]);
@@ -56,7 +51,7 @@ const Search = () => {
           setIsFetching(false);
         });
     }
-  }, [isFetching, value]);
+  }, [isFetching]);
 
   useEffect(() => {
     if (url === "photos") {
@@ -65,12 +60,6 @@ const Search = () => {
       setIsSearchPage(false);
     }
   }, [url, location]);
-
-  useEffect(() => {
-    if (value) {
-      window.location.reload();
-    }
-  }, [value]);
 
   useEffect(() => {
     if (isOpenMobileFilters) {
@@ -94,10 +83,8 @@ const Search = () => {
     <PageTitle title={`Unsplash | ${name ? name : "Loading"}`}>
       <RenderIf isTrue={isSearchPage}>
         <Filters
+          name={name}
           orientation={orientation}
-          setOrientation={setOrientation}
-          sort={sort}
-          setSort={setSort}
           handleOpenModal={handleOpenModal}
         />
       </RenderIf>
@@ -106,10 +93,8 @@ const Search = () => {
       </LinearProgress>
       <RenderIf isTrue={isOpenMobileFilters}>
         <MobileFilters
+          name={name}
           orientation={orientation}
-          setOrientation={setOrientation}
-          sort={sort}
-          setSort={setSort}
           setIsOpenMobileFilters={setIsOpenMobileFilters}
         />
       </RenderIf>

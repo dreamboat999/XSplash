@@ -30,6 +30,8 @@ a {
 }
 
 button {
+  font-family: inherit;
+  font-size: inherit;
   background: none;
   border: none;
   outline: none;
@@ -39,6 +41,10 @@ button {
 input {
   border: none;
   outline: none;
+}
+
+ul {
+  list-style-type: none;
 }
 
 main {
@@ -51,4 +57,5 @@ main {
 
 .selected {
   color: #1d1d1f !important;
+  pointer-events: none;
 }
