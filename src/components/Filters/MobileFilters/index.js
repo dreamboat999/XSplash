@@ -1,9 +1,10 @@
 import React from "react";
-
-import s from "./mobilFilters.module.scss";
-import { MdCheck, MdOutlineClose } from "react-icons/md";
-import RenderIf from "../../../utils/renderIf";
 import { Link, useHistory } from "react-router-dom";
+
+import s from "./mobile.module.scss";
+import { MdCheck, MdOutlineClose } from "react-icons/md";
+
+import RenderIf from "../../../utils/renderIf";
 import clsx from "clsx";
 
 const Option = ({ orientationData, orientation }) => {
@@ -16,7 +17,7 @@ const Option = ({ orientationData, orientation }) => {
           <li key={i} className={s.option_inner}>
             <Link
               to={el.url}
-              className={clsx(s.option_link, { ["selected"]: selected })}
+              className={clsx(s.option_link, { selected: selected })}
             >
               <RenderIf isTrue={selected}>
                 <MdCheck />
@@ -83,10 +84,6 @@ const MobileFilters = ({ name, orientation, setIsOpenMobileFilters }) => {
               orientationData={orientationData}
             />
           </div>
-          {/*<div className={s.item}>*/}
-          {/*  <h3>Sort by {sortTitle.title}</h3>*/}
-          {/*  <Option data={sortButtons} value={sort} setValue={setSort} />*/}
-          {/*</div>*/}
         </div>
         <div className={s.footer}>
           <button

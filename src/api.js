@@ -19,9 +19,13 @@ export const getImage = (id) => {
     });
 };
 
-export const getRelated = (username) => {
+export const getUserImages = (username, page) => {
   return instance(true)
-    .get(`users/${username}/photos?client_id=${SECRET_KEY}&per_page=9`)
+    .get(
+      `users/${username}/photos?client_id=${SECRET_KEY}&per_page=9${
+        page ? `&page=${page}` : ""
+      }`
+    )
     .then((res) => {
       return res?.data;
     });
@@ -35,7 +39,7 @@ export const getImages = (page) => {
     });
 };
 
-export const getSearchImages = (page, name, orientation, sort) => {
+export const getSearchImages = (page, name, orientation) => {
   return instance()
     .get(
       `search/photos?client_id=${SECRET_KEY}&per_page=12&page=${page}&query=${name}${
@@ -47,7 +51,7 @@ export const getSearchImages = (page, name, orientation, sort) => {
     });
 };
 
-export const getUser = (username) => {
+export const getUserInfo = (username) => {
   return instance()
     .get(`users/${username}/?client_id=${SECRET_KEY}`)
     .then((res) => {

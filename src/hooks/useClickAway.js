@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-export function useClickAway(ref, handler) {
+export default function useClickAway(ref, handler) {
   useEffect(() => {
     const listener = (e) => {
       if (!ref.current || ref.current.contains(e.target)) {

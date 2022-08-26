@@ -4,7 +4,7 @@ import s from "./header.module.scss";
 
 import Form from "../Form";
 import RenderIf from "../../utils/renderIf";
-import { useMatch } from "../../hooks/useMatch";
+import useMatch from "../../hooks/useMatch";
 import { getBackgroundImage } from "../../api";
 
 const Header = () => {
@@ -31,7 +31,11 @@ const Header = () => {
       <div className="container">
         <div className={s.header_inner}>
           <div className={s.header_content}>
-            <h1>Unsplash</h1>
+            <h1 className={s.header_title}>Unsplash</h1>
+            <div className={s.header_text}>
+              <p>The internet’s source of freely-usable images.</p>
+              <p>Powered by creators everywhere.</p>
+            </div>
             <RenderIf isTrue={match}>
               <Form />
             </RenderIf>

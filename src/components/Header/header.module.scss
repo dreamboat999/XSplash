@@ -22,16 +22,38 @@
 
 .header_content {
   display: grid;
-  gap: 20px;
   width: 60%;
-
-  h1 {
-    font-size: 46px;
-    font-weight: 600;
-  }
 
   @media (max-width: 768px) {
     width: 100%;
+  }
+}
+
+.header_title {
+  font-size: 46px;
+  font-weight: 700;
+
+  @media (max-width: 768px) {
+    font-size: 24px;
+  }
+}
+
+.header_text {
+  margin-top: 16px;
+  margin-bottom: 24px;
+
+  p {
+    font-size: 18px;
+    margin: 5px 0;
+
+    @media (max-width: 768px) {
+      font-size: 15px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    margin-top: 8px;
+    margin-bottom: 0;
   }
 }
 

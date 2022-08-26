@@ -64,8 +64,19 @@
 .isNavbar_form_inner {
   height: 40px;
 
-  input {
+  .form_input {
     background-color: #eee;
+    border: 1px solid #fff;
     border-radius: 15px;
+    transition: all .3s ease;
+
+    &:focus {
+      background-color: #fff;
+      border-color: #d1d1d1;
+    }
+
+    &:hover {
+      border: 1px solid #d1d1d1;
+    }
   }
 }

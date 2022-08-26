@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function useOnScreen(ref, rootMargin = "0px") {
+export default function useOnScreen(ref, rootMargin = "0px") {
   const [isIntersecting, setIntersecting] = useState(false);
 
   useEffect(() => {
@@ -24,5 +24,3 @@ function useOnScreen(ref, rootMargin = "0px") {
 
   return isIntersecting;
 }
-
-export default useOnScreen;

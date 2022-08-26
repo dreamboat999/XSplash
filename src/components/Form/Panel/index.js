@@ -1,11 +1,11 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setClearRecent, setValue } from "../../redux/actions";
 import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setClearRecent, setValue } from "../../../redux/actions";
 
-import s from "./formPanel.module.scss";
+import s from "./panel.module.scss";
 
-const FormPanel = ({ isOpenFormPanel, setIsOpenFormPanel }) => {
+const Panel = ({ isOpenFormPanel, setIsOpenFormPanel }) => {
   const dispatch = useDispatch();
   const { recentArr } = useSelector((state) => state.appState);
   const history = useHistory();
@@ -57,4 +57,4 @@ const FormPanel = ({ isOpenFormPanel, setIsOpenFormPanel }) => {
   );
 };
 
-export default FormPanel;
+export default Panel;

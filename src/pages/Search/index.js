@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
 
 import { getSearchImages } from "../../api";
-import ImagesGrid from "../../components/ImagesGrid";
 import { LinearProgress } from "../../components/Loading";
-import Filters from "../../components/Filters";
+import ImagesGrid from "../../components/ImagesGrid";
+import DesktopFilters from "../../components/Filters/DesktopFilters";
+import MobileFilters from "../../components/Filters/MobileFilters";
 import PageTitle from "../../utils/pageTitle";
 import RenderIf from "../../utils/renderIf";
-import MobileFilters from "../../components/Filters/MobileFilters";
-import { useMatch } from "../../hooks/useMatch";
+import useMatch from "../../hooks/useMatch";
 
 const Search = () => {
   const { name, orientation, sort } = useParams();
@@ -82,7 +81,7 @@ const Search = () => {
   return (
     <PageTitle title={`Unsplash | ${name ? name : "Loading"}`}>
       <RenderIf isTrue={isSearchPage}>
-        <Filters
+        <DesktopFilters
           name={name}
           orientation={orientation}
           handleOpenModal={handleOpenModal}

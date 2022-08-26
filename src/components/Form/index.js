@@ -1,13 +1,14 @@
 import React, { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { setAddRecent } from "../../redux/actions";
 
 import s from "./form.module.scss";
 import { AiOutlineSearch } from "react-icons/ai";
-import FormPanel from "../FormPanel";
-import { useClickAway } from "../../hooks/useClickAway";
-import { setAddRecent } from "../../redux/actions";
-import { useMatch } from "../../hooks/useMatch";
+
+import Panel from "./Panel";
+import useClickAway from "../../hooks/useClickAway";
+import useMatch from "../../hooks/useMatch";
 import RenderIf from "../../utils/renderIf";
 import clsx from "clsx";
 
@@ -64,7 +65,7 @@ const Form = ({ isNavbarForm }) => {
         />
       </div>
       <RenderIf isTrue={match}>
-        <FormPanel
+        <Panel
           isOpenFormPanel={isOpenFormPanel}
           setIsOpenFormPanel={setIsOpenFormPanel}
         />

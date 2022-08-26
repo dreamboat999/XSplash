@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export function useMatch() {
+export default function useMatch() {
   const [matches, setMatches] = useState(
     window.matchMedia("(min-width: 768px)").matches
   );

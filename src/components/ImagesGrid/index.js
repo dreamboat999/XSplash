@@ -3,11 +3,10 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setImageId, setImageModal } from "../../redux/actions";
 
-import ImagesMasonry from "../ImagesMasonry";
-
 import s from "./imagesGrid.module.scss";
+import ImagesMasonry from "./ImagesMasonry";
 import RenderIf from "../../utils/renderIf";
-import { useMatch } from "../../hooks/useMatch";
+import useMatch from "../../hooks/useMatch";
 import LazyImage from "../LazyImage";
 
 const ImagesGrid = ({ setIsFetching, images, name }) => {
@@ -53,7 +52,7 @@ const ImagesGrid = ({ setIsFetching, images, name }) => {
               >
                 <div className={s.user_info_outer}>
                   <Link
-                    to={`/user/${user.username}`}
+                    to={`/@${user.username}`}
                     className={s.user_info_inner}
                     onClick={(e) => {
                       e.stopPropagation();

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import s from "./navbar.module.scss";
 import { ReactComponent as Logo } from "../../assets/logo/logo.svg";
@@ -21,9 +21,12 @@ const Navbar = () => {
   return (
     <div className={clsx(s.navbar_outer, { [s.remove_shadow]: isSearchPage })}>
       <div className={s.navbar_inner}>
-        <a href="/" className={s.navbar_logo}>
+        <Link
+          to={location.pathname === "/" ? "" : "/"}
+          className={s.navbar_logo}
+        >
           <Logo />
-        </a>
+        </Link>
         <Form isNavbarForm />
       </div>
     </div>
