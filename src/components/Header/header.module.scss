@@ -90,7 +90,6 @@
 }
 
 .user {
-  color: #ffffff8c;
   display: flex;
   gap: 5px;
   align-items: center;
@@ -100,7 +99,11 @@
   padding: 20px 20px 20px 0;
   z-index: 5;
 
-  span {
+  p {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  a {
     color: #fff;
     text-decoration: underline;
   }

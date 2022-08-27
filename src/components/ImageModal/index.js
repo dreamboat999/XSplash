@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setImageId, setImageModal } from "../../redux/actions";
 
@@ -90,7 +91,9 @@ const ImageModal = () => {
             <div className={s.user_image}>
               <img src={user?.profile_image?.small} alt={user?.name} />
             </div>
-            <div className={s.user_name}>{user?.name}</div>
+            <Link to={`/@${user?.username}`} className={s.user_name}>
+              {user?.name}
+            </Link>
           </div>
           <div className={s.download}>
             <a

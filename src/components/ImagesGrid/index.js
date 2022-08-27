@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { setImageId, setImageModal } from "../../redux/actions";
 
 import s from "./imagesGrid.module.scss";
-import ImagesMasonry from "./ImagesMasonry";
+import ImagesMasonry from "../ImagesMasonry";
 import RenderIf from "../../utils/renderIf";
 import useMatch from "../../hooks/useMatch";
 import LazyImage from "../LazyImage";

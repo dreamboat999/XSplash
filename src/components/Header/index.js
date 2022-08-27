@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 import s from "./header.module.scss";
 
@@ -42,7 +43,7 @@ const Header = () => {
             <RenderIf isTrue={user?.username}>
               <div className={s.user}>
                 <p>Photo by</p>
-                <span>{user?.username}</span>
+                <Link to={`/@${user?.username}`}>{user?.username}</Link>
               </div>
             </RenderIf>
           </div>
