@@ -3,7 +3,6 @@ import {
   SET_CLEAR_RECENT,
   SET_IMAGE_MODAL,
   SET_IMAGE_ID,
-  SET_VALUE,
 } from "./actions";
 
 const recentFromLocalStorage = JSON.parse(
@@ -14,7 +13,6 @@ const initialState = {
   recentArr: recentFromLocalStorage,
   isImageModal: false,
   imageId: null,
-  value: "",
 };
 
 export const appReducer = (state = initialState, action) => {
@@ -38,11 +36,6 @@ export const appReducer = (state = initialState, action) => {
       return {
         ...state,
         imageId: action.payload,
-      };
-    case SET_VALUE:
-      return {
-        ...state,
-        value: action.payload,
       };
     default:
       return state;

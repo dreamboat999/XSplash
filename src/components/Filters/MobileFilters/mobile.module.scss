@@ -50,7 +50,7 @@
   }
 }
 
-.footer {
+.modal_footer {
   display: flex;
   gap: 10px;
   position: absolute;
@@ -99,10 +99,6 @@
 
 .option_inner {
   display: flex;
-
-  a {
-    color: #1d1d1f;
-  }
   
   &:not(:last-child) {
     margin-bottom: 15px;

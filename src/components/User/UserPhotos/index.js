@@ -27,21 +27,7 @@ const UserPhotos = ({ username }) => {
     }
   }, [isFetching]);
 
-  return (
-    <div>
-      <div className={s.tabs_outer}>
-        <div className={s.tabs_inner}>
-          <div className={s.tab}>
-            <div className={s.tab_icon}>
-              <MdPhoto />
-            </div>
-            <div className={s.tab_title}>Photos</div>
-          </div>
-        </div>
-      </div>
-      <ImagesGrid images={images} setIsFetching={setIsFetching} />
-    </div>
-  );
+  return <ImagesGrid images={images} setIsFetching={setIsFetching} />;
 };
 
 export default UserPhotos;

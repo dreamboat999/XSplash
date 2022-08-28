@@ -7,20 +7,43 @@ import { MdCheck, MdOutlineClose } from "react-icons/md";
 import RenderIf from "../../../utils/renderIf";
 import clsx from "clsx";
 
-const Option = ({ orientationData, orientation }) => {
+const orientationData = [
+  {
+    title: "Any Orientation",
+  },
+  {
+    title: "Landscape",
+    value: "landscape",
+  },
+  {
+    title: "Portrait",
+    value: "portrait",
+  },
+  {
+    title: "Square",
+    value: "squarish",
+  },
+];
+
+const Option = ({ name, orientationData, orientation }) => {
   return (
     <ul className={s.option_outer}>
       {orientationData.map((el, i) => {
         const selected = orientation === el.value;
+        const url = `/photos/${name}${el.value ? `/${el.value}` : ""}`;
+        const orientationIcon = `orientation orientation__${el.value}`;
 
         return (
           <li key={i} className={s.option_inner}>
             <Link
-              to={el.url}
+              to={url}
               className={clsx(s.option_link, { selected: selected })}
             >
               <RenderIf isTrue={selected}>
                 <MdCheck />
+              </RenderIf>
+              <RenderIf isTrue={el.value}>
+                <div className={orientationIcon} />
               </RenderIf>
               {el.title}
             </Link>
@@ -33,28 +56,6 @@ const Option = ({ orientationData, orientation }) => {
 
 const MobileFilters = ({ name, orientation, setIsOpenMobileFilters }) => {
   const history = useHistory();
-
-  const orientationData = [
-    {
-      title: "Any Orientation",
-      url: `/photos/${name}`,
-    },
-    {
-      title: "Landscape",
-      value: "landscape",
-      url: `/photos/${name}/landscape`,
-    },
-    {
-      title: "Portrait",
-      value: "portrait",
-      url: `/photos/${name}/portrait`,
-    },
-    {
-      title: "Square",
-      value: "squarish",
-      url: `/photos/${name}/squarish`,
-    },
-  ];
 
   const handleClose = () => {
     setIsOpenMobileFilters(false);
@@ -80,12 +81,13 @@ const MobileFilters = ({ name, orientation, setIsOpenMobileFilters }) => {
           <div className={s.item}>
             <h3>Orientation</h3>
             <Option
+              name={name}
               orientation={orientation}
               orientationData={orientationData}
             />
           </div>
         </div>
-        <div className={s.footer}>
+        <div className={s.modal_footer}>
           <button
             disabled={!orientation}
             className={s.clear_btn}

@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setClearRecent, setValue } from "../../../redux/actions";
+import { setClearRecent } from "../../../redux/actions";
 
 import s from "./panel.module.scss";
 
@@ -22,7 +22,6 @@ const Panel = ({ isOpenFormPanel, setIsOpenFormPanel }) => {
     history.push({
       pathname: `/photos/${value}`,
     });
-    dispatch(setValue(value));
     setIsOpenFormPanel(false);
   };
 

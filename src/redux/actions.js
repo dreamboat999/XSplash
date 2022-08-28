@@ -30,10 +30,3 @@ export const setImageId = (payload) => {
     payload,
   };
 };
-
-export const setValue = (payload) => {
-  return {
-    type: SET_VALUE,
-    payload,
-  };
-};

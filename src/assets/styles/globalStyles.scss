@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Concert+One&display=swap');
-
 * {
   margin: 0;
   padding: 0;
@@ -9,9 +7,7 @@
 body {
   font-size: 14px;
   font-weight: 400;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Roboto', sans-serif;
   color: #1d1d1f;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -58,4 +54,23 @@ main {
 .selected {
   color: #1d1d1f !important;
   pointer-events: none;
+}
+
+.orientation {
+  background: rgb(228, 228, 228);
+  border: 1px solid rgb(177, 177, 177);
+  margin: 0 10px 0 0;
+
+  &__landscape {
+    width: 18px;
+    height: 12px;
+  }
+  &__portrait {
+    width: 12px;
+    height: 18px;
+  }
+  &__squarish {
+    width: 18px;
+    height: 18px;
+  }
 }
