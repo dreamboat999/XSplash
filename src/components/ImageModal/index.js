@@ -91,7 +91,11 @@ const ImageModal = () => {
             <div className={s.user_image}>
               <img src={user?.profile_image?.small} alt={user?.name} />
             </div>
-            <Link to={`/@${user?.username}`} className={s.user_name}>
+            <Link
+              to={`/@${user?.username}`}
+              className={s.user_name}
+              onClick={() => dispatch(setImageModal(false))}
+            >
               {user?.name}
             </Link>
           </div>
