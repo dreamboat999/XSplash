@@ -1,5 +1,5 @@
 const PageTitle = ({ children, title }) => {
-  document.title = `${title ? title : "Loading"}`;
+  document.title = `${title ? `${title} | Unsplash` : "Loading"}`;
   return <>{children}</>;
 };
 

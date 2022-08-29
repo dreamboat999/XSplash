@@ -7,11 +7,12 @@ import s from "./imageModal.module.scss";
 import { MdOutlineClose } from "react-icons/md";
 
 import { getImage, getUserImages } from "../../api";
+import { Spinner } from "../Loading";
 import ImagesGrid from "../ImagesGrid";
 import useClickAway from "../../hooks/useClickAway";
 import DownloadImage from "../../utils/downloadImage";
 import RenderIf from "../../utils/renderIf";
-import { Spinner } from "../Loading";
+import clsx from "clsx";
 
 const ImageModal = () => {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ const ImageModal = () => {
   const [loading, setLoading] = useState(true);
   const modalOuter = useRef(null);
   const modalInner = useRef(null);
+  const [disableLink, setDisableLink] = useState(false);
   const { views, downloads, user, created_at, urls } = image;
 
   const handleClose = () => {
@@ -62,7 +64,7 @@ const ImageModal = () => {
   });
 
   const handleDownload = (e) => {
-    DownloadImage(e, user?.username, imageId);
+    DownloadImage(e, user?.username, imageId, setDisableLink);
   };
 
   const formatNumber = (num) => {
@@ -99,10 +101,13 @@ const ImageModal = () => {
               {user?.name}
             </Link>
           </div>
-          <div className={s.download}>
+          <div>
             <a
               href={urls?.raw}
-              className={s.btn_download}
+              download
+              className={clsx(s.btn_download, {
+                [s.disable_btn_download]: disableLink,
+              })}
               onClick={handleDownload}
             >
               Download

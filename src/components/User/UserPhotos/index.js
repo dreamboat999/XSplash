@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-import s from "./userPhotos.module.scss";
-import { MdPhoto } from "react-icons/md";
-
 import { getUserImages } from "../../../api";
 import ImagesGrid from "../../ImagesGrid";
 

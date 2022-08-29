@@ -24,7 +24,7 @@ const Search = () => {
 
   useEffect(() => {
     setLoading(true);
-    getSearchImages(1, name, orientation, sort)
+    getSearchImages(1, name, sort, orientation)
       .then((response) => {
         setImages(response.results);
       })
@@ -34,11 +34,11 @@ const Search = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, [name, orientation, sort]);
+  }, [name, sort, orientation]);
 
   useEffect(() => {
     if (isFetching) {
-      getSearchImages(page, name, orientation, sort)
+      getSearchImages(page, name, sort, orientation)
         .then((response) => {
           setImages([...images, ...response.results]);
           setPage((page) => page + 1);
@@ -79,10 +79,11 @@ const Search = () => {
   };
 
   return (
-    <PageTitle title={`Unsplash | ${name ? name : "Loading"}`}>
+    <PageTitle title={`${name ? name : "Loading"}`}>
       <RenderIf isTrue={isSearchPage}>
         <DesktopFilters
           name={name}
+          sort={sort}
           orientation={orientation}
           handleOpenModal={handleOpenModal}
         />
@@ -93,6 +94,7 @@ const Search = () => {
       <RenderIf isTrue={isOpenMobileFilters}>
         <MobileFilters
           name={name}
+          sort={sort}
           orientation={orientation}
           setIsOpenMobileFilters={setIsOpenMobileFilters}
         />

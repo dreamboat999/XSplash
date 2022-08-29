@@ -154,12 +154,6 @@
   }
 }
 
-
-// DOWNLOAD COMPONENT STYLES
-.download {
-  display: flex;
-}
-
 .btn_download {
   font-weight: 500;
   color: #767676;
@@ -170,9 +164,14 @@
   align-items: center;
   height: 32px;
   padding: 0 10px;
-  transition: all .2s ease;
+  transition: all .3s ease;
 
   &:hover {
+    color: #1d1d1f;
     border-color: #1d1d1f;
   }
+}
+
+.disable_btn_download {
+  pointer-events: none;
 }

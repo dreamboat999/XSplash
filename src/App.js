@@ -32,7 +32,10 @@ const App = () => {
           <Route exact path="/">
             <Home />
           </Route>
-          <Route path="/photos/:name/:orientation?" children={<Search />} />
+          <Route
+            path="/photos/:name/:sort/:orientation?"
+            children={<Search />}
+          />
           <Route path="/@:username" children={<User />} />
         </Switch>
         <RenderIf isTrue={isImageModal}>

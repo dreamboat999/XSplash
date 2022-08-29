@@ -6,6 +6,11 @@
   z-index: 19;
 }
 
+.filters {
+  display: flex;
+  gap: 24px;
+}
+
 .mobile_filters_button {
   color: #767676;
   width: 35px;

@@ -1,9 +1,10 @@
-const DownloadImage = (e, username, id) => {
+const DownloadImage = (e, username, id, setDisableLink) => {
   e.preventDefault();
 
+  setDisableLink(true);
   fetch(e.target.href)
     .then((response) => {
-      response.arrayBuffer().then(function (buffer) {
+      response.arrayBuffer().then((buffer) => {
         const url = window.URL.createObjectURL(new Blob([buffer]));
         const link = document.createElement("a");
         link.href = url;
@@ -14,6 +15,9 @@ const DownloadImage = (e, username, id) => {
     })
     .catch((error) => {
       console.log(error);
+    })
+    .finally(() => {
+      setDisableLink(false);
     });
 };
 

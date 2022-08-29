@@ -3,58 +3,21 @@ import { Link, useHistory } from "react-router-dom";
 
 import s from "./mobile.module.scss";
 import { MdCheck, MdOutlineClose } from "react-icons/md";
+import { orientationData, sortData } from "../FiltersData";
 
 import RenderIf from "../../../utils/renderIf";
 import clsx from "clsx";
 
-const orientationData = [
-  {
-    title: "Any Orientation",
-  },
-  {
-    title: "Landscape",
-    value: "landscape",
-  },
-  {
-    title: "Portrait",
-    value: "portrait",
-  },
-  {
-    title: "Square",
-    value: "squarish",
-  },
-];
-
-const Option = ({ name, orientationData, orientation }) => {
+const Filter = ({ title, children }) => {
   return (
-    <ul className={s.option_outer}>
-      {orientationData.map((el, i) => {
-        const selected = orientation === el.value;
-        const url = `/photos/${name}${el.value ? `/${el.value}` : ""}`;
-        const orientationIcon = `orientation orientation__${el.value}`;
-
-        return (
-          <li key={i} className={s.option_inner}>
-            <Link
-              to={url}
-              className={clsx(s.option_link, { selected: selected })}
-            >
-              <RenderIf isTrue={selected}>
-                <MdCheck />
-              </RenderIf>
-              <RenderIf isTrue={el.value}>
-                <div className={orientationIcon} />
-              </RenderIf>
-              {el.title}
-            </Link>
-          </li>
-        );
-      })}
-    </ul>
+    <div className={s.filter}>
+      <h3 className={s.filter_title}>{title}</h3>
+      <ul className={s.filter_list}>{children}</ul>
+    </div>
   );
 };
 
-const MobileFilters = ({ name, orientation, setIsOpenMobileFilters }) => {
+const MobileFilters = ({ name, sort, orientation, setIsOpenMobileFilters }) => {
   const history = useHistory();
 
   const handleClose = () => {
@@ -63,7 +26,7 @@ const MobileFilters = ({ name, orientation, setIsOpenMobileFilters }) => {
 
   const handleClear = () => {
     history.push({
-      pathname: `/photos/${name}`,
+      pathname: `/photos/${name}/relevant`,
     });
     setIsOpenMobileFilters(false);
   };
@@ -78,18 +41,57 @@ const MobileFilters = ({ name, orientation, setIsOpenMobileFilters }) => {
           </button>
         </div>
         <div>
-          <div className={s.item}>
-            <h3>Orientation</h3>
-            <Option
-              name={name}
-              orientation={orientation}
-              orientationData={orientationData}
-            />
-          </div>
+          <Filter title="Orientation">
+            {orientationData.map((el, i) => {
+              const selected = orientation === el.value;
+              const url = `/photos/${name}/${sort}${
+                el.value ? `/${el.value}` : ""
+              }`;
+              const orientationIcon = `orientation orientation__${el.value}`;
+
+              return (
+                <li key={i} className={s.filter_item}>
+                  <Link
+                    to={url}
+                    className={clsx(s.filter_link, { selected: selected })}
+                  >
+                    <RenderIf isTrue={selected}>
+                      <MdCheck />
+                    </RenderIf>
+                    <RenderIf isTrue={el.value}>
+                      <div className={orientationIcon} />
+                    </RenderIf>
+                    {el.title}
+                  </Link>
+                </li>
+              );
+            })}
+          </Filter>
+          <Filter title="Sort">
+            {sortData.map((el, i) => {
+              const selected = sort === el.value;
+              const url = `/photos/${name}/${el.value}`;
+
+              return (
+                <li key={i} className={s.filter_item}>
+                  <Link
+                    key={i}
+                    to={url}
+                    className={clsx(s.filter_link, { selected: selected })}
+                  >
+                    <RenderIf isTrue={selected}>
+                      <MdCheck />
+                    </RenderIf>
+                    {el.title}
+                  </Link>
+                </li>
+              );
+            })}
+          </Filter>
         </div>
         <div className={s.modal_footer}>
           <button
-            disabled={!orientation}
+            disabled={!orientation && sort !== "latest"}
             className={s.clear_btn}
             onClick={handleClear}
           >

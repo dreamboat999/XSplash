@@ -1,5 +1,5 @@
 import instance from "./axios";
-import { SECRET_KEY } from "./utils/constants";
+import { SECRET_KEY } from "./constants";
 
 export const getBackgroundImage = () => {
   return instance(true)
@@ -39,10 +39,15 @@ export const getImages = (page) => {
     });
 };
 
-export const getSearchImages = (page, name, orientation) => {
+export const getSearchImages = (
+  page,
+  name,
+  sort = "relevance",
+  orientation
+) => {
   return instance()
     .get(
-      `search/photos?client_id=${SECRET_KEY}&per_page=12&page=${page}&query=${name}${
+      `search/photos?client_id=${SECRET_KEY}&per_page=12&page=${page}&query=${name}&order_by=${sort}${
         orientation ? `&orientation=${orientation}` : ""
       }`
     )
