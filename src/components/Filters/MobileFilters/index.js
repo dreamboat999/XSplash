@@ -70,7 +70,9 @@ const MobileFilters = ({ name, sort, orientation, setIsOpenMobileFilters }) => {
           <Filter title="Sort">
             {sortData.map((el, i) => {
               const selected = sort === el.value;
-              const url = `/photos/${name}/${el.value}`;
+              const url = `/photos/${name}/${el.value}${
+                orientation ? `/${orientation}` : ""
+              }`;
 
               return (
                 <li key={i} className={s.filter_item}>

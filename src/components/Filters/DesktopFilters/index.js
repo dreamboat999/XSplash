@@ -20,6 +20,9 @@ const DesktopFilters = ({ name, orientation, sort, handleOpenModal }) => {
     (el) => orientation === el.value
   );
 
+  console.log(sort);
+  console.log(orientation);
+
   return (
     <div className={s.desktop_filters}>
       <Tabs>
@@ -49,7 +52,9 @@ const DesktopFilters = ({ name, orientation, sort, handleOpenModal }) => {
             <Dropdown title={`Sort by ${sortTitle.title}`}>
               {sortData.map((el, i) => {
                 const selected = sort === el.value;
-                const url = `/photos/${name}/${el.value}`;
+                const url = `/photos/${name}/${el.value}${
+                  orientation ? `/${orientation}` : ""
+                }`;
 
                 return (
                   <Link key={i} to={url} className={selected ? "selected" : ""}>

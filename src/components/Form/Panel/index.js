@@ -21,7 +21,7 @@ const Panel = ({ isOpenFormPanel, setIsOpenFormPanel }) => {
 
   const handleClick = (value) => {
     history.push({
-      pathname: `/s/photos/${value}/relevant`,
+      pathname: `/photos/${value}/relevant`,
     });
     setIsOpenFormPanel(false);
   };

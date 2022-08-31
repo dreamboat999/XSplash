@@ -33,7 +33,7 @@ const App = () => {
             <Home />
           </Route>
           <Route
-            path="/s/:photos/:name/:sort/:orientation?"
+            path="/photos/:name/:sort/:orientation?"
             children={<Search />}
           />
           <Route path="/@:username" children={<User />} />
