@@ -31,7 +31,7 @@ const Form = ({ isNavbarForm }) => {
   const handleSubmit = () => {
     if (value) {
       dispatch(setAddRecent(value));
-      history.push(`/photos/${value}/relevant`);
+      history.push(`/s/photos/${value}/relevant`);
       setIsOpenFormPanel(false);
     }
   };

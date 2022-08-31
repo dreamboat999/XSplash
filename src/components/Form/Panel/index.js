@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setClearRecent } from "../../../redux/actions";
 
 import s from "./panel.module.scss";
+import clsx from "clsx";
 
 const Panel = ({ isOpenFormPanel, setIsOpenFormPanel }) => {
   const dispatch = useDispatch();
@@ -11,7 +12,7 @@ const Panel = ({ isOpenFormPanel, setIsOpenFormPanel }) => {
   const history = useHistory();
 
   const newArr = [...new Set(recentArr)];
-  const showPanel = isOpenFormPanel && newArr.length ? `${s.show_panel}` : "";
+  const fiveElementArray = newArr.slice(Math.max(newArr.length - 5, 0));
 
   const handleClearRecent = () => {
     localStorage.removeItem("recent");
@@ -20,13 +21,17 @@ const Panel = ({ isOpenFormPanel, setIsOpenFormPanel }) => {
 
   const handleClick = (value) => {
     history.push({
-      pathname: `/photos/${value}/relevant`,
+      pathname: `/s/photos/${value}/relevant`,
     });
     setIsOpenFormPanel(false);
   };
 
   return (
-    <div className={`${s.panel} ${showPanel}`}>
+    <div
+      className={clsx(s.panel, {
+        [s.show_panel]: isOpenFormPanel && newArr.length,
+      })}
+    >
       <div className={s.panel_items}>
         <div className={s.panel_title}>
           <span>Recent Searches</span>
@@ -36,7 +41,7 @@ const Panel = ({ isOpenFormPanel, setIsOpenFormPanel }) => {
           </button>
         </div>
         <div className={s.recent}>
-          {newArr.slice(Math.max(newArr.length - 5, 0))?.map((el, i) => {
+          {fiveElementArray?.map((el, i) => {
             return (
               <button
                 type="button"

@@ -13,7 +13,7 @@ const Navbar = () => {
   const url = location.pathname.split("/")[1];
 
   useEffect(() => {
-    if (url === "photos") {
+    if (url !== "") {
       setIsSearchPage(true);
     }
   }, [url, location]);

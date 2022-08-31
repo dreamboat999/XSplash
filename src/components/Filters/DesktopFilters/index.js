@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import s from "./desktop.module.scss";
-import { MdCheck } from "react-icons/md";
+import { MdCheck, MdPhoto } from "react-icons/md";
 import { IoMdOptions } from "react-icons/io";
 import { orientationData, sortData } from "../FiltersData";
 

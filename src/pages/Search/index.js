@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import { getSearchImages } from "../../api";
 import { LinearProgress } from "../../components/Loading";
@@ -12,15 +12,12 @@ import useMatch from "../../hooks/useMatch";
 
 const Search = () => {
   const { name, orientation, sort } = useParams();
-  const location = useLocation();
   const [images, setImages] = useState([]);
   const [page, setPage] = useState(1);
   const [isFetching, setIsFetching] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [isSearchPage, setIsSearchPage] = useState(false);
   const [isOpenMobileFilters, setIsOpenMobileFilters] = useState(false);
   const match = useMatch();
-  const url = location.pathname.split("/")[1];
 
   useEffect(() => {
     setLoading(true);
@@ -53,14 +50,6 @@ const Search = () => {
   }, [isFetching]);
 
   useEffect(() => {
-    if (url === "photos") {
-      setIsSearchPage(true);
-    } else {
-      setIsSearchPage(false);
-    }
-  }, [url, location]);
-
-  useEffect(() => {
     if (isOpenMobileFilters) {
       document.querySelector("body").className = "disable_scroll";
     } else {
@@ -80,14 +69,12 @@ const Search = () => {
 
   return (
     <PageTitle title={`${name ? name : "Loading"}`}>
-      <RenderIf isTrue={isSearchPage}>
-        <DesktopFilters
-          name={name}
-          sort={sort}
-          orientation={orientation}
-          handleOpenModal={handleOpenModal}
-        />
-      </RenderIf>
+      <DesktopFilters
+        name={name}
+        sort={sort}
+        orientation={orientation}
+        handleOpenModal={handleOpenModal}
+      />
       <LinearProgress loading={loading}>
         <ImagesGrid images={images} setIsFetching={setIsFetching} name={name} />
       </LinearProgress>
