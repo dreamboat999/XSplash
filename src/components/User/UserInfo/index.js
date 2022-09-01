@@ -96,14 +96,14 @@ const UserInfo = ({ username }) => {
                   {location}
                 </div>
               </RenderIf>
-              <div className={s.user_item}>
-                <RenderIf
-                  isTrue={
-                    social?.portfolio_url ||
-                    social?.instagram_username ||
-                    social?.twitter_username
-                  }
-                >
+              <RenderIf
+                isTrue={
+                  social?.portfolio_url ||
+                  social?.instagram_username ||
+                  social?.twitter_username
+                }
+              >
+                <div className={s.user_item}>
                   <AiOutlineLink />
                   <Dropdown title={`Connect with ${first_name}`}>
                     {contacts.map((el, i) => {
@@ -117,8 +117,8 @@ const UserInfo = ({ username }) => {
                       );
                     })}
                   </Dropdown>
-                </RenderIf>
-              </div>
+                </div>
+              </RenderIf>
             </div>
             <RenderIf isTrue={tags?.custom?.length}>
               <div className={s.user_interest}>
@@ -127,7 +127,7 @@ const UserInfo = ({ username }) => {
                   {tags?.custom?.map((el, i) => {
                     return (
                       <Link
-                        to={`/photos/${el.title}`}
+                        to={`/photos/${el.title}/relevant`}
                         key={i}
                         className={s.user_tag}
                       >

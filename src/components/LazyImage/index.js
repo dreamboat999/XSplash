@@ -24,7 +24,7 @@ const LazyImage = ({ src = "", alt = "" }) => {
   return (
     <div
       ref={containerRef}
-      className={clsx(s.container, { [s.containerLoaded]: isLoaded })}
+      className={s.container}
       style={{
         height: isLoaded ? "100%" : 300,
       }}

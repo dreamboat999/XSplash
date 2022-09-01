@@ -20,9 +20,6 @@ const DesktopFilters = ({ name, orientation, sort, handleOpenModal }) => {
     (el) => orientation === el.value
   );
 
-  console.log(sort);
-  console.log(orientation);
-
   return (
     <div className={s.desktop_filters}>
       <Tabs>
