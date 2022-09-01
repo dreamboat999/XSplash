@@ -58,7 +58,7 @@ const ImageModal = () => {
   }, [user?.username]);
 
   const dateFormat = new Date(created_at).toLocaleDateString("en-US", {
-    month: "long",
+    month: "short",
     day: "numeric",
     year: "numeric",
   });
@@ -132,9 +132,10 @@ const ImageModal = () => {
               <span>{formatNumber(downloads)}</span>
             </RenderIf>
           </div>
-          <div className={s.modal_info_item}>
+          <div className={clsx(s.modal_info_item, s.published)}>
+            <h3>Published on</h3>
             <RenderIf isTrue={created_at}>
-              <h3>Published on {dateFormat}</h3>
+              <span>{dateFormat}</span>
             </RenderIf>
           </div>
         </div>

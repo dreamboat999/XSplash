@@ -108,30 +108,18 @@
 .modal_info {
   display: flex;
   flex-wrap: wrap;
-  gap: 40px;
+  column-gap: 40px;
+  row-gap: 20px;
   padding: 15px 20px;
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+  }
 }
 
 .modal_info_item {
   display: grid;
   gap: 5px;
-
-  &:last-child {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-
-    span {
-      font-weight: 400;
-      color: #767676;
-    }
-  }
-
-  @media (max-width: 425px) {
-    &:last-child {
-      justify-content: flex-start;
-    }
-  }
 
   h3 {
     font-size: 16px;
@@ -141,17 +129,23 @@
 
   span {
     font-size: 16px;
-    font-weight: 500;
+  }
+}
+
+.published {
+  @media (min-width: 500px) {
+    flex: 1;
+    justify-content: flex-end;
   }
 }
 
 .related {
-  margin: 50px 0 40px 0;
+  margin: 50px 0 30px 0;
 
   h2 {
     font-size: 18px;
-    font-weight: 500;
-    padding: 15px 20px 25px 20px;
+    font-weight: 400;
+    padding: 15px 20px;
   }
 }
 
