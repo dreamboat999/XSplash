@@ -1,19 +1,19 @@
 import React, { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setAddRecent } from "../../redux/actions";
+import clsx from "clsx";
 
 import s from "./form.module.scss";
 import { AiOutlineSearch } from "react-icons/ai";
 
 import Panel from "./Panel";
+
+import { useAppContext } from "../../context";
 import useClickAway from "../../hooks/useClickAway";
 import useMatch from "../../hooks/useMatch";
 import RenderIf from "../../utils/renderIf";
-import clsx from "clsx";
 
 const Form = ({ isNavbarForm }) => {
-  const dispatch = useDispatch();
+  const { recent, setRecent } = useAppContext();
   const history = useHistory();
   const input = useRef(null);
   const [value, setValue] = useState("");
@@ -30,7 +30,7 @@ const Form = ({ isNavbarForm }) => {
 
   const handleSubmit = () => {
     if (value) {
-      dispatch(setAddRecent(value));
+      setRecent([...recent, value]);
       history.push(`/photos/${value}/relevant`);
       setIsOpenFormPanel(false);
     }

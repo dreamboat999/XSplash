@@ -1,16 +1,55 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setImageId, setImageModal } from "../../redux/actions";
+import clsx from "clsx";
 
 import s from "./imagesGrid.module.scss";
+
 import ImagesMasonry from "../ImagesMasonry";
+
+import { useAppContext } from "../../context";
 import RenderIf from "../../utils/renderIf";
 import useMatch from "../../hooks/useMatch";
-import LazyImage from "../LazyImage";
+import useOnScreen from "../../hooks/useOnScreen";
+
+const LazyImage = ({ src = "", alt = "" }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const imageRef = useRef(null);
+  const containerRef = useRef(null);
+  const isVisible = useOnScreen(containerRef);
+
+  useEffect(() => {
+    if (!isVisible || isLoaded) {
+      return;
+    }
+    if (imageRef.current) {
+      imageRef.current.onload = () => {
+        setIsLoaded(true);
+      };
+    }
+  }, [isVisible, isLoaded]);
+
+  return (
+    <div
+      ref={containerRef}
+      className={s.lazy_image_wrapper}
+      style={{
+        height: isLoaded ? "100%" : 300,
+      }}
+    >
+      {(isVisible || isLoaded) && (
+        <img
+          ref={imageRef}
+          src={src}
+          alt={alt}
+          className={clsx(s.lazy_image, { [s.lazy_image_loaded]: isLoaded })}
+        />
+      )}
+    </div>
+  );
+};
 
 const ImagesGrid = ({ setIsFetching, images, name }) => {
-  const dispatch = useDispatch();
+  const { handleOpenModal } = useAppContext();
   const match = useMatch();
 
   const handleScroll = (e) => {
@@ -30,11 +69,6 @@ const ImagesGrid = ({ setIsFetching, images, name }) => {
     };
   }, []);
 
-  const handleOpenModal = (id) => {
-    dispatch(setImageModal(true));
-    dispatch(setImageId(id));
-  };
-
   return (
     <div className={s.images_grid}>
       <div className="container">
@@ -47,13 +81,13 @@ const ImagesGrid = ({ setIsFetching, images, name }) => {
             return (
               <div
                 key={i}
-                className={s.image_wrapper}
+                className={s.image_container}
                 onClick={match ? () => handleOpenModal(id) : () => {}}
               >
-                <div className={s.user_info_outer}>
+                <div className={s.user_wrapper}>
                   <Link
                     to={`/@${user.username}`}
-                    className={s.user_info_inner}
+                    className={s.user_link}
                     onClick={(e) => {
                       e.stopPropagation();
                     }}
@@ -67,7 +101,7 @@ const ImagesGrid = ({ setIsFetching, images, name }) => {
 
                 <div
                   onClick={match ? () => {} : () => handleOpenModal(id)}
-                  className={s.image}
+                  className={s.image_wrapper}
                 >
                   <LazyImage src={urls.regular} alt={description} />
                 </div>

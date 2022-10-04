@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
+import { useAppContext } from "./context";
 
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
@@ -10,19 +11,7 @@ import ImageModal from "./components/ImageModal";
 import RenderIf from "./utils/renderIf";
 
 const App = () => {
-  const { isImageModal, recentArr } = useSelector((state) => state.appState);
-
-  useEffect(() => {
-    localStorage.setItem("recent", JSON.stringify(recentArr));
-  }, [recentArr]);
-
-  useEffect(() => {
-    if (isImageModal) {
-      document.querySelector("body").className = "disable_scroll";
-    } else {
-      document.querySelector("body").className = "";
-    }
-  }, [isImageModal]);
+  const { isOpenModal } = useAppContext();
 
   return (
     <main>
@@ -38,7 +27,7 @@ const App = () => {
           />
           <Route path="/@:username" children={<User />} />
         </Switch>
-        <RenderIf isTrue={isImageModal}>
+        <RenderIf isTrue={isOpenModal}>
           <ImageModal />
         </RenderIf>
       </Router>

@@ -1,22 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { setImageId, setImageModal } from "../../redux/actions";
+import clsx from "clsx";
 
 import s from "./imageModal.module.scss";
 import { MdOutlineClose } from "react-icons/md";
 
-import { getImage, getUserImages } from "../../api";
-import { Spinner } from "../Loading";
 import ImagesGrid from "../ImagesGrid";
+import { Spinner } from "../Loading";
+import { getImage, getUserImages } from "../../api";
+
+import { useAppContext } from "../../context";
 import useClickAway from "../../hooks/useClickAway";
 import DownloadImage from "../../utils/downloadImage";
 import RenderIf from "../../utils/renderIf";
-import clsx from "clsx";
 
 const ImageModal = () => {
-  const dispatch = useDispatch();
-  const { imageId, isImageModal } = useSelector((state) => state.appState);
+  const { isOpenModal, imageId, handleCloseModal } = useAppContext();
   const [image, setImage] = useState({});
   const [related, setRelated] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -25,13 +24,8 @@ const ImageModal = () => {
   const [disableLink, setDisableLink] = useState(false);
   const { views, downloads, user, created_at, urls } = image;
 
-  const handleClose = () => {
-    dispatch(setImageModal(false));
-    dispatch(setImageId(null));
-  };
-
   useClickAway(modalInner, () => {
-    handleClose();
+    handleCloseModal();
   });
 
   useEffect(() => {
@@ -72,7 +66,7 @@ const ImageModal = () => {
   };
 
   useEffect(() => {
-    if (isImageModal) {
+    if (isOpenModal) {
       if (imageId) {
         modalOuter.current.scrollTo({
           top: 0,
@@ -80,11 +74,11 @@ const ImageModal = () => {
         });
       }
     }
-  }, [imageId, isImageModal]);
+  }, [imageId, isOpenModal]);
 
   return (
     <div className={s.modal_outer} ref={modalOuter}>
-      <button className={s.btn_close} onClick={handleClose}>
+      <button className={s.btn_close} onClick={handleCloseModal}>
         <MdOutlineClose />
       </button>
       <div className={s.modal_inner} ref={modalInner}>
@@ -96,7 +90,7 @@ const ImageModal = () => {
             <Link
               to={`/@${user?.username}`}
               className={s.user_name}
-              onClick={() => dispatch(setImageModal(false))}
+              onClick={handleCloseModal}
             >
               {user?.name}
             </Link>

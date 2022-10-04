@@ -1,22 +1,20 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { setClearRecent } from "../../../redux/actions";
-
-import s from "./panel.module.scss";
 import clsx from "clsx";
 
+import s from "./panel.module.scss";
+import { useAppContext } from "../../../context";
+
 const Panel = ({ isOpenFormPanel, setIsOpenFormPanel }) => {
-  const dispatch = useDispatch();
-  const { recentArr } = useSelector((state) => state.appState);
+  const { recent, setRecent } = useAppContext();
   const history = useHistory();
 
-  const newArr = [...new Set(recentArr)];
+  const newArr = [...new Set(recent)];
   const fiveElementArray = newArr.slice(Math.max(newArr.length - 5, 0));
 
   const handleClearRecent = () => {
     localStorage.removeItem("recent");
-    dispatch(setClearRecent());
+    setRecent([]);
   };
 
   const handleClick = (value) => {
