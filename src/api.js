@@ -1,10 +1,10 @@
 import instance from "./axios";
-import { SECRET_KEY } from "./constants";
+import { ACCESS_KEY } from "./constants";
 
 export const getBackgroundImage = () => {
   return instance(true)
     .get(
-      `collections/1459961/photos?client_id=${SECRET_KEY}&orientation=landscape&per_page=1`
+      `collections/1459961/photos?client_id=${ACCESS_KEY}&orientation=landscape&per_page=1`
     )
     .then((res) => {
       return res?.data;
@@ -13,7 +13,7 @@ export const getBackgroundImage = () => {
 
 export const getImage = (id) => {
   return instance(true)
-    .get(`photos/${id}?client_id=${SECRET_KEY}`)
+    .get(`photos/${id}?client_id=${ACCESS_KEY}`)
     .then((res) => {
       return res?.data;
     });
@@ -22,7 +22,7 @@ export const getImage = (id) => {
 export const getUserImages = (username, page) => {
   return instance(true)
     .get(
-      `users/${username}/photos?client_id=${SECRET_KEY}&per_page=9${
+      `users/${username}/photos?client_id=${ACCESS_KEY}&per_page=9${
         page ? `&page=${page}` : ""
       }`
     )
@@ -33,7 +33,7 @@ export const getUserImages = (username, page) => {
 
 export const getImages = (page) => {
   return instance(true)
-    .get(`photos?client_id=${SECRET_KEY}&per_page=9&page=${page}`)
+    .get(`photos?client_id=${ACCESS_KEY}&per_page=9&page=${page}`)
     .then((res) => {
       return res?.data;
     });
@@ -47,7 +47,7 @@ export const getSearchImages = (
 ) => {
   return instance()
     .get(
-      `search/photos?client_id=${SECRET_KEY}&per_page=12&page=${page}&query=${name}&order_by=${sort}${
+      `search/photos?client_id=${ACCESS_KEY}&per_page=12&page=${page}&query=${name}&order_by=${sort}${
         orientation ? `&orientation=${orientation}` : ""
       }`
     )
@@ -58,7 +58,7 @@ export const getSearchImages = (
 
 export const getUserInfo = (username) => {
   return instance()
-    .get(`users/${username}/?client_id=${SECRET_KEY}`)
+    .get(`users/${username}/?client_id=${ACCESS_KEY}`)
     .then((res) => {
       return res?.data;
     });

@@ -24,8 +24,6 @@ const ImageModal = () => {
   const [disableLink, setDisableLink] = useState(false);
   const { views, downloads, user, created_at, urls } = image;
 
-  console.log(downloads);
-
   useClickAway(modalInner, () => {
     handleCloseModal();
   });
