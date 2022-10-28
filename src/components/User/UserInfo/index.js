@@ -65,6 +65,12 @@ const UserInfo = ({ username }) => {
       });
   }, [username]);
 
+  const handleClick = (url) => {
+    if (url) {
+      window.open(url);
+    }
+  };
+
   return (
     <LinearProgress loading={loading}>
       <div className={s.user_outer}>
@@ -86,13 +92,17 @@ const UserInfo = ({ username }) => {
             <div className={s.user_items}>
               <RenderIf isTrue={for_hire}>
                 <div className={clsx(s.user_item, s.available)}>
-                  <AiFillCheckCircle />
+                  <div className={s.icon}>
+                    <AiFillCheckCircle />
+                  </div>
                   Available for hire
                 </div>
               </RenderIf>
               <RenderIf isTrue={location}>
                 <div className={s.user_item}>
-                  <IoLocationSharp />
+                  <div className={s.icon}>
+                    <IoLocationSharp />
+                  </div>
                   {location}
                 </div>
               </RenderIf>
@@ -104,16 +114,20 @@ const UserInfo = ({ username }) => {
                 }
               >
                 <div className={s.user_item}>
-                  <AiOutlineLink />
+                  <div className={s.icon}>
+                    <AiOutlineLink />
+                  </div>
                   <Dropdown title={`Connect with ${first_name}`}>
                     {contacts.map((el, i) => {
                       return (
-                        <RenderIf isTrue={el.username} key={i}>
-                          <a href={el.url} target="_blank" rel="noreferrer">
-                            {el.icon}
-                            {el.title}
-                          </a>
-                        </RenderIf>
+                        <button
+                          key={i}
+                          onClick={() => handleClick(el.url)}
+                          disabled={!el.username}
+                        >
+                          {el.icon}
+                          {el.title}
+                        </button>
                       );
                     })}
                   </Dropdown>

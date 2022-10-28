@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { cloneElement, useRef, useState } from "react";
 
 import s from "./dropdown.module.scss";
 import { MdOutlineArrowDropDown } from "react-icons/md";
@@ -34,7 +34,20 @@ const Dropdown = ({ title, children }) => {
       <RenderIf isTrue={isOpen}>
         <div className={animation}>
           <div className={s.dropdown_inner}>
-            <div className={s.content}>{children}</div>
+            <div className={s.content}>
+              {children.map((el, i) => {
+                return (
+                  <React.Fragment key={i}>
+                    {cloneElement(el, {
+                      onClick: async () => {
+                        el.props.onClick();
+                        await handleDropdown();
+                      },
+                    })}
+                  </React.Fragment>
+                );
+              })}
+            </div>
           </div>
         </div>
       </RenderIf>

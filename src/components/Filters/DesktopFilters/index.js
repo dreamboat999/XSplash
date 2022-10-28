@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import s from "./desktop.module.scss";
 import { MdCheck } from "react-icons/md";
@@ -13,12 +13,21 @@ import Tabs from "../../Tabs";
 
 const DesktopFilters = ({ name, orientation, sort, handleOpenModal }) => {
   const match = useMatch();
+  const history = useHistory();
 
   const sortTitle = sortData.find((el) => sort === el.value);
 
   const orientationTitle = orientationData.find(
     (el) => orientation === el.value
   );
+
+  const handleOrientation = (url) => {
+    history.push(url);
+  };
+
+  const handleSort = (url) => {
+    history.push(url);
+  };
 
   return (
     <div className={s.desktop_filters}>
@@ -34,7 +43,11 @@ const DesktopFilters = ({ name, orientation, sort, handleOpenModal }) => {
                 const orientationIcon = `orientation orientation__${el.value}`;
 
                 return (
-                  <Link key={i} to={url} className={selected ? "selected" : ""}>
+                  <button
+                    key={i}
+                    className={selected ? "selected" : ""}
+                    onClick={() => handleOrientation(url)}
+                  >
                     <RenderIf isTrue={selected}>
                       <MdCheck />
                     </RenderIf>
@@ -42,7 +55,7 @@ const DesktopFilters = ({ name, orientation, sort, handleOpenModal }) => {
                       <div className={orientationIcon} />
                     </RenderIf>
                     {el.title}
-                  </Link>
+                  </button>
                 );
               })}
             </Dropdown>
@@ -54,12 +67,16 @@ const DesktopFilters = ({ name, orientation, sort, handleOpenModal }) => {
                 }`;
 
                 return (
-                  <Link key={i} to={url} className={selected ? "selected" : ""}>
+                  <button
+                    key={i}
+                    className={selected ? "selected" : ""}
+                    onClick={() => handleSort(url)}
+                  >
                     <RenderIf isTrue={selected}>
                       <MdCheck />
                     </RenderIf>
                     {el.title}
-                  </Link>
+                  </button>
                 );
               })}
             </Dropdown>

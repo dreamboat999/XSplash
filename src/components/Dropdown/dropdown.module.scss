@@ -80,13 +80,12 @@
   max-width: 300px;
   padding: 8px 0;
 
-  a {
+  button {
     color: #767676;
-    outline: none;
-    background: none;
     text-align: left;
     display: flex;
     align-items: center;
+    gap: 8px;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -99,7 +98,8 @@
     }
 
     svg {
-      margin-right: 8px;
+      width: 16px;
+      height: 16px;
     }
   }
 }
