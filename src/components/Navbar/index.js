@@ -16,15 +16,12 @@ const Navbar = () => {
     if (url !== "") {
       setIsSearchPage(true);
     }
-  }, [url, location]);
+  }, [url]);
 
   return (
     <div className={clsx(s.navbar_outer, { [s.remove_shadow]: isSearchPage })}>
       <div className={s.navbar_inner}>
-        <Link
-          to={location.pathname === "/" ? "" : "/"}
-          className={s.navbar_logo}
-        >
+        <Link to={"/"} className={s.navbar_logo}>
           <Logo />
         </Link>
         <Form isNavbarForm />

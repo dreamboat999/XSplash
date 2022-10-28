@@ -21,10 +21,6 @@ const AppContextProvider = ({ children }) => {
     setImageId(null);
   };
 
-  const handleSetImageId = (id) => {
-    setImageId(id);
-  };
-
   useEffect(() => {
     localStorage.setItem("recent", JSON.stringify(recent));
   }, [recent]);
@@ -46,7 +42,6 @@ const AppContextProvider = ({ children }) => {
         imageId,
         handleOpenModal,
         handleCloseModal,
-        handleSetImageId,
       }}
     >
       {children}

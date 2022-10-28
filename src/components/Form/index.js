@@ -5,8 +5,6 @@ import clsx from "clsx";
 import s from "./form.module.scss";
 import { AiOutlineSearch } from "react-icons/ai";
 
-import Panel from "./Panel";
-
 import { useAppContext } from "../../context";
 import useClickAway from "../../hooks/useClickAway";
 import useMatch from "../../hooks/useMatch";
@@ -17,11 +15,14 @@ const Form = ({ isNavbarForm }) => {
   const history = useHistory();
   const input = useRef(null);
   const [value, setValue] = useState("");
-  const [isOpenFormPanel, setIsOpenFormPanel] = useState(false);
+  const [isOpenPanel, setIsOpenPanel] = useState(false);
   const match = useMatch();
 
+  const newArr = [...new Set(recent)];
+  const fiveElementArray = newArr.slice(Math.max(newArr.length - 5, 0));
+
   useClickAway(input, () => {
-    setIsOpenFormPanel(false);
+    setIsOpenPanel(false);
   });
 
   const handleChange = (e) => {
@@ -32,12 +33,24 @@ const Form = ({ isNavbarForm }) => {
     if (value) {
       setRecent([...recent, value]);
       history.push(`/photos/${value}/relevant`);
-      setIsOpenFormPanel(false);
+      setIsOpenPanel(false);
     }
   };
 
-  const handleOpenModal = () => {
-    setIsOpenFormPanel(true);
+  const handleOpenPanel = () => {
+    setIsOpenPanel(true);
+  };
+
+  const handleClear = () => {
+    localStorage.removeItem("recent");
+    setRecent([]);
+  };
+
+  const handleClick = (value) => {
+    history.push({
+      pathname: `/photos/${value}/relevant`,
+    });
+    setIsOpenPanel(false);
   };
 
   return (
@@ -60,15 +73,46 @@ const Form = ({ isNavbarForm }) => {
           type="text"
           placeholder="Search photos"
           onChange={handleChange}
-          onClick={handleOpenModal}
+          onClick={handleOpenPanel}
           className={s.form_input}
         />
       </div>
       <RenderIf isTrue={match}>
-        <Panel
-          isOpenFormPanel={isOpenFormPanel}
-          setIsOpenFormPanel={setIsOpenFormPanel}
-        />
+        <div
+          className={clsx(s.panel, {
+            [s.show_panel]: isOpenPanel && newArr.length,
+          })}
+        >
+          <div className={s.panel_items}>
+            <div className={s.panel_title}>
+              <span>Recent Searches</span>
+              <span>•</span>
+              <button type="button" onClick={handleClear}>
+                Clear
+              </button>
+            </div>
+            <div className={s.recent}>
+              {fiveElementArray?.map((el, i) => {
+                return (
+                  <button
+                    type="button"
+                    key={i}
+                    className={s.recent_button}
+                    onClick={() => {
+                      handleClick(el);
+                    }}
+                  >
+                    {el}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+        {/*<Panel*/}
+        {/*  isOpenFormPanel={isOpenFormPanel}*/}
+        {/*  setIsOpenFormPanel={setIsOpenFormPanel}*/}
+        {/*/>*/}
       </RenderIf>
     </form>
   );

@@ -2,14 +2,13 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 
 import s from "./desktop.module.scss";
-import { MdCheck } from "react-icons/md";
+import { MdCheck, MdPhoto } from "react-icons/md";
 import { IoMdOptions } from "react-icons/io";
 import { orientationData, sortData } from "../FiltersData";
 
 import Dropdown from "../../Dropdown";
 import useMatch from "../../../hooks/useMatch";
 import RenderIf from "../../../utils/renderIf";
-import Tabs from "../../Tabs";
 
 const DesktopFilters = ({ name, orientation, sort, handleOpenModal }) => {
   const match = useMatch();
@@ -21,17 +20,19 @@ const DesktopFilters = ({ name, orientation, sort, handleOpenModal }) => {
     (el) => orientation === el.value
   );
 
-  const handleOrientation = (url) => {
-    history.push(url);
-  };
-
-  const handleSort = (url) => {
+  const handleClick = (url) => {
     history.push(url);
   };
 
   return (
     <div className={s.desktop_filters}>
-      <Tabs>
+      <div className="photos_outer">
+        <div className="photos_inner">
+          <div className="photos">
+            <MdPhoto />
+            <div>Photos</div>
+          </div>
+        </div>
         <RenderIf isTrue={match}>
           <div className={s.filters}>
             <Dropdown title={orientationTitle?.title}>
@@ -46,7 +47,7 @@ const DesktopFilters = ({ name, orientation, sort, handleOpenModal }) => {
                   <button
                     key={i}
                     className={selected ? "selected" : ""}
-                    onClick={() => handleOrientation(url)}
+                    onClick={() => handleClick(url)}
                   >
                     <RenderIf isTrue={selected}>
                       <MdCheck />
@@ -70,7 +71,7 @@ const DesktopFilters = ({ name, orientation, sort, handleOpenModal }) => {
                   <button
                     key={i}
                     className={selected ? "selected" : ""}
-                    onClick={() => handleSort(url)}
+                    onClick={() => handleClick(url)}
                   >
                     <RenderIf isTrue={selected}>
                       <MdCheck />
@@ -88,7 +89,7 @@ const DesktopFilters = ({ name, orientation, sort, handleOpenModal }) => {
             <IoMdOptions />
           </button>
         </RenderIf>
-      </Tabs>
+      </div>
     </div>
   );
 };

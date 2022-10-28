@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import s from "./mobile.module.scss";
 import { MdCheck, MdOutlineClose } from "react-icons/md";
@@ -31,6 +31,11 @@ const MobileFilters = ({ name, sort, orientation, setIsOpenMobileFilters }) => {
     setIsOpenMobileFilters(false);
   };
 
+  const handleClick = (url) => {
+    history.push(url);
+    setIsOpenMobileFilters(false);
+  };
+
   return (
     <div className={s.modal_outer}>
       <div className={s.modal_inner}>
@@ -51,9 +56,9 @@ const MobileFilters = ({ name, sort, orientation, setIsOpenMobileFilters }) => {
 
               return (
                 <li key={i} className={s.filter_item}>
-                  <Link
-                    to={url}
-                    className={clsx(s.filter_link, { selected: selected })}
+                  <button
+                    className={clsx(s.filter_button, { selected: selected })}
+                    onClick={() => handleClick(url)}
                   >
                     <RenderIf isTrue={selected}>
                       <MdCheck />
@@ -62,7 +67,7 @@ const MobileFilters = ({ name, sort, orientation, setIsOpenMobileFilters }) => {
                       <div className={orientationIcon} />
                     </RenderIf>
                     {el.title}
-                  </Link>
+                  </button>
                 </li>
               );
             })}
@@ -76,16 +81,15 @@ const MobileFilters = ({ name, sort, orientation, setIsOpenMobileFilters }) => {
 
               return (
                 <li key={i} className={s.filter_item}>
-                  <Link
-                    key={i}
-                    to={url}
-                    className={clsx(s.filter_link, { selected: selected })}
+                  <button
+                    className={clsx(s.filter_button, { selected: selected })}
+                    onClick={() => handleClick(url)}
                   >
                     <RenderIf isTrue={selected}>
                       <MdCheck />
                     </RenderIf>
                     {el.title}
-                  </Link>
+                  </button>
                 </li>
               );
             })}

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 
+import { MdPhoto } from "react-icons/md";
+
 import { getUserImages } from "../../../api";
 import ImagesGrid from "../../ImagesGrid";
 
@@ -24,7 +26,19 @@ const UserPhotos = ({ username }) => {
     }
   }, [isFetching]);
 
-  return <ImagesGrid images={images} setIsFetching={setIsFetching} />;
+  return (
+    <>
+      <div className="photos_outer">
+        <div className="photos_inner">
+          <div className="photos">
+            <MdPhoto />
+            <div>Photos</div>
+          </div>
+        </div>
+      </div>
+      <ImagesGrid images={images} setIsFetching={setIsFetching} />
+    </>
+  );
 };
 
 export default UserPhotos;
