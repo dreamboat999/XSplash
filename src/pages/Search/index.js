@@ -13,15 +13,13 @@ import useMatch from "../../hooks/useMatch";
 const Search = () => {
   const { name, orientation, sort } = useParams();
   const [images, setImages] = useState([]);
-  const [page, setPage] = useState(1);
-  const [isFetching, setIsFetching] = useState(true);
   const [loading, setLoading] = useState(false);
   const [isOpenMobileFilters, setIsOpenMobileFilters] = useState(false);
   const match = useMatch();
 
   useEffect(() => {
     setLoading(true);
-    getSearchImages(1, name, sort, orientation)
+    getSearchImages(name, sort, orientation)
       .then((response) => {
         setImages(response.results);
       })
@@ -32,22 +30,6 @@ const Search = () => {
         setLoading(false);
       });
   }, [name, sort, orientation]);
-
-  useEffect(() => {
-    if (isFetching) {
-      getSearchImages(page, name, sort, orientation)
-        .then((response) => {
-          setImages([...images, ...response.results]);
-          setPage((page) => page + 1);
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        .finally(() => {
-          setIsFetching(false);
-        });
-    }
-  }, [isFetching]);
 
   useEffect(() => {
     if (isOpenMobileFilters) {
@@ -76,7 +58,7 @@ const Search = () => {
         handleOpenModal={handleOpenModal}
       />
       <LinearProgress loading={loading}>
-        <ImagesGrid images={images} setIsFetching={setIsFetching} name={name} />
+        <ImagesGrid images={images} name={name} />
       </LinearProgress>
       <RenderIf isTrue={isOpenMobileFilters}>
         <MobileFilters

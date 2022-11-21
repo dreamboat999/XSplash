@@ -1,15 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import clsx from "clsx";
 
 import s from "./imageModal.module.scss";
 import { MdOutlineClose } from "react-icons/md";
 
+import { getImage, getUserImages } from "../../api";
+import { useAppContext } from "../../context";
 import ImagesGrid from "../ImagesGrid";
 import { Spinner } from "../Loading";
-import { getImage, getUserImages } from "../../api";
-
-import { useAppContext } from "../../context";
 import useClickAway from "../../hooks/useClickAway";
 import DownloadImage from "../../utils/downloadImage";
 import RenderIf from "../../utils/renderIf";
@@ -40,15 +40,16 @@ const ImageModal = () => {
       .finally(() => {
         setLoading(false);
       });
-    return () => {
-      setImage({});
-    };
   }, [imageId]);
 
   useEffect(() => {
-    getUserImages(user?.username).then((res) => {
-      setRelated(res);
-    });
+    getUserImages(user?.username)
+      .then((res) => {
+        setRelated(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, [user?.username]);
 
   const dateFormat = new Date(created_at).toLocaleDateString("en-US", {
@@ -110,7 +111,12 @@ const ImageModal = () => {
         </div>
         <div className={s.modal_image}>
           <Spinner loading={loading}>
-            <img src={urls?.regular} alt="desc" />
+            <LazyLoadImage
+              src={urls?.regular}
+              alt="desc"
+              effect="blur"
+              height={500}
+            />
           </Spinner>
         </div>
         <div className={s.modal_info}>

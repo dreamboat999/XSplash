@@ -5,6 +5,7 @@ import AppContextProvider from "./context";
 
 import App from "./App";
 import "./assets/styles/global.scss";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 ReactDOM.render(
   <React.StrictMode>

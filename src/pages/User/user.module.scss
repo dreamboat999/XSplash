@@ -1,5 +1,9 @@
 .user_outer {
-  padding: 60px 15px;
+  padding: 60px 0;
+
+  @media(max-width: 768px) {
+    padding: 40px 20px;
+  }
 }
 
 .user_inner {

@@ -1,73 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import clsx from "clsx";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import s from "./imagesGrid.module.scss";
 
-import ImagesMasonry from "../ImagesMasonry";
-
 import { useAppContext } from "../../context";
-import RenderIf from "../../utils/renderIf";
+import ImagesMasonry from "../ImagesMasonry";
 import useMatch from "../../hooks/useMatch";
-import useOnScreen from "../../hooks/useOnScreen";
+import RenderIf from "../../utils/renderIf";
 
-const LazyImage = ({ src = "", alt = "" }) => {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const imageRef = useRef(null);
-  const containerRef = useRef(null);
-  const isVisible = useOnScreen(containerRef);
-
-  useEffect(() => {
-    if (!isVisible || isLoaded) {
-      return;
-    }
-    if (imageRef.current) {
-      imageRef.current.onload = () => {
-        setIsLoaded(true);
-      };
-    }
-  }, [isVisible, isLoaded]);
-
-  return (
-    <div
-      ref={containerRef}
-      className={s.lazy_image_wrapper}
-      style={{
-        height: isLoaded ? "100%" : 300,
-      }}
-    >
-      {(isVisible || isLoaded) && (
-        <img
-          ref={imageRef}
-          src={src}
-          alt={alt}
-          className={clsx(s.lazy_image, { [s.lazy_image_loaded]: isLoaded })}
-        />
-      )}
-    </div>
-  );
-};
-
-const ImagesGrid = ({ setIsFetching, images, name }) => {
+const ImagesGrid = ({ images, name }) => {
   const { handleOpenModal } = useAppContext();
   const match = useMatch();
-
-  const handleScroll = (e) => {
-    const scrollHeight = e.target.documentElement.scrollHeight;
-    const scrollTop = e.target.documentElement.scrollTop;
-    const innerHeight = window.innerHeight;
-
-    if (scrollHeight - (scrollTop + innerHeight) < 400) {
-      setIsFetching(true);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("scroll", handleScroll);
-    return () => {
-      document.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   return (
     <div className={s.images_grid}>
@@ -93,7 +37,12 @@ const ImagesGrid = ({ setIsFetching, images, name }) => {
                     }}
                   >
                     <div className={s.user_image}>
-                      <img src={user.profile_image.small} alt={user.name} />
+                      <LazyLoadImage
+                        src={user.profile_image.small}
+                        width={32}
+                        height={32}
+                        alt={user.name}
+                      />
                     </div>
                     <h3>{user.name}</h3>
                   </Link>
@@ -103,7 +52,12 @@ const ImagesGrid = ({ setIsFetching, images, name }) => {
                   onClick={match ? () => {} : () => handleOpenModal(id)}
                   className={s.image_wrapper}
                 >
-                  <LazyImage src={urls.regular} alt={description} />
+                  <LazyLoadImage
+                    src={urls.regular}
+                    alt={description}
+                    effect="blur"
+                    placeholderSrc={urls.regular}
+                  />
                 </div>
               </div>
             );

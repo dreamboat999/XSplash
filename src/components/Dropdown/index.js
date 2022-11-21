@@ -3,8 +3,8 @@ import React, { cloneElement, useRef, useState } from "react";
 import s from "./dropdown.module.scss";
 import { MdOutlineArrowDropDown } from "react-icons/md";
 
-import RenderIf from "../../utils/renderIf";
 import useClickAway from "../../hooks/useClickAway";
+import RenderIf from "../../utils/renderIf";
 
 const Dropdown = ({ title, children }) => {
   const dropdown = useRef(null);

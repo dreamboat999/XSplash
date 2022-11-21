@@ -1,12 +1,12 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+import clsx from "clsx";
 
 import s from "./mobile.module.scss";
 import { MdCheck, MdOutlineClose } from "react-icons/md";
 import { orientationData, sortData } from "../FiltersData";
 
 import RenderIf from "../../../utils/renderIf";
-import clsx from "clsx";
 
 const Filter = ({ title, children }) => {
   return (
