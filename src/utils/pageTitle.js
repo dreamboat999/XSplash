@@ -1,5 +1,9 @@
+import { useEffect } from "react";
+
 const PageTitle = ({ children, title }) => {
-  document.title = `${title ? `${title} | Unsplash` : "Loading"}`;
+  useEffect(() => {
+    document.title = title ? `${title} | Unsplash` : "Unsplash";
+  }, [title]);
   return <>{children}</>;
 };
 
