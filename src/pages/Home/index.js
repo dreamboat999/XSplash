@@ -39,7 +39,7 @@ const Home = () => {
   }, []);
 
   return (
-    <PageTitle title="Unsplash">
+    <PageTitle title="Home">
       <div className={s.header_outer}>
         <div className={s.header_image}>
           <LazyLoadImage src={urls?.regular} alt={description} effect="blur" />
