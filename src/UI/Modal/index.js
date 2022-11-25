@@ -8,7 +8,6 @@ import { useAppContext } from "../../context";
 import Image from "../../components/Modals/Image";
 import Filter from "../../components/Modals/Filter";
 import useClickAway from "../../hooks/useClickAway";
-import RenderIf from "../../utils/RenderIf";
 import Portal from "../../utils/Portal";
 
 const Modals = {
@@ -34,11 +33,9 @@ const Modal = ({ isFilterModal = false }) => {
             [s.filter_modal]: isFilterModal,
           })}
         >
-          <RenderIf isTrue={!isFilterModal}>
-            <button className={s.btn_close} onClick={closeModal}>
-              <MdOutlineClose />
-            </button>
-          </RenderIf>
+          <button className={s.btn_close} onClick={closeModal}>
+            <MdOutlineClose />
+          </button>
           <div onClick={(e) => e.stopPropagation()} className={s.modal_content}>
             <ModalContent />
           </div>

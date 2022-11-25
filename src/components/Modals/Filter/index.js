@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
 
 import s from "./filter.module.scss";
-import { MdCheck, MdOutlineClose } from "react-icons/md";
+import { MdCheck } from "react-icons/md";
 
-import { orientationData, sortData } from "../../../utils/FiltersData";
-import RenderIf from "../../../utils/RenderIf";
 import { useAppContext } from "../../../context";
+import RenderIf from "../../../utils/RenderIf";
+import { orientationData, sortData } from "../../../utils/FiltersData";
 
 const Item = ({ title, children }) => {
   return (
@@ -33,13 +33,7 @@ const Filter = () => {
   };
 
   return (
-    <div className={s.modal_inner}>
-      <div className={s.modal_head}>
-        <h2>Filters</h2>
-        <button onClick={closeModal}>
-          <MdOutlineClose />
-        </button>
-      </div>
+    <div className={s.modal}>
       <div className={s.items}>
         <Item title="Orientation">
           {orientationData.map((el, i) => {
@@ -91,7 +85,11 @@ const Filter = () => {
         </Item>
       </div>
       <div className={s.modal_footer}>
-        <button className={s.clear_btn} onClick={handleClear}>
+        <button
+          className={s.clear_btn}
+          onClick={handleClear}
+          disabled={!data?.orientation || !data?.sort}
+        >
           Clear
         </button>
         <button className={s.close_btn} onClick={closeModal}>

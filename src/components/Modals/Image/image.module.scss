@@ -4,6 +4,7 @@
   display: grid;
 
   @media (max-width: 768px) {
+    border-radius: 0;
     margin: 0
   }
 }
@@ -19,6 +20,10 @@
   left: 0;
   padding: 15px 20px;
   z-index: 20;
+
+  @media (max-width: 768px) {
+    border-radius: 0;
+  }
 }
 
 .user {
