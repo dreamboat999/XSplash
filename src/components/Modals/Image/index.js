@@ -100,12 +100,7 @@ const Image = () => {
       </div>
       <div className={s.modal_image}>
         <Spinner loading={loading}>
-          <LazyLoadImage
-            src={urls?.regular}
-            alt="desc"
-            effect="blur"
-            height={500}
-          />
+          <LazyLoadImage src={urls?.regular} alt="desc" effect="blur" />
         </Spinner>
       </div>
       <div className={s.modal_info}>

@@ -1,8 +1,12 @@
 import React from "react";
 
 import s from "./masonry.module.scss";
+import clsx from "clsx";
+import { useAppContext } from "../../context";
 
 const Masonry = ({ children }) => {
+  const { modalProps } = useAppContext();
+
   function getColumns() {
     const columns = Array.from({ length: 3 }, () => []);
 
@@ -17,13 +21,26 @@ const Masonry = ({ children }) => {
 
   function renderColumns() {
     return getColumns().map((el, i) => (
-      <div key={i} className={s.masonry_column}>
+      <div
+        key={i}
+        className={clsx(s.masonry_column, {
+          [s.masonry_column_modal]: modalProps.type === "imageModal",
+        })}
+      >
         {el.map((item) => item)}
       </div>
     ));
   }
 
-  return <div className={s.masonry_block}>{renderColumns()}</div>;
+  return (
+    <div
+      className={clsx(s.masonry_block, {
+        [s.masonry_block_modal]: modalProps.type === "imageModal",
+      })}
+    >
+      {renderColumns()}
+    </div>
+  );
 };
 
 export default Masonry;

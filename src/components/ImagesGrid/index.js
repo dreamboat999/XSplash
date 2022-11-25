@@ -10,7 +10,7 @@ import useMatch from "../../hooks/useMatch";
 import RenderIf from "../../utils/RenderIf";
 
 const ImagesGrid = ({ images, name }) => {
-  const { openModal } = useAppContext();
+  const { openModal, modalProps } = useAppContext();
   const match = useMatch();
 
   const handleOpenModal = (id) => {
@@ -21,10 +21,16 @@ const ImagesGrid = ({ images, name }) => {
   };
 
   return (
-    <div className={s.images_grid}>
+    <div
+      className={s.images_grid}
+      style={{
+        paddingLeft: modalProps.type === "imageModal" ? "20px" : 0,
+        paddingRight: modalProps.type === "imageModal" ? "20px" : 0,
+      }}
+    >
       <div className="container">
         <RenderIf isTrue={name}>
-          <h1 className={s.name}>{name ? name : "Loading"}</h1>
+          <h1>{name ? name : "Loading"}</h1>
         </RenderIf>
         <Masonry>
           {images.map((el, i) => {
@@ -35,25 +41,27 @@ const ImagesGrid = ({ images, name }) => {
                 className={s.image_container}
                 onClick={match ? () => handleOpenModal(id) : () => {}}
               >
-                <div className={s.user_wrapper}>
-                  <Link
-                    to={`/@${user.username}`}
-                    className={s.user_link}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                    }}
-                  >
-                    <div className={s.user_image}>
-                      <LazyLoadImage
-                        src={user.profile_image.small}
-                        width={32}
-                        height={32}
-                        alt={user.name}
-                      />
-                    </div>
-                    <h3>{user.name}</h3>
-                  </Link>
-                </div>
+                <RenderIf isTrue={modalProps.type !== "imageModal"}>
+                  <div className={s.user_wrapper}>
+                    <Link
+                      to={`/@${user.username}`}
+                      className={s.user_link}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                      }}
+                    >
+                      <div className={s.user_image}>
+                        <LazyLoadImage
+                          src={user.profile_image.small}
+                          width={32}
+                          height={32}
+                          alt={user.name}
+                        />
+                      </div>
+                      <h3>{user.name}</h3>
+                    </Link>
+                  </div>
+                </RenderIf>
 
                 <div
                   onClick={match ? () => {} : () => handleOpenModal(id)}

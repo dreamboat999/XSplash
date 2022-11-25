@@ -1,14 +1,14 @@
 .images_grid {
-  padding: 24px 0;
-}
+  padding: 25px 0;
 
-.name {
-  font-size: 48px;
-  text-transform: capitalize;
-  margin-bottom: 20px;
+  h1 {
+    font-size: 48px;
+    text-transform: capitalize;
+    padding: 0 20px 20px;
 
-  @media (max-width: 768px) {
-    padding: 0 20px;
+    @media (max-width: 768px) {
+      font-size: 28px;
+    }
   }
 }
 
