@@ -13,11 +13,11 @@ import {
 } from "react-icons/ai";
 
 import { getUserImages, getUserInfo } from "../../api";
-import Dropdown from "../../components/Dropdown";
-import { LinearProgress } from "../../components/Loading";
+import Dropdown from "../../UI/Dropdown";
+import { LinearProgress } from "../../UI/Loading";
 import ImagesGrid from "../../components/ImagesGrid";
-import RenderIf from "../../utils/renderIf";
-import PageTitle from "../../utils/pageTitle";
+import RenderIf from "../../utils/RenderIf";
+import PageTitle from "../../utils/PageTitle";
 
 const User = () => {
   const { username } = useParams();

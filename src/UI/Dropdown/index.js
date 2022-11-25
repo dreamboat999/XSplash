@@ -4,7 +4,7 @@ import s from "./dropdown.module.scss";
 import { MdOutlineArrowDropDown } from "react-icons/md";
 
 import useClickAway from "../../hooks/useClickAway";
-import RenderIf from "../../utils/renderIf";
+import RenderIf from "../../utils/RenderIf";
 
 const Dropdown = ({ title, children }) => {
   const dropdown = useRef(null);

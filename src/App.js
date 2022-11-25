@@ -1,37 +1,27 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
-import { useAppContext } from "./context";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
-import Navbar from "./components/Navbar";
 import Search from "./pages/Search";
 import User from "./pages/User";
-import ImageModal from "./components/ImageModal";
-import RenderIf from "./utils/renderIf";
+import Navbar from "./components/Navbar";
+import Modal from "./UI/Modal";
+import { useAppContext } from "./context";
 
 const App = () => {
-  const { isOpenModal } = useAppContext();
+  const { modalProps } = useAppContext();
 
   return (
-    <main>
-      <Router>
-        <Navbar />
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route
-            path="/photos/:name/:sort/:orientation?"
-            children={<Search />}
-          />
-          <Route path="/@:username" children={<User />} />
-        </Switch>
-        <RenderIf isTrue={isOpenModal}>
-          <ImageModal />
-        </RenderIf>
-      </Router>
-    </main>
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route path="/photos/:name/:sort" element={<Search />} />
+        <Route path="/photos/:name/:sort/:orientation" element={<Search />} />
+        <Route path="/@:username" element={<User />} />
+      </Routes>
+      <Modal isFilterModal={modalProps.type === "filterModal"} />
+    </Router>
   );
 };
 

@@ -1,15 +1,15 @@
 .modal_outer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 30;
+  //position: fixed;
+  //top: 0;
+  //left: 0;
+  //width: 100%;
+  //z-index: 30;
 }
 
 .modal_inner {
   background-color: #fff;
-  position: relative;
+  display: flex;
+  flex-direction: column;
   height: 100%;
 }
 
@@ -37,6 +37,10 @@
       height: 100%;
     }
   }
+}
+
+.items {
+  flex: 1;
 }
 
 .filter {
@@ -82,7 +86,6 @@
 .modal_footer {
   display: flex;
   gap: 10px;
-  position: absolute;
   bottom: 0;
   width: 100%;
   padding: 20px;

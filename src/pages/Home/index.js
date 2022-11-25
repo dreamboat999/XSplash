@@ -4,12 +4,12 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import s from "./home.module.scss";
 
-import { getImages, getBackgroundImage } from "../../api";
+import { getBackgroundImage, getImages } from "../../api";
 import ImagesGrid from "../../components/ImagesGrid";
 import Form from "../../components/Form";
 import useMatch from "../../hooks/useMatch";
-import PageTitle from "../../utils/pageTitle";
-import RenderIf from "../../utils/renderIf";
+import PageTitle from "../../utils/PageTitle";
+import RenderIf from "../../utils/RenderIf";
 
 const Home = () => {
   const [photoBy, setPhotoBy] = useState({});

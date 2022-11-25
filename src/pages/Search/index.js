@@ -1,21 +1,36 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
+import s from "./search.module.scss";
+import { IoMdOptions } from "react-icons/io";
+import { MdCheck, MdPhoto } from "react-icons/md";
+
+import { useAppContext } from "../../context";
 import { getSearchImages } from "../../api";
-import { LinearProgress } from "../../components/Loading";
 import ImagesGrid from "../../components/ImagesGrid";
-import DesktopFilters from "../../components/Filters/DesktopFilters";
-import MobileFilters from "../../components/Filters/MobileFilters";
-import PageTitle from "../../utils/pageTitle";
-import RenderIf from "../../utils/renderIf";
+import Dropdown from "../../UI/Dropdown";
+import { LinearProgress } from "../../UI/Loading";
 import useMatch from "../../hooks/useMatch";
+import RenderIf from "../../utils/RenderIf";
+import PageTitle from "../../utils/PageTitle";
+import { orientationData, sortData } from "../../utils/FiltersData";
 
 const Search = () => {
   const { name, orientation, sort } = useParams();
+  const { openModal } = useAppContext();
+  const history = useNavigate();
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [isOpenMobileFilters, setIsOpenMobileFilters] = useState(false);
   const match = useMatch();
+
+  const orientationTitle = orientationData.find(
+    (el) => orientation === el.value
+  );
+  const sortTitle = sortData.find((el) => sort === el.value);
+
+  const handleClick = (url) => {
+    history(url);
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -29,45 +44,93 @@ const Search = () => {
       .finally(() => {
         setLoading(false);
       });
+    return () => {
+      setImages([]);
+    };
   }, [name, sort, orientation]);
 
-  useEffect(() => {
-    if (isOpenMobileFilters) {
-      document.querySelector("body").className = "disable_scroll";
-    } else {
-      document.querySelector("body").className = "";
-    }
-  }, [isOpenMobileFilters]);
-
-  useEffect(() => {
-    if (match) {
-      setIsOpenMobileFilters(false);
-    }
-  }, [match]);
-
   const handleOpenModal = () => {
-    setIsOpenMobileFilters(true);
+    openModal({
+      type: "filterModal",
+      data: { name: name, orientation: orientation, sort: sort },
+    });
   };
 
   return (
     <PageTitle title={`${name ? name : "Loading"}`}>
-      <DesktopFilters
-        name={name}
-        sort={sort}
-        orientation={orientation}
-        handleOpenModal={handleOpenModal}
-      />
+      <div className={s.filters_wrapper}>
+        <div className="photos_outer">
+          <div className="photos_inner">
+            <div className="photos">
+              <MdPhoto />
+              <div>Photos</div>
+            </div>
+          </div>
+          <RenderIf isTrue={match}>
+            <div className={s.filters}>
+              <Dropdown title={orientationTitle?.title}>
+                {orientationData.map((el, i) => {
+                  const selected = orientation === el.value;
+                  const url = `/photos/${name}/${sort}${
+                    el.value ? `/${el.value}` : ""
+                  }`;
+                  const orientationIcon = `orientation orientation__${el.value}`;
+
+                  return (
+                    <button
+                      key={i}
+                      className={selected ? "selected" : ""}
+                      onClick={() => handleClick(url)}
+                    >
+                      <RenderIf isTrue={selected}>
+                        <MdCheck />
+                      </RenderIf>
+                      <RenderIf isTrue={el.value}>
+                        <div className={orientationIcon} />
+                      </RenderIf>
+                      {el.title}
+                    </button>
+                  );
+                })}
+              </Dropdown>
+              <Dropdown title={`Sort by ${sortTitle.title}`}>
+                {sortData.map((el, i) => {
+                  const selected = sort === el.value;
+                  const url = `/photos/${name}/${el.value}${
+                    orientation ? `/${orientation}` : ""
+                  }`;
+
+                  return (
+                    <button
+                      key={i}
+                      className={selected ? "selected" : ""}
+                      onClick={() => handleClick(url)}
+                    >
+                      <RenderIf isTrue={selected}>
+                        <MdCheck />
+                      </RenderIf>
+                      {el.title}
+                    </button>
+                  );
+                })}
+              </Dropdown>
+            </div>
+          </RenderIf>
+
+          <RenderIf isTrue={!match}>
+            <button
+              className={s.mobile_filters_button}
+              onClick={handleOpenModal}
+            >
+              <IoMdOptions />
+            </button>
+          </RenderIf>
+        </div>
+      </div>
+
       <LinearProgress loading={loading}>
         <ImagesGrid images={images} name={name} />
       </LinearProgress>
-      <RenderIf isTrue={isOpenMobileFilters}>
-        <MobileFilters
-          name={name}
-          sort={sort}
-          orientation={orientation}
-          setIsOpenMobileFilters={setIsOpenMobileFilters}
-        />
-      </RenderIf>
     </PageTitle>
   );
 };

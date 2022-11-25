@@ -10,7 +10,7 @@ export default function useMatch() {
       .matchMedia("(min-width: 768px)")
       .addEventListener("change", (e) => setMatches(e.matches));
     return () => {
-      setMatches(null);
+      setMatches(window.matchMedia("(min-width: 768px)").matches);
     };
   }, []);
 

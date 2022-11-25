@@ -5,13 +5,20 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import s from "./imagesGrid.module.scss";
 
 import { useAppContext } from "../../context";
-import ImagesMasonry from "../ImagesMasonry";
+import Masonry from "../../UI/Masonry";
 import useMatch from "../../hooks/useMatch";
-import RenderIf from "../../utils/renderIf";
+import RenderIf from "../../utils/RenderIf";
 
 const ImagesGrid = ({ images, name }) => {
-  const { handleOpenModal } = useAppContext();
+  const { openModal } = useAppContext();
   const match = useMatch();
+
+  const handleOpenModal = (id) => {
+    openModal({
+      type: "imageModal",
+      data: { id: id },
+    });
+  };
 
   return (
     <div className={s.images_grid}>
@@ -19,7 +26,7 @@ const ImagesGrid = ({ images, name }) => {
         <RenderIf isTrue={name}>
           <h1 className={s.name}>{name ? name : "Loading"}</h1>
         </RenderIf>
-        <ImagesMasonry>
+        <Masonry>
           {images.map((el, i) => {
             const { id, user, urls, description } = el;
             return (
@@ -62,7 +69,7 @@ const ImagesGrid = ({ images, name }) => {
               </div>
             );
           })}
-        </ImagesMasonry>
+        </Masonry>
       </div>
     </div>
   );

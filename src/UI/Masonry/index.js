@@ -1,8 +1,8 @@
 import React from "react";
 
-import s from "./imagesMasonry.module.scss";
+import s from "./masonry.module.scss";
 
-const ImagesMasonry = ({ children }) => {
+const Masonry = ({ children }) => {
   function getColumns() {
     const columns = Array.from({ length: 3 }, () => []);
 
@@ -26,4 +26,4 @@ const ImagesMasonry = ({ children }) => {
   return <div className={s.masonry_block}>{renderColumns()}</div>;
 };
 
-export default ImagesMasonry;
+export default Masonry;

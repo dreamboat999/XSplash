@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
 
 import s from "./form.module.scss";
@@ -8,11 +8,11 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { useAppContext } from "../../context";
 import useClickAway from "../../hooks/useClickAway";
 import useMatch from "../../hooks/useMatch";
-import RenderIf from "../../utils/renderIf";
+import RenderIf from "../../utils/RenderIf";
 
 const Form = ({ isNavbarForm }) => {
   const { recent, setRecent } = useAppContext();
-  const history = useHistory();
+  const history = useNavigate();
   const input = useRef(null);
   const [value, setValue] = useState("");
   const [isOpenPanel, setIsOpenPanel] = useState(false);
@@ -32,7 +32,7 @@ const Form = ({ isNavbarForm }) => {
   const handleSubmit = () => {
     if (value) {
       setRecent([...recent, value]);
-      history.push(`/photos/${value}/relevant`);
+      history(`/photos/${value}/relevant`);
       setIsOpenPanel(false);
     }
   };
@@ -47,7 +47,7 @@ const Form = ({ isNavbarForm }) => {
   };
 
   const handleClick = (value) => {
-    history.push({
+    history({
       pathname: `/photos/${value}/relevant`,
     });
     setIsOpenPanel(false);
@@ -109,10 +109,6 @@ const Form = ({ isNavbarForm }) => {
             </div>
           </div>
         </div>
-        {/*<Panel*/}
-        {/*  isOpenFormPanel={isOpenFormPanel}*/}
-        {/*  setIsOpenFormPanel={setIsOpenFormPanel}*/}
-        {/*/>*/}
       </RenderIf>
     </form>
   );

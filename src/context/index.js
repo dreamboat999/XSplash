@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 const AppContext = createContext(null);
 
@@ -8,40 +14,50 @@ const recentFromLocalStorage = JSON.parse(
 
 const AppContextProvider = ({ children }) => {
   const [recent, setRecent] = useState(recentFromLocalStorage);
-  const [isOpenModal, setIsOpenModal] = useState(false);
-  const [imageId, setImageId] = useState(null);
+  const [modalProps, setModalProps] = useState({
+    isOpen: false,
+    type: "",
+    data: {},
+  });
+  const modalRef = useRef(null);
 
-  const handleOpenModal = (id) => {
-    setIsOpenModal(true);
-    setImageId(id);
+  const openModal = ({ type, data }) => {
+    setModalProps({
+      isOpen: true,
+      type: type,
+      data: data,
+    });
   };
 
-  const handleCloseModal = () => {
-    setIsOpenModal(false);
-    setImageId(null);
+  const closeModal = () => {
+    setModalProps({
+      isOpen: false,
+      type: "",
+      data: {},
+    });
   };
 
   useEffect(() => {
-    localStorage.setItem("recent", JSON.stringify(recent));
-  }, [recent]);
-
-  useEffect(() => {
-    if (isOpenModal) {
+    if (modalProps.isOpen) {
       document.querySelector("body").className = "disable_scroll";
     } else {
       document.querySelector("body").className = "";
     }
-  }, [isOpenModal]);
+  }, [modalProps.isOpen]);
+
+  useEffect(() => {
+    localStorage.setItem("recent", JSON.stringify(recent));
+  }, [recent]);
 
   return (
     <AppContext.Provider
       value={{
         recent,
         setRecent,
-        isOpenModal,
-        imageId,
-        handleOpenModal,
-        handleCloseModal,
+        modalProps,
+        openModal,
+        closeModal,
+        modalRef,
       }}
     >
       {children}
