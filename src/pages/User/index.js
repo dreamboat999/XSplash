@@ -23,6 +23,7 @@ const User = () => {
   const { username } = useParams();
   const [user, setUser] = useState({});
   const [images, setImages] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const {
     profile_image,
@@ -34,7 +35,6 @@ const User = () => {
     social,
     bio,
   } = user;
-  const [loading, setLoading] = useState(true);
 
   const contacts = [
     {
@@ -69,6 +69,7 @@ const User = () => {
       .finally(() => {
         setLoading(false);
       });
+    return () => setUser({});
   }, [username]);
 
   const handleClick = (url) => {
@@ -85,6 +86,7 @@ const User = () => {
       .catch((error) => {
         console.log(error);
       });
+    return () => setImages([]);
   }, [username]);
 
   return (

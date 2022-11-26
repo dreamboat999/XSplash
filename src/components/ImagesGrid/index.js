@@ -8,10 +8,12 @@ import { useAppContext } from "../../context";
 import Masonry from "../../UI/Masonry";
 import useMatch from "../../hooks/useMatch";
 import RenderIf from "../../utils/RenderIf";
+import clsx from "clsx";
 
 const ImagesGrid = ({ images, name }) => {
   const { openModal, modalProps } = useAppContext();
   const match = useMatch();
+  const isImageModal = modalProps.type === "imageModal";
 
   const handleOpenModal = (id) => {
     openModal({
@@ -22,11 +24,7 @@ const ImagesGrid = ({ images, name }) => {
 
   return (
     <div
-      className={s.images_grid}
-      style={{
-        paddingLeft: modalProps.type === "imageModal" ? "20px" : 0,
-        paddingRight: modalProps.type === "imageModal" ? "20px" : 0,
-      }}
+      className={clsx(s.images_grid, { [s.images_grid_padding]: isImageModal })}
     >
       <div className="container">
         <RenderIf isTrue={name}>
@@ -41,7 +39,7 @@ const ImagesGrid = ({ images, name }) => {
                 className={s.image_container}
                 onClick={match ? () => handleOpenModal(id) : () => {}}
               >
-                <RenderIf isTrue={modalProps.type !== "imageModal"}>
+                <RenderIf isTrue={!isImageModal}>
                   <div className={s.user_wrapper}>
                     <Link
                       to={`/@${user.username}`}
@@ -53,6 +51,7 @@ const ImagesGrid = ({ images, name }) => {
                       <div className={s.user_image}>
                         <LazyLoadImage
                           src={user.profile_image.small}
+                          effect="opacity"
                           width={32}
                           height={32}
                           alt={user.name}
@@ -70,7 +69,7 @@ const ImagesGrid = ({ images, name }) => {
                   <LazyLoadImage
                     src={urls.regular}
                     alt={description}
-                    effect="blur"
+                    effect="opacity"
                     placeholderSrc={urls.regular}
                   />
                 </div>

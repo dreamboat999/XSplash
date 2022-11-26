@@ -33,7 +33,7 @@ const Modal = ({ isFilterModal = false }) => {
             [s.filter_modal]: isFilterModal,
           })}
         >
-          <button className={s.btn_close} onClick={closeModal}>
+          <button className={s.modal_button} onClick={closeModal}>
             <MdOutlineClose />
           </button>
           <div onClick={(e) => e.stopPropagation()} className={s.modal_content}>

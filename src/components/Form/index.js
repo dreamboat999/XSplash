@@ -13,9 +13,9 @@ import RenderIf from "../../utils/RenderIf";
 const Form = ({ isNavbarForm }) => {
   const { recent, setRecent } = useAppContext();
   const history = useNavigate();
-  const input = useRef(null);
   const [value, setValue] = useState("");
   const [isOpenPanel, setIsOpenPanel] = useState(false);
+  const input = useRef(null);
   const match = useMatch();
 
   const newArr = [...new Set(recent)];
@@ -55,15 +55,15 @@ const Form = ({ isNavbarForm }) => {
 
   return (
     <form
-      className={clsx(s.form, {
-        [s.isNavbar_form]: isNavbarForm,
+      className={clsx(s.form_outer, {
+        [s.navbar_form_outer]: isNavbarForm,
       })}
       onSubmit={handleSubmit}
       ref={input}
     >
       <div
         className={clsx(s.form_inner, {
-          [s.isNavbar_form_inner]: isNavbarForm,
+          [s.navbar_form_inner]: isNavbarForm,
         })}
       >
         <span className={s.form_icon}>
@@ -74,13 +74,12 @@ const Form = ({ isNavbarForm }) => {
           placeholder="Search photos"
           onChange={handleChange}
           onClick={handleOpenPanel}
-          className={s.form_input}
         />
       </div>
       <RenderIf isTrue={match}>
         <div
           className={clsx(s.panel, {
-            [s.show_panel]: isOpenPanel && newArr.length,
+            [s.show]: isOpenPanel && newArr.length,
           })}
         >
           <div className={s.panel_items}>

@@ -1,4 +1,4 @@
-.form {
+.form_outer {
   position: relative;
 
   @media (max-width: 425px) {
@@ -15,6 +15,25 @@
 
   @media (max-width: 768px) {
     height: 40px;
+  }
+
+  input {
+    border-radius: 5px;
+    font-size: 15px;
+    color: #1d1d1f;
+    background-color: #fff;
+    width: 100%;
+    height: 100%;
+    padding-left: 50px;
+
+    @media (max-width: 768px) {
+      background-color: #eee;
+      border-radius: 15px;
+
+      &:focus {
+        border: 1px solid #d1d1d1;
+      }
+    }
   }
 }
 
@@ -35,25 +54,7 @@
   }
 }
 
-.form_input {
-  border-radius: 5px;
-  font-size: 15px;
-  color: #1d1d1f;
-  background-color: #fff;
-  width: 100%;
-  height: 100%;
-  padding-left: 50px;
-
-  @media (max-width: 768px) {
-    &:focus {
-      border: 1px solid #d1d1d1;
-    }
-    background-color: #eee;
-    border-radius: 15px;
-  }
-}
-
-.isNavbar_form {
+.navbar_form_outer {
   width: 60%;
 
   @media (max-width: 425px) {
@@ -61,10 +62,10 @@
   }
 }
 
-.isNavbar_form_inner {
+.navbar_form_inner {
   height: 40px;
 
-  .form_input {
+  input {
     background-color: #eee;
     border: 1px solid #fff;
     border-radius: 15px;
@@ -94,7 +95,7 @@
   padding: 8px 0;
 }
 
-.show_panel {
+.show {
   border: 1px solid #d1d1d1;
   display: block;
 }

@@ -1,17 +1,12 @@
 .navbar_outer {
   color: #1d1d1f;
   background-color: #fff;
-  box-shadow: 0 -1px 6px 0 rgba(0, 0, 0, 0.3);
   position: sticky;
   top: 0;
   left: 0;
   width: 100%;
   padding: 0 20px;
   z-index: 20;
-}
-
-.remove_shadow {
-  box-shadow: none;
 }
 
 .navbar_inner {

@@ -13,7 +13,7 @@ import RenderIf from "../../../utils/RenderIf";
 import DownloadImage from "../../../utils/DownloadImage";
 
 const Image = () => {
-  const { modalProps, modalRef } = useAppContext();
+  const { modalProps, modalRef, closeModal } = useAppContext();
   const [image, setImage] = useState({});
   const [related, setRelated] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -79,9 +79,17 @@ const Image = () => {
       <div className={s.modal_header}>
         <div className={s.user}>
           <div className={s.user_image}>
-            <img src={user?.profile_image?.small} alt={user?.name} />
+            <LazyLoadImage
+              src={user?.profile_image?.small}
+              alt={user?.name}
+              effect="opacity"
+            />
           </div>
-          <Link to={`/@${user?.username}`} className={s.user_name}>
+          <Link
+            to={`/@${user?.username}`}
+            className={s.user_name}
+            onClick={closeModal}
+          >
             {user?.name}
           </Link>
         </div>

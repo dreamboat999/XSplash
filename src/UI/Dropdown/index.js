@@ -8,11 +8,11 @@ import RenderIf from "../../utils/RenderIf";
 
 const Dropdown = ({ title, children }) => {
   const dropdown = useRef(null);
-  const [animation, setAnimation] = useState(s.hide);
+  const [animationClass, setAnimationClass] = useState(s.hide);
   const [isOpen, setIsOpen] = useState(false);
 
   useClickAway(dropdown, () => {
-    setAnimation(s.hide);
+    setAnimationClass(s.hide);
 
     setTimeout(() => {
       setIsOpen(false);
@@ -20,7 +20,7 @@ const Dropdown = ({ title, children }) => {
   });
 
   const handleDropdown = async () => {
-    setAnimation(isOpen ? s.hide : s.show);
+    setAnimationClass(isOpen ? s.hide : s.show);
     await new Promise((resp) => setTimeout(resp, 90));
     setIsOpen(!isOpen);
   };
@@ -32,9 +32,9 @@ const Dropdown = ({ title, children }) => {
         <MdOutlineArrowDropDown />
       </button>
       <RenderIf isTrue={isOpen}>
-        <div className={animation}>
+        <div className={animationClass}>
           <div className={s.dropdown_inner}>
-            <div className={s.content}>
+            <div className={s.dropdown_content}>
               {children.map((el, i) => {
                 return (
                   <React.Fragment key={i}>

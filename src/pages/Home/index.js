@@ -26,6 +26,7 @@ const Home = () => {
       .catch((error) => {
         console.log(error);
       });
+    return () => setPhotoBy({});
   }, []);
 
   useEffect(() => {
@@ -36,6 +37,7 @@ const Home = () => {
       .catch((error) => {
         console.log(error);
       });
+    return () => setImages([]);
   }, []);
 
   return (

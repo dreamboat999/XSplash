@@ -12,6 +12,13 @@
   }
 }
 
+.images_grid_padding {
+  @media (max-width: 768px) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
 .image_container {
   display: block;
   position: relative;
@@ -81,7 +88,7 @@
     font-weight: 400;
     opacity: 0.8;
     transition: opacity 0.3s ease;
-    
+
     &:hover {
       opacity: 1;
     }
