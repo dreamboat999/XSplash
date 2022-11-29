@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
-import s from "./imagesGrid.module.scss";
+import s from "./images.module.scss";
 
 import { useAppContext } from "../../context";
 import Masonry from "../../UI/Masonry";
@@ -23,9 +23,7 @@ const ImagesGrid = ({ images, name }) => {
   };
 
   return (
-    <div
-      className={clsx(s.images_grid, { [s.images_grid_padding]: isImageModal })}
-    >
+    <div className={clsx(s.images, { [s.images_padding]: isImageModal })}>
       <div className="container">
         <RenderIf isTrue={name}>
           <h1>{name ? name : "Loading"}</h1>
@@ -36,7 +34,7 @@ const ImagesGrid = ({ images, name }) => {
             return (
               <div
                 key={i}
-                className={s.image_container}
+                className={s.image_wrapper}
                 onClick={match ? () => handleOpenModal(id) : () => {}}
               >
                 <RenderIf isTrue={!isImageModal}>
@@ -64,12 +62,12 @@ const ImagesGrid = ({ images, name }) => {
 
                 <div
                   onClick={match ? () => {} : () => handleOpenModal(id)}
-                  className={s.image_wrapper}
+                  className={s.image}
                 >
                   <LazyLoadImage
                     src={urls.regular}
                     alt={description}
-                    effect="opacity"
+                    effect="blur"
                     placeholderSrc={urls.regular}
                   />
                 </div>

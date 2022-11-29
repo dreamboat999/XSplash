@@ -17,26 +17,34 @@ export const getImage = (id) => {
   return wrapper("get", `photos/${id}?client_id=${ACCESS_KEY}`);
 };
 
-export const getUserImages = (username) => {
-  return wrapper(
-    "get",
-    `users/${username}/photos?client_id=${ACCESS_KEY}&per_page=10`
-  );
+export const getCollection = (id) => {
+  return wrapper("get", `collections/${id}/photos?client_id=${ACCESS_KEY}`);
 };
 
 export const getImages = () => {
-  return wrapper("get", `photos?client_id=${ACCESS_KEY}&per_page=10`);
+  return wrapper("get", `photos?client_id=${ACCESS_KEY}`);
 };
 
 export const getSearchImages = (name, sort = "relevance", orientation) => {
   return wrapper(
     "get",
-    `search/photos?client_id=${ACCESS_KEY}&per_page=10&query=${name}&order_by=${sort}${
+    `search/photos?client_id=${ACCESS_KEY}&query=${name}&order_by=${sort}${
       orientation ? `&orientation=${orientation}` : ""
     }`
   );
 };
 
+export const getSearchCollections = (name) => {
+  return wrapper(
+    "get",
+    `search/collections?client_id=${ACCESS_KEY}&query=${name}`
+  );
+};
+
 export const getUserInfo = (username) => {
   return wrapper("get", `users/${username}/?client_id=${ACCESS_KEY}`);
+};
+
+export const getUserImages = (username) => {
+  return wrapper("get", `users/${username}/photos?client_id=${ACCESS_KEY}`);
 };

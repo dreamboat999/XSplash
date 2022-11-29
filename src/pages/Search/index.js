@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import s from "./search.module.scss";
-import { IoMdOptions } from "react-icons/io";
-import { MdCheck, MdPhoto } from "react-icons/md";
+import { MdCheck, MdTune } from "react-icons/md";
 
 import { useAppContext } from "../../context";
 import { getSearchImages } from "../../api";
 import ImagesGrid from "../../components/ImagesGrid";
+import Tabs from "../../components/Tabs";
 import Dropdown from "../../UI/Dropdown";
 import { LinearProgress } from "../../UI/Loading";
 import useMatch from "../../hooks/useMatch";
@@ -17,8 +17,8 @@ import { orientationData, sortData } from "../../utils/FiltersData";
 
 const Search = () => {
   const { name, orientation, sort } = useParams();
-  const { openModal } = useAppContext();
   const history = useNavigate();
+  const { openModal } = useAppContext();
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
   const match = useMatch();
@@ -59,13 +59,7 @@ const Search = () => {
   return (
     <PageTitle title={`${name ? name : "Loading"}`}>
       <div className={s.filters_wrapper}>
-        <div className="photos_outer">
-          <div className="photos_inner">
-            <div className="photos">
-              <MdPhoto />
-              <div>Photos</div>
-            </div>
-          </div>
+        <Tabs name={name} tab="photos">
           <RenderIf isTrue={match}>
             <div className={s.filters}>
               <Dropdown title={orientationTitle?.title}>
@@ -122,10 +116,10 @@ const Search = () => {
               className={s.mobile_filters_button}
               onClick={handleOpenModal}
             >
-              <IoMdOptions />
+              <MdTune />
             </button>
           </RenderIf>
-        </div>
+        </Tabs>
       </div>
 
       <LinearProgress loading={loading}>
