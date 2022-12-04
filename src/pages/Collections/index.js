@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 
 import { getSearchCollections } from "../../api";
 import CollectionsGrid from "../../components/CollectionsGrid";
+import PageTitle from "../../utils/PageTitle";
 
 const Collections = () => {
   const { name } = useParams();
@@ -18,7 +19,11 @@ const Collections = () => {
       });
   }, [name]);
 
-  return <CollectionsGrid name={name} collections={collections} />;
+  return (
+    <PageTitle title={name}>
+      <CollectionsGrid name={name} collections={collections} />
+    </PageTitle>
+  );
 };
 
 export default Collections;

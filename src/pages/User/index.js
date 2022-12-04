@@ -178,9 +178,9 @@ const User = () => {
         </div>
       </LinearProgress>
 
-      <div className="tabs_outer">
-        <div className="tabs_inner">
-          <div className="tab">
+      <div className={s.tabs_outer}>
+        <div className={s.tabs_inner}>
+          <div className={s.tab}>
             <MdPhoto />
             <div>Photos</div>
           </div>

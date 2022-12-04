@@ -4,7 +4,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import s from "./collections.module.scss";
 
-import Tabs from "../Tabs";
+import Tabs from "../../UI/Tabs";
 import RenderIf from "../../utils/RenderIf";
 
 const CollectionsGrid = ({ name, collections }) => {

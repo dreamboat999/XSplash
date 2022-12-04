@@ -7,7 +7,7 @@ import { MdCheck, MdTune } from "react-icons/md";
 import { useAppContext } from "../../context";
 import { getSearchImages } from "../../api";
 import ImagesGrid from "../../components/ImagesGrid";
-import Tabs from "../../components/Tabs";
+import Tabs from "../../UI/Tabs";
 import Dropdown from "../../UI/Dropdown";
 import { LinearProgress } from "../../UI/Loading";
 import useMatch from "../../hooks/useMatch";

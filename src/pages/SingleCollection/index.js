@@ -1,24 +1,46 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import s from "./singleCollection.module.scss";
+
 import { getCollection } from "../../api";
 import ImagesGrid from "../../components/ImagesGrid";
+import PageTitle from "../../utils/PageTitle";
 
 const SingleCollection = () => {
   const { id, name } = useParams();
   const [collectionImages, setCollectionImages] = useState([]);
+  const [backgroundImage, setBackgroundImage] = useState({});
 
   useEffect(() => {
     getCollection(id)
       .then((res) => {
         setCollectionImages(res);
+        setBackgroundImage(res[0]);
       })
       .catch((error) => {
         console.log(error);
       });
   }, [id]);
 
-  return <ImagesGrid name={name} images={collectionImages} />;
+  return (
+    <PageTitle title={name}>
+      <div>
+        <div className={s.background_image}>
+          <img
+            src={backgroundImage?.urls?.regular}
+            alt={backgroundImage?.description}
+          />
+        </div>
+        <div className="container">
+          <div className={s.name}>
+            <h1>{name}</h1>
+          </div>
+        </div>
+        <ImagesGrid images={collectionImages} />
+      </div>
+    </PageTitle>
+  );
 };
 
 export default SingleCollection;
