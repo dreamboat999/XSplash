@@ -5,6 +5,10 @@
     font-size: 48px;
     text-transform: capitalize;
     padding: 20px 0;
+
+    @media (max-width: 768px) {
+      font-size: 28px;
+    }
   }
 }
 
@@ -25,6 +29,14 @@
 
   @media (max-width: 620px) {
     grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
+
+.collection_link {
+  transition: opacity .2s ease;
+
+  &:hover {
+    opacity: 0.8;
   }
 }
 

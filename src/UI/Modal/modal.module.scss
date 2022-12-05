@@ -30,7 +30,7 @@
   }
 }
 
-.modal_button {
+.close_button {
   color: #fff;
   background: none;
   position: fixed;
@@ -56,7 +56,7 @@
 
 .filter_modal {
   padding: 50px;
-  height: calc(100% - 50px);
+  height: 100%;
 
   @media (max-width: 768px) {
     padding: 0;

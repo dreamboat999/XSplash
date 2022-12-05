@@ -43,9 +43,10 @@ const Home = () => {
   return (
     <PageTitle title="Home">
       <div className={s.header_outer}>
-        <div className={s.header_image}>
+        <div className={s.header_background_image}>
           <LazyLoadImage src={urls?.regular} alt={description} effect="blur" />
         </div>
+
         <div className="container">
           <div className={s.header_inner}>
             <div className={s.header_content}>

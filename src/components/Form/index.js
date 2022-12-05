@@ -47,9 +47,7 @@ const Form = ({ isNavbarForm }) => {
   };
 
   const handleClick = (value) => {
-    history({
-      pathname: `/photos/${value}/relevant`,
-    });
+    history(`/photos/${value}/relevant`);
     setIsOpenPanel(false);
   };
 

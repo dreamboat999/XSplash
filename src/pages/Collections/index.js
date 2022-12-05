@@ -8,20 +8,29 @@ import PageTitle from "../../utils/PageTitle";
 const Collections = () => {
   const { name } = useParams();
   const [collections, setCollections] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     getSearchCollections(name)
       .then((response) => {
         setCollections(response.results);
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, [name]);
 
   return (
     <PageTitle title={name}>
-      <CollectionsGrid name={name} collections={collections} />
+      <CollectionsGrid
+        name={name}
+        collections={collections}
+        loading={loading}
+      />
     </PageTitle>
   );
 };

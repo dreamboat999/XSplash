@@ -15,7 +15,7 @@ import RenderIf from "../../utils/RenderIf";
 import PageTitle from "../../utils/PageTitle";
 import { orientationData, sortData } from "../../utils/FiltersData";
 
-const Search = () => {
+const Images = () => {
   const { name, orientation, sort } = useParams();
   const history = useNavigate();
   const { openModal } = useAppContext();
@@ -129,4 +129,4 @@ const Search = () => {
   );
 };
 
-export default Search;
+export default Images;

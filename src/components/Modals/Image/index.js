@@ -75,65 +75,69 @@ const Image = () => {
   }, [modalProps?.isOpen, data?.id, modalRef]);
 
   return (
-    <div className={s.modal}>
-      <div className={s.modal_header}>
-        <div className={s.user}>
-          <div className={s.user_image}>
-            <LazyLoadImage
-              src={user?.profile_image?.small}
-              alt={user?.name}
-              effect="opacity"
-            />
+    <div className={s.image_outer}>
+      <div className={s.image_inner}>
+        <div className={s.image_header}>
+          <div className={s.user_block}>
+            <div className={s.user_photo}>
+              <LazyLoadImage
+                src={user?.profile_image?.small}
+                alt={user?.name}
+                effect="opacity"
+              />
+            </div>
+            <Link
+              to={`/@${user?.username}`}
+              className={s.user_name}
+              onClick={closeModal}
+            >
+              {user?.name}
+            </Link>
           </div>
-          <Link
-            to={`/@${user?.username}`}
-            className={s.user_name}
-            onClick={closeModal}
-          >
-            {user?.name}
-          </Link>
+          <div className={s.download_wrapper}>
+            <a
+              href={urls?.raw}
+              download
+              className={clsx(s.download_button, {
+                [s.download_button_disable]: disableLink,
+              })}
+              onClick={handleDownload}
+            >
+              {disableLink ? "Downloading" : "Download free"}
+            </a>
+          </div>
         </div>
-        <div>
-          <a
-            href={urls?.raw}
-            download
-            className={clsx(s.btn_download, {
-              [s.disable_btn_download]: disableLink,
-            })}
-            onClick={handleDownload}
-          >
-            Download
-          </a>
+
+        <div className={s.image_block}>
+          <Spinner loading={loading}>
+            <LazyLoadImage src={urls?.regular} alt="desc" effect="blur" />
+          </Spinner>
         </div>
-      </div>
-      <div className={s.modal_image}>
-        <Spinner loading={loading}>
-          <LazyLoadImage src={urls?.regular} alt="desc" effect="blur" />
-        </Spinner>
-      </div>
-      <div className={s.modal_info}>
-        <div className={s.modal_info_item}>
-          <h3>Views</h3>
-          <RenderIf isTrue={views} isFalse="--">
-            <span>{formatNumber(views)}</span>
-          </RenderIf>
-        </div>
-        <div className={s.modal_info_item}>
-          <h3>Downloads</h3>
-          <RenderIf isTrue={downloads} isFalse="--">
-            <span>{formatNumber(downloads)}</span>
-          </RenderIf>
-        </div>
-        <div className={clsx(s.modal_info_item, s.published)}>
-          <h3>Published on</h3>
-          <RenderIf isTrue={created_at}>
-            <span>{dateFormat}</span>
-          </RenderIf>
+
+        <div className={s.info_block}>
+          <div className={s.info_block_item}>
+            <h3>Views</h3>
+            <RenderIf isTrue={views} isFalse="--">
+              <span>{formatNumber(views)}</span>
+            </RenderIf>
+          </div>
+          <div className={s.info_block_item}>
+            <h3>Downloads</h3>
+            <RenderIf isTrue={downloads} isFalse="--">
+              <span>{formatNumber(downloads)}</span>
+            </RenderIf>
+          </div>
+          <div className={s.info_block_item}>
+            <h3>Published on</h3>
+            <RenderIf isTrue={created_at}>
+              <span>{dateFormat}</span>
+            </RenderIf>
+          </div>
         </div>
       </div>
 
       <RenderIf isTrue={related}>
-        <div className={s.related}>
+        <div className={s.related_block}>
           <h2>Related photos</h2>
           <ImagesGrid images={related} />
         </div>

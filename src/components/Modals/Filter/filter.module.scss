@@ -1,4 +1,4 @@
-.modal {
+.filter_outer {
   background-color: #fff;
   border-radius: 4px;
   display: flex;
@@ -10,19 +10,19 @@
   }
 }
 
-.items {
+.filter_inner {
   flex: 1;
 }
 
 .filter {
   border-bottom: 1px solid #d1d1d1;
   padding: 16px;
-}
 
-.filter_title {
-  font-size: 16px;
-  font-weight: 400;
-  margin-bottom: 16px;
+  h3 {
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 16px;
+  }
 }
 
 .filter_list {
@@ -54,7 +54,7 @@
   }
 }
 
-.modal_footer {
+.filter_footer {
   display: flex;
   gap: 10px;
   bottom: 0;
@@ -70,7 +70,7 @@
   }
 }
 
-.clear_btn {
+.clear_button {
   color: #1d1d1f;
   background-color: unset;
   border: 1px solid #d1d1d1;
@@ -88,7 +88,7 @@
   }
 }
 
-.close_btn {
+.close_button {
   color: #fff;
   background-color: #1d1d1f;
 }
