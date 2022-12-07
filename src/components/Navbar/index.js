@@ -16,7 +16,7 @@ const Navbar = () => {
         </Link>
         <Form isNavbarForm={true} />
       </div>
-      <Topics />
+      {/*<Topics />*/}
     </div>
   );
 };
