@@ -1,18 +1,34 @@
 import { useEffect, useState } from "react";
 
-export default function useMatch() {
-  const [matches, setMatches] = useState(
-    window.matchMedia("(min-width: 768px)").matches
-  );
+export default function useMatch(query) {
+  const [matches, setMatches] = useState(false);
 
   useEffect(() => {
-    window
-      .matchMedia("(min-width: 768px)")
-      .addEventListener("change", (e) => setMatches(e.matches));
-    return () => {
-      setMatches(window.matchMedia("(min-width: 768px)").matches);
-    };
-  }, []);
+    const media = window.matchMedia(query);
+
+    if (media.matches !== matches) {
+      setMatches(media.matches);
+    }
+
+    const listener = () => setMatches(media.matches);
+
+    window.addEventListener("resize", listener);
+    return () => window.removeEventListener("resize", listener);
+  }, [matches, query]);
 
   return matches;
+  // const [matches, setMatches] = useState(
+  //   window.matchMedia(`(min-width: ${width}px)`).matches
+  // );
+  //
+  // useEffect(() => {
+  //   window
+  //     .matchMedia(`(min-width: ${width}px)`)
+  //     .addEventListener("change", (e) => setMatches(e.matches));
+  //   return () => {
+  //     window.removeEventListener("change", (e) => setMatches(e.matches));
+  //   };
+  // }, [width]);
+  //
+  // return matches;
 }

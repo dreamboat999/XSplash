@@ -16,7 +16,7 @@ const Form = ({ isNavbarForm }) => {
   const [value, setValue] = useState("");
   const [isOpenPanel, setIsOpenPanel] = useState(false);
   const input = useRef(null);
-  const match = useMatch();
+  const match = useMatch("(min-width: 768px)");
 
   const newArr = [...new Set(recent)];
   const fiveElementArray = newArr.slice(Math.max(newArr.length - 5, 0));

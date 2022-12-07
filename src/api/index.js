@@ -48,3 +48,7 @@ export const getUserInfo = (username) => {
 export const getUserImages = (username) => {
   return wrapper("get", `users/${username}/photos?client_id=${ACCESS_KEY}`);
 };
+
+export const getTopics = () => {
+  return wrapper("get", `topics?client_id=${ACCESS_KEY}`);
+};

@@ -1,0 +1,43 @@
+.topic {
+  white-space: nowrap;
+
+  &:not(:last-child) {
+    margin-right: 24px;
+  }
+
+  a {
+    color: #767676;
+    display: flex;
+    align-items: center;
+    height: 55px;
+    transition: color .2s ease;
+
+    &:hover {
+      color: #1d1d1f;
+    }
+  }
+}
+
+.arrow_button {
+  color: #767676;
+  display: flex;
+  align-items: center;
+  width: 30px;
+
+  &:hover {
+    color: #1d1d1f;
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.arrow_left {
+  justify-content: flex-start;
+}
+
+.arrow_right {
+  justify-content: flex-end;
+}

@@ -21,7 +21,7 @@ const Images = () => {
   const { openModal } = useAppContext();
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
-  const match = useMatch();
+  const match = useMatch("(min-width: 768px)");
 
   const orientationTitle = orientationData.find(
     (el) => orientation === el.value

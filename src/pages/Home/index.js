@@ -16,7 +16,7 @@ const Home = () => {
   const [images, setImages] = useState([]);
 
   const { urls, description, user } = photoBy;
-  const match = useMatch();
+  const match = useMatch("(min-width: 768px)");
 
   useEffect(() => {
     getBackgroundImage()

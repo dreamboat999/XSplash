@@ -5,6 +5,7 @@ import s from "./navbar.module.scss";
 import { ReactComponent as Logo } from "../../assets/logo/logo.svg";
 
 import Form from "../Form";
+import Topics from "../Topics";
 
 const Navbar = () => {
   return (
@@ -15,6 +16,7 @@ const Navbar = () => {
         </Link>
         <Form isNavbarForm={true} />
       </div>
+      <Topics />
     </div>
   );
 };

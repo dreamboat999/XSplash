@@ -12,7 +12,7 @@ import clsx from "clsx";
 
 const ImagesGrid = ({ images, name }) => {
   const { openModal, modalProps } = useAppContext();
-  const match = useMatch();
+  const match = useMatch("(min-width: 768px)");
   const isImageModal = modalProps.type === "imageModal";
 
   const handleOpenModal = (id) => {
