@@ -68,7 +68,7 @@ const ImagesGrid = ({ images, name }) => {
                     src={urls.regular}
                     alt={description}
                     effect="blur"
-                    placeholderSrc={urls.regular}
+                    placeholderSrc={urls.small}
                   />
                 </div>
               </div>

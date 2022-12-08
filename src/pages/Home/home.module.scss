@@ -3,7 +3,7 @@
   position: relative;
 
   @media (max-width: 768px) {
-    padding: 0 20px;
+    padding: 0 12px;
   }
 }
 
@@ -57,7 +57,7 @@
   }
 }
 
-.header_background_image {
+.background_image {
   background-color: #1d1d1f;
   position: absolute;
   top: 0;
@@ -68,7 +68,7 @@
   z-index: -1;
 
   &::after {
-    background: linear-gradient(90deg, rgba(29,29,31,0.49933476808692223) 0%, rgba(29,29,31,0.49933476808692223) 50%, rgba(29,29,31,0.5049370089832808) 100%);
+    background: linear-gradient(90deg, rgba(29, 29, 31, 0.5) 0%, rgba(29, 29, 31, 0.5) 50%, rgba(29, 29, 31, 0.5) 100%);
     content: "";
     position: absolute;
     top: 0;

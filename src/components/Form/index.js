@@ -15,13 +15,13 @@ const Form = ({ isNavbarForm }) => {
   const history = useNavigate();
   const [value, setValue] = useState("");
   const [isOpenPanel, setIsOpenPanel] = useState(false);
-  const input = useRef(null);
+  const inputRef = useRef(null);
   const match = useMatch("(min-width: 768px)");
 
   const newArr = [...new Set(recent)];
   const fiveElementArray = newArr.slice(Math.max(newArr.length - 5, 0));
 
-  useClickAway(input, () => {
+  useClickAway(inputRef, () => {
     setIsOpenPanel(false);
   });
 
@@ -57,7 +57,7 @@ const Form = ({ isNavbarForm }) => {
         [s.navbar_form_outer]: isNavbarForm,
       })}
       onSubmit={handleSubmit}
-      ref={input}
+      ref={inputRef}
     >
       <div
         className={clsx(s.form_inner, {

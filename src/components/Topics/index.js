@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
 
 import s from "./topics.module.scss";
@@ -40,28 +40,45 @@ const RightArrow = () => {
 };
 
 const Topics = () => {
+  const location = useLocation();
   const [topics, setTopics] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const pathname = location.pathname;
+  const slug = pathname.slice(7, pathname.length);
 
   useEffect(() => {
+    setLoading(true);
     getTopics()
       .then((res) => {
         setTopics(res);
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
 
+  if (loading) return null;
+
   return (
-    <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
-      {topics.map((topic) => {
-        return (
-          <div key={topic.id} className={s.topic}>
-            <Link to="a">{topic.title}</Link>
-          </div>
-        );
-      })}
-    </ScrollMenu>
+    <div className={s.topics_wrapper}>
+      <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
+        {topics.map((topic) => {
+          return (
+            <div key={topic.id} className={s.topic}>
+              <Link
+                to={`/topic/${topic.slug}`}
+                className={topic.slug === slug ? s.active_topic : ""}
+              >
+                {topic.title}
+              </Link>
+            </div>
+          );
+        })}
+      </ScrollMenu>
+    </div>
   );
 };
 

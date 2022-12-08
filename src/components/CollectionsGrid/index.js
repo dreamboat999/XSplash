@@ -10,8 +10,10 @@ import { LinearProgress } from "../../UI/Loading";
 
 const CollectionsGrid = ({ name, collections, loading }) => {
   return (
-    <div>
-      <Tabs name={name} tab="collections" />
+    <>
+      <div className={s.tabs_wrapper}>
+        <Tabs name={name} tab="collections" />
+      </div>
       <LinearProgress loading={loading}>
         <div className={s.collections_outer}>
           <div className={s.collections_container}>
@@ -62,7 +64,7 @@ const CollectionsGrid = ({ name, collections, loading }) => {
           </div>
         </div>
       </LinearProgress>
-    </div>
+    </>
   );
 };
 

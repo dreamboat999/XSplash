@@ -52,3 +52,11 @@ export const getUserImages = (username) => {
 export const getTopics = () => {
   return wrapper("get", `topics?client_id=${ACCESS_KEY}`);
 };
+
+export const getTopic = (slug) => {
+  return wrapper("get", `topics/${slug}?client_id=${ACCESS_KEY}`);
+};
+
+export const getTopicPhotos = (slug) => {
+  return wrapper("get", `topics/${slug}/photos?client_id=${ACCESS_KEY}`);
+};

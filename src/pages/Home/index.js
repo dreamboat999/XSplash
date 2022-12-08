@@ -43,8 +43,13 @@ const Home = () => {
   return (
     <PageTitle title="Home">
       <div className={s.header_outer}>
-        <div className={s.header_background_image}>
-          <LazyLoadImage src={urls?.regular} alt={description} effect="blur" />
+        <div className={s.background_image}>
+          <LazyLoadImage
+            src={urls?.regular}
+            alt={description}
+            effect="blur"
+            placeholderSrc={urls?.small}
+          />
         </div>
 
         <div className="container">
@@ -58,12 +63,10 @@ const Home = () => {
               <RenderIf isTrue={match}>
                 <Form />
               </RenderIf>
-              <RenderIf isTrue={user?.username}>
-                <div className={s.user}>
-                  <p>Photo by</p>
-                  <Link to={`/@${user?.username}`}>{user?.username}</Link>
-                </div>
-              </RenderIf>
+              <div className={s.user}>
+                <p>Photo by</p>
+                <Link to={`/@${user?.username}`}>{user?.username}</Link>
+              </div>
             </div>
           </div>
         </div>
