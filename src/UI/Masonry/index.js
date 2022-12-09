@@ -1,6 +1,6 @@
 import React from "react";
 
-import s from "./masonry.module.scss";
+import s from "./styles.module.scss";
 import clsx from "clsx";
 import { useAppContext } from "../../context";
 

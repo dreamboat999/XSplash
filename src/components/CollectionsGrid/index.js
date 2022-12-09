@@ -2,10 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
-import s from "./collections.module.scss";
+import s from "./styles.module.scss";
 
 import Tabs from "../../UI/Tabs";
-import RenderIf from "../../utils/RenderIf";
 import { LinearProgress } from "../../UI/Loading";
 
 const CollectionsGrid = ({ name, collections, loading }) => {
@@ -17,9 +16,7 @@ const CollectionsGrid = ({ name, collections, loading }) => {
       <LinearProgress loading={loading}>
         <div className={s.collections_outer}>
           <div className={s.collections_container}>
-            <RenderIf isTrue={name}>
-              <h1>{name ? name : "Loading"}</h1>
-            </RenderIf>
+            <h1>{name ? name : "Loading"}</h1>
             <div className={s.collections_inner}>
               {collections.map((el) => {
                 return (

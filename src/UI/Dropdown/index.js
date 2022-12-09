@@ -1,6 +1,6 @@
 import React, { cloneElement, useRef, useState } from "react";
 
-import s from "./dropdown.module.scss";
+import s from "./styles.module.scss";
 import { MdOutlineArrowDropDown } from "react-icons/md";
 
 import useClickAway from "../../hooks/useClickAway";

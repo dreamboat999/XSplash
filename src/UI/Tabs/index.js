@@ -2,8 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
 
-import s from "./tabs.module.scss";
+import s from "./styles.module.scss";
 import { MdPhoto, MdPhotoLibrary } from "react-icons/md";
+import RenderIf from "../../utils/RenderIf";
+import useMatch from "../../hooks/useMatch";
 
 const tabs = [
   {
@@ -19,6 +21,8 @@ const tabs = [
 ];
 
 const Tabs = ({ name, tab, children }) => {
+  const match = useMatch("(min-width: 768px)");
+
   const link = (value) => {
     const isPhotos = `/photos/${name}/relevant`;
     const isCollections = `/${value}/${name}`;
@@ -40,7 +44,9 @@ const Tabs = ({ name, tab, children }) => {
               to={link(el.value)}
               className={clsx(s.tab, { [s.active]: el.value === tab })}
             >
-              {el.icon}
+              <RenderIf isTrue={match}>
+                <div>{el.icon}</div>
+              </RenderIf>
               <div>{el.title}</div>
             </Link>
           );

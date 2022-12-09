@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
 
-import s from "./filter.module.scss";
+import s from "./styles.module.scss";
 import { MdCheck } from "react-icons/md";
 
 import { useAppContext } from "../../../context";

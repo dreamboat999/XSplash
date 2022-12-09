@@ -1,16 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import clsx from "clsx";
 
-import s from "./images.module.scss";
+import s from "./styles.module.scss";
 
 import { useAppContext } from "../../context";
+import { LinearProgress } from "../../UI/Loading";
 import Masonry from "../../UI/Masonry";
 import useMatch from "../../hooks/useMatch";
 import RenderIf from "../../utils/RenderIf";
-import clsx from "clsx";
 
-const ImagesGrid = ({ images, name }) => {
+const ImagesGrid = ({ name, images, loading = false }) => {
   const { openModal, modalProps } = useAppContext();
   const match = useMatch("(min-width: 768px)");
   const isImageModal = modalProps.type === "imageModal";
@@ -25,56 +26,58 @@ const ImagesGrid = ({ images, name }) => {
   return (
     <div className={clsx(s.images, { [s.images_padding]: isImageModal })}>
       <div className="container">
-        <RenderIf isTrue={name}>
-          <h1>{name ? name : "Loading"}</h1>
-        </RenderIf>
-        <Masonry>
-          {images.map((el, i) => {
-            const { id, user, urls, description } = el;
-            return (
-              <div
-                key={i}
-                className={s.image_wrapper}
-                onClick={match ? () => handleOpenModal(id) : () => {}}
-              >
-                <RenderIf isTrue={!isImageModal}>
-                  <div className={s.user_wrapper}>
-                    <Link
-                      to={`/@${user.username}`}
-                      className={s.user_link}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                      }}
-                    >
-                      <div className={s.user_image}>
-                        <LazyLoadImage
-                          src={user.profile_image.small}
-                          effect="opacity"
-                          width={32}
-                          height={32}
-                          alt={user.name}
-                        />
-                      </div>
-                      <h3>{user.name}</h3>
-                    </Link>
-                  </div>
-                </RenderIf>
-
+        <LinearProgress loading={loading}>
+          <RenderIf isTrue={name}>
+            <h1>{name ? name : "Loading"}</h1>
+          </RenderIf>
+          <Masonry>
+            {images.map((el, i) => {
+              const { id, user, urls, description } = el;
+              return (
                 <div
-                  onClick={match ? () => {} : () => handleOpenModal(id)}
-                  className={s.image}
+                  key={i}
+                  className={s.image_wrapper}
+                  onClick={match ? () => handleOpenModal(id) : () => {}}
                 >
-                  <LazyLoadImage
-                    src={urls.regular}
-                    alt={description}
-                    effect="blur"
-                    placeholderSrc={urls.small}
-                  />
+                  <RenderIf isTrue={!isImageModal}>
+                    <div className={s.user_wrapper}>
+                      <Link
+                        to={`/@${user.username}`}
+                        className={s.user_link}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                        }}
+                      >
+                        <div className={s.user_image}>
+                          <LazyLoadImage
+                            src={user.profile_image.small}
+                            effect="opacity"
+                            width={32}
+                            height={32}
+                            alt={user.name}
+                          />
+                        </div>
+                        <h3>{user.name}</h3>
+                      </Link>
+                    </div>
+                  </RenderIf>
+
+                  <div
+                    onClick={match ? () => {} : () => handleOpenModal(id)}
+                    className={s.image}
+                  >
+                    <LazyLoadImage
+                      src={urls.regular}
+                      alt={description}
+                      effect="blur"
+                      placeholderSrc={urls.small}
+                    />
+                  </div>
                 </div>
-              </div>
-            );
-          })}
-        </Masonry>
+              );
+            })}
+          </Masonry>
+        </LinearProgress>
       </div>
     </div>
   );

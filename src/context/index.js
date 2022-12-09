@@ -39,7 +39,7 @@ const AppContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (modalProps.isOpen) {
-      document.querySelector("body").className = "disable_scroll";
+      document.querySelector("body").className = "disable";
     } else {
       document.querySelector("body").className = "";
     }

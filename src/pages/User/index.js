@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import clsx from "clsx";
 
-import s from "./user.module.scss";
+import s from "./styles.module.scss";
 import { MdPhoto } from "react-icons/md";
 import { IoEarth, IoLocationSharp } from "react-icons/io5";
 import {
@@ -13,9 +13,9 @@ import {
 } from "react-icons/ai";
 
 import { getUserImages, getUserInfo } from "../../api";
-import Dropdown from "../../UI/Dropdown";
-import { LinearProgress } from "../../UI/Loading";
 import ImagesGrid from "../../components/ImagesGrid";
+import Dropdown from "../../UI/Dropdown";
+import { LinearProgress, Spinner } from "../../UI/Loading";
 import RenderIf from "../../utils/RenderIf";
 import PageTitle from "../../utils/PageTitle";
 
@@ -23,7 +23,8 @@ const User = () => {
   const { username } = useParams();
   const [user, setUser] = useState({});
   const [images, setImages] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [userLoading, setUserLoading] = useState(true);
+  const [imagesLoading, setImagesLoading] = useState(true);
 
   const {
     profile_image,
@@ -58,7 +59,7 @@ const User = () => {
   ];
 
   useEffect(() => {
-    setLoading(true);
+    setUserLoading(true);
     getUserInfo(username)
       .then((resp) => {
         setUser(resp);
@@ -67,9 +68,24 @@ const User = () => {
         console.log(error);
       })
       .finally(() => {
-        setLoading(false);
+        setUserLoading(false);
       });
     return () => setUser({});
+  }, [username]);
+
+  useEffect(() => {
+    setImagesLoading(true);
+    getUserImages(username)
+      .then((response) => {
+        setImages(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setImagesLoading(false);
+      });
+    return () => setImages([]);
   }, [username]);
 
   const handleClick = (url) => {
@@ -78,33 +94,22 @@ const User = () => {
     }
   };
 
-  useEffect(() => {
-    getUserImages(username)
-      .then((response) => {
-        setImages(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    return () => setImages([]);
-  }, [username]);
-
   return (
     <PageTitle title={username ? `@${username}` : "Loading"}>
-      <LinearProgress loading={loading}>
-        <div className={s.user_outer}>
-          <div className="container">
-            <div className={s.user_inner}>
-              <div className={s.user_image_outer}>
-                <div className={s.user_image_inner}>
+      <div className={s.user_outer}>
+        <div className="container">
+          <div className={s.user_inner}>
+            <Spinner loading={userLoading}>
+              <div className={s.user_image_wrapper}>
+                <div className={s.user_image}>
                   <img src={profile_image?.large} alt={first_name} />
                 </div>
               </div>
               <div className={s.user_info}>
-                <div className={s.user_name}>
+                <div className={s.name}>
                   {first_name}&nbsp;{last_name}
                 </div>
-                <div className={s.user_bio}>
+                <div className={s.bio}>
                   {bio
                     ? bio
                     : `Download free, beautiful high-quality photos curated by ${first_name}.`}
@@ -173,10 +178,10 @@ const User = () => {
                   </div>
                 </RenderIf>
               </div>
-            </div>
+            </Spinner>
           </div>
         </div>
-      </LinearProgress>
+      </div>
 
       <div className={s.tabs_outer}>
         <div className={s.tabs_inner}>
@@ -187,7 +192,7 @@ const User = () => {
         </div>
       </div>
 
-      <ImagesGrid images={images} />
+      <ImagesGrid images={images} loading={imagesLoading} />
     </PageTitle>
   );
 };

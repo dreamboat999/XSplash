@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
 
-import s from "./topics.module.scss";
+import s from "./styles.module.scss";
 import { MdArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
 
 import { getTopics } from "../../api";

@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
 
-import s from "./form.module.scss";
+import s from "./styles.module.scss";
 import { AiOutlineSearch } from "react-icons/ai";
 
 import { useAppContext } from "../../context";

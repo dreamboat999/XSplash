@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
-import s from "./singleTopic.module.scss";
+import s from "./styles.module.scss";
 
 import { getTopic, getTopicPhotos } from "../../api";
 import ImagesGrid from "../../components/ImagesGrid";
@@ -22,7 +22,6 @@ const SingleTopic = () => {
     getTopic(slug)
       .then((res) => {
         setTopic(res);
-        console.log(res);
       })
       .catch((error) => {
         console.log(error);
@@ -49,7 +48,7 @@ const SingleTopic = () => {
   return (
     <PageTitle title={topic.title}>
       <div className={s.topic_outer}>
-        <div className={s.background_image}>
+        <div className={s.topic_bg}>
           <RenderIf isTrue={!topicLoading}>
             <LazyLoadImage
               src={topic.cover_photo?.urls.full}
@@ -66,7 +65,7 @@ const SingleTopic = () => {
             <p>{topic.description}</p>
           </div>
         </div>
-        <div className={s.user}>
+        <div className={s.topic_user}>
           <p>Photo by</p>
           <Link to={`/@${topic.cover_photo?.user.username}`}>
             {topic.cover_photo?.user.name}

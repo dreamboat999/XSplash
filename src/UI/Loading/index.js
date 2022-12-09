@@ -1,5 +1,5 @@
 import React from "react";
-import s from "./loading.module.scss";
+import s from "./styles.module.scss";
 
 export const LinearProgress = ({ loading, children }) => {
   if (loading) {

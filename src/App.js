@@ -7,7 +7,7 @@ import Home from "./pages/Home";
 import Images from "./pages/Images";
 import Collections from "./pages/Collections";
 import SingleCollection from "./pages/SingleCollection";
-import SingleTopic from "./pages/SingleTopic";
+import Topic from "./pages/Topic";
 import User from "./pages/User";
 import Modal from "./UI/Modal";
 
@@ -24,7 +24,7 @@ const App = () => {
         <Route path="/photos/:name/:sort/:orientation" element={<Images />} />
         <Route path="/collections/:name" element={<Collections />} />
         <Route path="/collections/:id/:name" element={<SingleCollection />} />
-        <Route path="/topic/:slug" element={<SingleTopic />} />
+        <Route path="/topic/:slug" element={<Topic />} />
 
         <Route path="/@:username" element={<User />} />
       </Routes>

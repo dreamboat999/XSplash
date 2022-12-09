@@ -17,13 +17,13 @@
   }
 }
 
-.user_image_outer {
+.user_image_wrapper {
   @media(min-width: 768px) {
     width: 33.33333%;
   }
 }
 
-.user_image_inner {
+.user_image {
   width: 150px;
   height: 150px;
 
@@ -47,22 +47,23 @@
   @media(min-width: 768px) {
     width: 66.66667%;
   }
-}
 
-.user_name {
-  font-size: 40px;
-  font-weight: 700;
+  .name {
+    font-size: 40px;
+    font-weight: 700;
 
-  @media(max-width: 768px) {
-    font-size: 20px;
+    @media(max-width: 768px) {
+      font-size: 20px;
+    }
+  }
+
+  .bio {
+    @media(min-width: 768px) {
+      max-width: 70%;
+    }
   }
 }
 
-.user_bio {
-  @media(min-width: 768px) {
-    max-width: 70%;
-  }
-}
 
 .user_items {
   display: flex;

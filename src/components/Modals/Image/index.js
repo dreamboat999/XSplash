@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import clsx from "clsx";
 
-import s from "./image.module.scss";
+import s from "./styles.module.scss";
 
 import { useAppContext } from "../../../context";
 import { getImage, getUserImages } from "../../../api";

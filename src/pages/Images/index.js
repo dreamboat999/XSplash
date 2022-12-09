@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import s from "./search.module.scss";
+import s from "./styles.module.scss";
 import { MdCheck, MdTune } from "react-icons/md";
 
 import { useAppContext } from "../../context";
@@ -9,7 +9,6 @@ import { getSearchImages } from "../../api";
 import ImagesGrid from "../../components/ImagesGrid";
 import Tabs from "../../UI/Tabs";
 import Dropdown from "../../UI/Dropdown";
-import { LinearProgress } from "../../UI/Loading";
 import useMatch from "../../hooks/useMatch";
 import RenderIf from "../../utils/RenderIf";
 import PageTitle from "../../utils/PageTitle";
@@ -58,7 +57,7 @@ const Images = () => {
 
   return (
     <PageTitle title={`${name ? name : "Loading"}`}>
-      <div className={s.filters_wrapper}>
+      <div className={s.tabs_wrapper}>
         <Tabs name={name} tab="photos">
           <RenderIf isTrue={match}>
             <div className={s.filters}>
@@ -112,19 +111,14 @@ const Images = () => {
           </RenderIf>
 
           <RenderIf isTrue={!match}>
-            <button
-              className={s.mobile_filters_button}
-              onClick={handleOpenModal}
-            >
+            <button className={s.filters_button} onClick={handleOpenModal}>
               <MdTune />
             </button>
           </RenderIf>
         </Tabs>
       </div>
 
-      <LinearProgress loading={loading}>
-        <ImagesGrid images={images} name={name} />
-      </LinearProgress>
+      <ImagesGrid name={name} images={images} loading={loading} />
     </PageTitle>
   );
 };

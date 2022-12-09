@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import s from "./singleCollection.module.scss";
+import s from "./styles.module.scss";
 
 import { getCollection } from "../../api";
 import ImagesGrid from "../../components/ImagesGrid";
@@ -26,14 +26,14 @@ const SingleCollection = () => {
   return (
     <PageTitle title={name}>
       <div>
-        <div className={s.background_image}>
+        <div className={s.collection_bg}>
           <img
             src={backgroundImage?.urls?.regular}
             alt={backgroundImage?.description}
           />
         </div>
         <div className="container">
-          <div className={s.name}>
+          <div className={s.collection_name}>
             <h1>{name}</h1>
           </div>
         </div>

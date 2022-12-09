@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
-import s from "./navbar.module.scss";
+import s from "./styles.module.scss";
 import { ReactComponent as Logo } from "../../assets/logo/logo.svg";
 
 import Form from "../Form";

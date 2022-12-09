@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 
-import s from "./modal.module.scss";
+import s from "./styles.module.scss";
 import { MdOutlineClose } from "react-icons/md";
 
 import { useAppContext } from "../../context";
